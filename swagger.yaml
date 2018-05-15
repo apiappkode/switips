@@ -3,29 +3,347 @@ info:
   version: '1.0'
   title: SWITIPS Api v0
   description: API для приложения сканирования QR кодов чеков
-host: example.com
+host: switips.com
 basePath: /api/v1/app
 securityDefinitions:
   auth:
     type: oauth2
     flow: implicit
-    authorizationUrl: http://example.com/api/v1/app
+    authorizationUrl: http://switips.com/api/v1/app
     scopes: {}
     x-skip-client-authentication: false
 schemes:
-- http
+- https
 consumes:
 - application/json
 produces:
 - application/json
 paths:
+  /Registration:
+    post:
+      description: "Метод для регистрации пользователей на сервисе"
+      tags:
+      - Registration
+      operationId: RegistrationGet
+      produces:
+      - application/json
+      consumes:
+      - application/json
+      parameters:
+      - name: login
+        in: formData
+        required: true
+        type: string
+        description: 'Имя пользователя'
+      - name: email
+        in: formData
+        required: true
+        type: string
+        description: 'e-mail пользователя'
+      - name: password
+        in: formData
+        required: true
+        type: string
+        description: 'Пароль'
+      - name: inviteLogin
+        in: formData
+        required: true
+        type: string
+        description: 'login пригласившего пользователя'
+      responses:
+        200:
+          description: 'Пользователь успешно зарегистрирован'
+          schema:
+            title: Successful registration
+            example:
+              key: successfulRegistration
+              msgUser: Пользователь успешно зарегистрирован и авторизован
+              msgDev: Пользователь успешно зарегистрирован и авторизован
+            type: object
+            properties:
+              key:
+                description: ''
+                example: successfulRegistration
+                type: string
+              msgUser:
+                description: ''
+                example: Пользователь успешно зарегистрирован и авторизован
+                type: string
+              msgDev:
+                description: ''
+                example: Пользователь успешно зарегистрирован и авторизован
+                type: string
+            required:
+            - key
+            - msgUser
+            - msgDev
+        405:
+          description: Login exists
+          schema:
+            title: Login exists
+            example:
+              key: loginExists
+              msgUser: Указанный логин уже используется другим пользователем, укажите другой логин
+              msgDev: указанный логин найден в БД
+            type: object
+            properties:
+              key:
+                description: ''
+                example: loginExists
+                type: string
+              msgUser:
+                description: ''
+                example: Указанный логин уже используется другим пользователем, укажите другой логин
+                type: string
+              msgDev:
+                description: ''
+                example: указанный логин найден в БД
+                type: string
+            required:
+            - key
+            - msgUser
+            - msgDev
+        406:
+          description: Login is too long
+          schema:
+            title: Login is too long
+            example:
+              key: loginIsToLong
+              msgUser: Указанный логин содержит слишком много символов. Максимальная длина логина 30 символов.
+              msgDev: Указанный логин длиннее 30 символов
+            type: object
+            properties:
+              key:
+                description: ''
+                example: loginIsToLong
+                type: string
+              msgUser:
+                description: ''
+                example: Указанный логин содержит слишком много символов. Максимальная длина логина 30 символов.
+                type: string
+              msgDev:
+                description: ''
+                example: Указанный логин длиннее 30 символов.
+                type: string
+            required:
+            - key
+            - msgUser
+            - msgDev
+        407:
+          description: Login is too short
+          schema:
+            title: Login is too short
+            example:
+              key: loginIsToShort
+              msgUser: Указанный логин содержит слишком мало символов. Минимальная длина логина 4 символа.
+              msgDev: Указанный логин короче 4 символов.
+            type: object
+            properties:
+              key:
+                description: ''
+                example: loginIsToShort
+                type: string
+              msgUser:
+                description: ''
+                example: Указанный логин содержит слишком мало символов. Минимальная длина логина 4 символа.
+                type: string
+              msgDev:
+                description: ''
+                example: Указанный логин короче 4 символов.
+                type: string
+            required:
+            - key
+            - msgUser
+            - msgDev
+        408:
+          description: Login is too short
+          schema:
+            title: Login is too short
+            example:
+              key: loginIsToShort
+              msgUser: Указанный логин содержит слишком мало символов. Минимальная длина логина 4 символа.
+              msgDev: Указанный логин короче 4 символов.
+            type: object
+            properties:
+              key:
+                description: ''
+                example: loginIsToShort
+                type: string
+              msgUser:
+                description: ''
+                example: Указанный логин содержит слишком мало символов. Минимальная длина логина 4 символа.
+                type: string
+              msgDev:
+                description: ''
+                example: Указанный логин короче 4 символов.
+                type: string
+            required:
+            - key
+            - msgUser
+            - msgDev
+        409:
+          description: Login includes wrong symbols
+          schema:
+            title: Login includes wrong symbols
+            example:
+              key: loginIncludesWrongSymbols
+              msgUser: Указанный логин содержит не допустимые символы. Логин может содержать только цифры, буквы латинского алфавита, "_", тире и точку.
+              msgDev: Указанный логин содержит не допустимые символы.
+            type: object
+            properties:
+              key:
+                description: ''
+                example: loginIncludesWrongSymbols
+                type: string
+              msgUser:
+                description: ''
+                example: Указанный логин содержит не допустимые символы. Логин может содержать только цифры, буквы латинского алфавита, "_", тире и точку.
+                type: string
+              msgDev:
+                description: ''
+                example: Указанный логин содержит не допустимые символы.
+                type: string
+            required:
+            - key
+            - msgUser
+            - msgDev
+        410:
+          description: Wrong email
+          schema:
+            title: Wrong email
+            example:
+              key: wrongEmail
+              msgUser: Указан не корректный email, укажите реально существующий email
+              msgDev: Указан не корректный email
+            type: object
+            properties:
+              key:
+                description: ''
+                example: wrongEmail
+                type: string
+              msgUser:
+                description: ''
+                example: Указан не корректный email, укажите реально существующий email.
+                type: string
+              msgDev:
+                description: ''
+                example: Указан не корректный email
+                type: string
+            required:
+            - key
+            - msgUser
+            - msgDev
+        411:
+          description: Password is too short
+          schema:
+            title: Password is too short
+            example:
+              key: passwordIsTooShort
+              msgUser: Указан слишком короткий пароль. Пароль не может быть короче 6 символов
+              msgDev: Пароль не может быть короче 6 символов
+            type: object
+            properties:
+              key:
+                description: ''
+                example: passwordIsTooShort
+                type: string
+              msgUser:
+                description: ''
+                example: Указан слишком короткий пароль. Пароль не может быть короче 6 символов
+                type: string
+              msgDev:
+                description: ''
+                example: Пароль не может быть короче 6 символов
+                type: string
+            required:
+            - key
+            - msgUser
+            - msgDev
+        412:
+          description: Password is too long
+          schema:
+            title: Password is too long
+            example:
+              key: passwordIsTooLong
+              msgUser: Указан слишком длинный пароль. Пароль не может быть длиннее 30 символов
+              msgDev: Пароль не может быть длиннее 30 символов
+            type: object
+            properties:
+              key:
+                description: ''
+                example: passwordIsTooLong
+                type: string
+              msgUser:
+                description: ''
+                example: Указан слишком длинный пароль. Пароль не может быть длиннее 30 символов
+                type: string
+              msgDev:
+                description: ''
+                example: Пароль не может быть длиннее 30 символов
+                type: string
+            required:
+            - key
+            - msgUser
+            - msgDev
+        413:
+          description: Password Includes wrong symbols
+          schema:
+            title: Password Includes wrong symbols
+            example:
+              key: passwordIncludesWrongSymbols
+              msgUser: Пароль содержит не верные символы. Пароль может содержать только буквы и цифры.
+              msgDev: Пароль может содержать только буквы и цифры.
+            type: object
+            properties:
+              key:
+                description: ''
+                example: passwordIncludesWrongSymbols
+                type: string
+              msgUser:
+                description: ''
+                example: Пароль содержит не верные символы. Пароль может содержать только буквы и цифры.
+                type: string
+              msgDev:
+                description: ''
+                example: Пароль может содержать только буквы и цифры.
+                type: string
+            required:
+            - key
+            - msgUser
+            - msgDev
+        414:
+          description: Don't exist user with this login
+          schema:
+            title: Don't exist user with this login
+            example:
+              key: dontExistUserWithThisLogin
+              msgUser: Не существует пользователя с указанным логином. Введите логин пользователя, который вас пригласил.
+              msgDev: Не существует пользователя с указанным логином.
+            type: object
+            properties:
+              key:
+                description: ''
+                example: dontExistUserWithThisLogin
+                type: string
+              msgUser:
+                description: ''
+                example: Не существует пользователя с указанным логином. Введите логин пользователя, который вас пригласил.
+                type: string
+              msgDev:
+                description: ''
+                example: Не существует пользователя с указанным логином.
+                type: string
+            required:
+            - key
+            - msgUser
+            - msgDev
+      security: []
   /Login:
     post:
-      description: "Неудачная попытка авторизации\nRequest\n* headers:\n	* Empty\n* params:\n	* login (String): Логин \n	* password (String): Пароль\n\nResponse: \n* status: 401\n* body: \n	* key (String): badCredentials\n	* msgUser (String): Сообщение для юзера\n	* msgDev (String): Сообщение для разработчика\n	* domain (String):"
-      summary: Failure
+      description: "Метод для аутентификации пользователя на сервисе"
       tags:
       - Login
-      operationId: LoginPost2
+      operationId: LoginGet1
       produces:
       - application/json
       consumes:
@@ -35,15 +353,39 @@ paths:
         in: formData
         required: true
         type: string
-        description: ''
+        description: 'Имя пользователя'
       - name: password
         in: formData
         required: true
         type: string
-        description: ''
+        description: 'Пароль'
       responses:
         200:
-          description: ''
+          description: 'Авторизация прошла успешно'
+          schema:
+            title: Successful authorisation
+            example:
+              key: successfulAuthorisation
+              msgUser: Пользователь успешно авторизован.
+              msgDev: Пользователь успешно авторизован.
+            type: object
+            properties:
+              key:
+                description: ''
+                example: dontExistUserWithThisLogin
+                type: string
+              msgUser:
+                description: ''
+                example: Пользователь успешно авторизован.
+                type: string
+              msgDev:
+                description: ''
+                example: Пользователь успешно авторизован.
+                type: string
+            required:
+            - key
+            - msgUser
+            - msgDev          
         401:
           description: Unauthorized
           schema:
@@ -53,34 +395,10 @@ paths:
               key: badCredentials
               msgUser: Не верно введен логин или пароль
               msgDev: Не верно введен логин или пароль
-              domain: ''
       security: []
-      x-unitTests:
-      - request:
-          method: POST
-          uri: /Login
-          headers:
-            Content-Type: application/x-www-form-urlencoded
-          body: login=&password=
-        expectedResponse:
-          x-allowExtraHeaders: true
-          x-bodyMatchMode: NONE
-          x-arrayOrderedMatching: false
-          x-arrayCheckCount: false
-          x-matchResponseSchema: true
-          headers: {}
-        x-testShouldPass: true
-        x-testEnabled: true
-        x-testName: Failure
-        x-testDescription: "Неудачная попытка авторизации\n\nRequest\n* headers:\n	* Empty\n* params:\n	* login (String): Логин \n	* password (String): Пароль\n\nResponse: \n* status: 401\n* body: \n	* key (String): badCredentials\n	* msgUser (String): Сообщение для юзера\n	* msgDev (String): Сообщение для разработчика\n	* domain (String):"
-      x-operation-settings:
-        CollectParameters: false
-        AllowDynamicQueryParameters: false
-        AllowDynamicFormParameters: false
-        IsMultiContentStreaming: false
   /Logout:
     get:
-      description: "Инвалидация выданных токенов для текущего юзера\n\nRequest:\n* headers:\n	* Authorization: Token {access_token}\n* body:\n	* Empty\n\nResponse:\n* status: 401\n* body: \n	* key (String): tokenInvalid\n	* msgUser (String): Сообщение для юзера\n	* msgDev (String): Сообщение для разработчика\n	* domain (String):"
+      description: "Инвалидация выданных токенов для текущего юзера"
       summary: Failure
       tags:
       - Logout
@@ -90,11 +408,9 @@ paths:
       parameters: []
       responses:
         200:
-          description: ''
+          description: 'Разавторизация пользователя прошла успешно'
         401:
-          description: Unauthorized
-          schema:
-            $ref: '#/definitions/Failure'
+          description: "Unauthorized"
           examples:
             application/json:
               key: tokenInvalid
@@ -103,59 +419,25 @@ paths:
               domain: ''
       security:
       - auth: []
-      x-unitTests:
-      - request:
-          method: GET
-          uri: /Logout
-        expectedResponse:
-          x-allowExtraHeaders: true
-          x-bodyMatchMode: NONE
-          x-arrayOrderedMatching: false
-          x-arrayCheckCount: false
-          x-matchResponseSchema: true
-          headers: {}
-        x-testShouldPass: true
-        x-testEnabled: true
-        x-testName: Failure
-        x-testDescription: "Инвалидация выданных токенов для текущего юзера\n\nRequest:\n* headers:\n	* Authorization: Token {access_token}\n* body:\n	* Empty\n\nResponse:\n* status: 401\n* body: \n	* key (String): tokenInvalid\n	* msgUser (String): Сообщение для юзера\n	* msgDev (String): Сообщение для разработчика\n	* domain (String):"
-      x-operation-settings:
-        CollectParameters: false
-        AllowDynamicQueryParameters: false
-        AllowDynamicFormParameters: false
-        IsMultiContentStreaming: false
   /getVersion:
     get:
-      description: >-
-        Получение версии приложения. Ошибка параметров.
-
-
-        Request:
-
-        * headers:
-        	* Empty
-        * params:
-        	* platform (String): ios или android
-        	* version (String): Версия приложения
-
-        Response:
-
-        * status: 500
-
-        * body:
-        	* key (String): versionParametersInvalid
-        	* msgUser (String): Сообщение для юзера
-        	* msgDev (String): Сообщение для разработчика
-        	* domain (String):
-      summary: Version parameters error
+      description: 'Получение версии приложения'
       tags:
       - getVersion
       operationId: GetVersionGet3
       produces:
       - application/json
-      parameters: []
+      parameters: 
+      - in: header
+        name: platform
+        required: true
+        type: string
+        description: 'Название платформы "ios" или "android"'
       responses:
         200:
           description: ''
+          schema:
+             $ref: '#/definitions/VersionMismatch'
         default:
           description: Internal Server Error
           schema:
@@ -168,49 +450,9 @@ paths:
               domain: ''
       security:
       - auth: []
-      x-unitTests:
-      - request:
-          method: GET
-          uri: /getVersion
-        expectedResponse:
-          x-allowExtraHeaders: true
-          x-bodyMatchMode: NONE
-          x-arrayOrderedMatching: false
-          x-arrayCheckCount: false
-          x-matchResponseSchema: true
-          headers: {}
-        x-testShouldPass: true
-        x-testEnabled: true
-        x-testName: Version parameters error
-        x-testDescription: >-
-          Получение версии приложения. Ошибка параметров.
-
-
-          Request:
-
-          * headers:
-          	* Empty
-          * params:
-          	* platform (String): ios или android
-          	* version (String): Версия приложения
-
-          Response:
-
-          * status: 500
-
-          * body:
-          	* key (String): versionParametersInvalid
-          	* msgUser (String): Сообщение для юзера
-          	* msgDev (String): Сообщение для разработчика
-          	* domain (String):
-      x-operation-settings:
-        CollectParameters: false
-        AllowDynamicQueryParameters: false
-        AllowDynamicFormParameters: false
-        IsMultiContentStreaming: false
   /getProfileDetails:
     get:
-      description: "Получение профиля текущего авторизованного юзера.\nВнутренняя ошибка сервера.\n\nRequest:\n* headers:\n	* Authorization: Token {access_token}\n* body:\n	* Empty\n\nResponse:\n* status: 401\n* body: \n	* key (String): tokenInvalid\n	* msgUser (String): Сообщение для юзера\n	* msgDev (String): Сообщение для разработчика\n	* domain (String):"
+      description: "Получение профиля текущего авторизованного юзера."
       summary: Failure
       tags:
       - getProfileDetails
@@ -308,6 +550,8 @@ paths:
       parameters: []
       responses:
         200:
+          description: ''
+        401:
           description: ''
         default:
           description: Internal Server Error
