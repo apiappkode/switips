@@ -1,0 +1,1003 @@
+swagger: '2.0'
+info:
+  version: '1.0'
+  title: SWITIPS Api v0
+  description: API для приложения сканирования QR кодов чеков
+host: example.com
+basePath: /api/v1/app
+securityDefinitions:
+  auth:
+    type: oauth2
+    flow: implicit
+    authorizationUrl: http://example.com/api/v1/app
+    scopes: {}
+    x-skip-client-authentication: false
+schemes:
+- http
+consumes:
+- application/json
+produces:
+- application/json
+paths:
+  /Login:
+    post:
+      description: "Неудачная попытка авторизации\nRequest\n* headers:\n	* Empty\n* params:\n	* login (String): Логин \n	* password (String): Пароль\n\nResponse: \n* status: 401\n* body: \n	* key (String): badCredentials\n	* msgUser (String): Сообщение для юзера\n	* msgDev (String): Сообщение для разработчика\n	* domain (String):"
+      summary: Failure
+      tags:
+      - Login
+      operationId: LoginPost2
+      produces:
+      - application/json
+      consumes:
+      - application/x-www-form-urlencoded
+      parameters:
+      - name: login
+        in: formData
+        required: true
+        type: string
+        description: ''
+      - name: password
+        in: formData
+        required: true
+        type: string
+        description: ''
+      responses:
+        200:
+          description: ''
+        401:
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/Failure'
+          examples:
+            application/json:
+              key: badCredentials
+              msgUser: Не верно введен логин или пароль
+              msgDev: Не верно введен логин или пароль
+              domain: ''
+      security: []
+      x-unitTests:
+      - request:
+          method: POST
+          uri: /Login
+          headers:
+            Content-Type: application/x-www-form-urlencoded
+          body: login=&password=
+        expectedResponse:
+          x-allowExtraHeaders: true
+          x-bodyMatchMode: NONE
+          x-arrayOrderedMatching: false
+          x-arrayCheckCount: false
+          x-matchResponseSchema: true
+          headers: {}
+        x-testShouldPass: true
+        x-testEnabled: true
+        x-testName: Failure
+        x-testDescription: "Неудачная попытка авторизации\n\nRequest\n* headers:\n	* Empty\n* params:\n	* login (String): Логин \n	* password (String): Пароль\n\nResponse: \n* status: 401\n* body: \n	* key (String): badCredentials\n	* msgUser (String): Сообщение для юзера\n	* msgDev (String): Сообщение для разработчика\n	* domain (String):"
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+  /Logout:
+    get:
+      description: "Инвалидация выданных токенов для текущего юзера\n\nRequest:\n* headers:\n	* Authorization: Token {access_token}\n* body:\n	* Empty\n\nResponse:\n* status: 401\n* body: \n	* key (String): tokenInvalid\n	* msgUser (String): Сообщение для юзера\n	* msgDev (String): Сообщение для разработчика\n	* domain (String):"
+      summary: Failure
+      tags:
+      - Logout
+      operationId: LogoutGet2
+      produces:
+      - application/json
+      parameters: []
+      responses:
+        200:
+          description: ''
+        401:
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/Failure'
+          examples:
+            application/json:
+              key: tokenInvalid
+              msgUser: Сессия не действительна или истекло время, авторизуйтесь
+              msgDev: Сессия недействительна, требуется выдача нового token
+              domain: ''
+      security:
+      - auth: []
+      x-unitTests:
+      - request:
+          method: GET
+          uri: /Logout
+        expectedResponse:
+          x-allowExtraHeaders: true
+          x-bodyMatchMode: NONE
+          x-arrayOrderedMatching: false
+          x-arrayCheckCount: false
+          x-matchResponseSchema: true
+          headers: {}
+        x-testShouldPass: true
+        x-testEnabled: true
+        x-testName: Failure
+        x-testDescription: "Инвалидация выданных токенов для текущего юзера\n\nRequest:\n* headers:\n	* Authorization: Token {access_token}\n* body:\n	* Empty\n\nResponse:\n* status: 401\n* body: \n	* key (String): tokenInvalid\n	* msgUser (String): Сообщение для юзера\n	* msgDev (String): Сообщение для разработчика\n	* domain (String):"
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+  /getVersion:
+    get:
+      description: >-
+        Получение версии приложения. Ошибка параметров.
+
+
+        Request:
+
+        * headers:
+        	* Empty
+        * params:
+        	* platform (String): ios или android
+        	* version (String): Версия приложения
+
+        Response:
+
+        * status: 500
+
+        * body:
+        	* key (String): versionParametersInvalid
+        	* msgUser (String): Сообщение для юзера
+        	* msgDev (String): Сообщение для разработчика
+        	* domain (String):
+      summary: Version parameters error
+      tags:
+      - getVersion
+      operationId: GetVersionGet3
+      produces:
+      - application/json
+      parameters: []
+      responses:
+        200:
+          description: ''
+        default:
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/VersionParametersError'
+          examples:
+            application/json:
+              key: versionParametersInvalid
+              msgUser: Внутренняя ошибка приложения
+              msgDev: Ошибка параметров в запросе соответствия версии приложения и API
+              domain: ''
+      security:
+      - auth: []
+      x-unitTests:
+      - request:
+          method: GET
+          uri: /getVersion
+        expectedResponse:
+          x-allowExtraHeaders: true
+          x-bodyMatchMode: NONE
+          x-arrayOrderedMatching: false
+          x-arrayCheckCount: false
+          x-matchResponseSchema: true
+          headers: {}
+        x-testShouldPass: true
+        x-testEnabled: true
+        x-testName: Version parameters error
+        x-testDescription: >-
+          Получение версии приложения. Ошибка параметров.
+
+
+          Request:
+
+          * headers:
+          	* Empty
+          * params:
+          	* platform (String): ios или android
+          	* version (String): Версия приложения
+
+          Response:
+
+          * status: 500
+
+          * body:
+          	* key (String): versionParametersInvalid
+          	* msgUser (String): Сообщение для юзера
+          	* msgDev (String): Сообщение для разработчика
+          	* domain (String):
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+  /getProfileDetails:
+    get:
+      description: "Получение профиля текущего авторизованного юзера.\nВнутренняя ошибка сервера.\n\nRequest:\n* headers:\n	* Authorization: Token {access_token}\n* body:\n	* Empty\n\nResponse:\n* status: 401\n* body: \n	* key (String): tokenInvalid\n	* msgUser (String): Сообщение для юзера\n	* msgDev (String): Сообщение для разработчика\n	* domain (String):"
+      summary: Failure
+      tags:
+      - getProfileDetails
+      operationId: GetProfileDetailsGet2
+      produces:
+      - application/json
+      parameters: []
+      responses:
+        200:
+          description: ''
+        401:
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/Failure'
+          examples:
+            application/json:
+              key: tokenInvalid
+              msgUser: Сессия не действительна или истекло время, авторизуйтесь
+              msgDev: Сессия недействительна, требуется выдача нового token
+              domain: ''
+      security: []
+      x-unitTests:
+      - request:
+          method: GET
+          uri: /getProfileDetails
+        expectedResponse:
+          x-allowExtraHeaders: true
+          x-bodyMatchMode: NONE
+          x-arrayOrderedMatching: false
+          x-arrayCheckCount: false
+          x-matchResponseSchema: true
+          headers: {}
+        x-testShouldPass: true
+        x-testEnabled: true
+        x-testName: Failure
+        x-testDescription: "Получение профиля текущего авторизованного юзера.\nВнутренняя ошибка сервера.\n\nRequest:\n* headers:\n	* Authorization: Token {access_token}\n* body:\n	* Empty\n\nResponse:\n* status: 401\n* body: \n	* key (String): tokenInvalid\n	* msgUser (String): Сообщение для юзера\n	* msgDev (String): Сообщение для разработчика\n	* domain (String):"
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+  /getBalance:
+    get:
+      description: "Получение баланса профиля текущего авторизованного юзера.\nВнутренняя ошибка сервера.\n\nRequest:\n* headers:\n	* Authorization: Token {access_token}\n* body:\n	* Empty\n\nResponse:\n* status: 401\n* body: \n	* key (String): internalServerError\n	* msgUser (String): Сообщение для юзера\n	* msgDev (String): Сообщение для разработчика\n	* domain (String):"
+      summary: Failure
+      tags:
+      - getBalance
+      operationId: GetBalanceGet2
+      produces:
+      - application/json
+      parameters: []
+      responses:
+        200:
+          description: ''
+        401:
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/Failure'
+          examples:
+            application/json:
+              key: tokenInvalid
+              msgUser: Сессия не действительна или истекло время, авторизуйтесь
+              msgDev: Сессия недействительна, требуется выдача нового token
+              domain: ''
+      security: []
+      x-unitTests:
+      - request:
+          method: GET
+          uri: /getBalance
+        expectedResponse:
+          x-allowExtraHeaders: true
+          x-bodyMatchMode: NONE
+          x-arrayOrderedMatching: false
+          x-arrayCheckCount: false
+          x-matchResponseSchema: true
+          headers: {}
+        x-testShouldPass: true
+        x-testEnabled: true
+        x-testName: Failure
+        x-testDescription: "Получение баланса профиля текущего авторизованного юзера.\nВнутренняя ошибка сервера.\n\nRequest:\n* headers:\n	* Authorization: Token {access_token}\n* body:\n	* Empty\n\nResponse:\n* status: 401\n* body: \n	* key (String): internalServerError\n	* msgUser (String): Сообщение для юзера\n	* msgDev (String): Сообщение для разработчика\n	* domain (String):"
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+  /sendQRCode:
+    post:
+      description: "Отправка кода чека.\nВнутренняя ошибка сервера.\n\nRequest:\n* headers:\n	* Authorization: Token {access_token}\n* body:\n	* Empty\n\nResponse:\n* status: 500\n* body: \n	* key (String): sendQRParametersInvalid\n	* msgUser (String): Сообщение для юзера\n	* msgDev (String): Сообщение для разработчика\n	* domain (String):"
+      summary: Failure
+      tags:
+      - sendQRCode
+      operationId: SendQRCodePost2
+      produces:
+      - application/json
+      parameters: []
+      responses:
+        200:
+          description: ''
+        default:
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/Failure'
+          examples:
+            application/json:
+              key: sendQRParametersInvalid
+              msgUser: Внутренняя ошибка приложения
+              msgDev: Обязательный параметр dataqrcode не передан
+              domain: ''
+      security:
+      - auth: []
+      x-unitTests:
+      - request:
+          method: POST
+          uri: /sendQRCode
+        expectedResponse:
+          x-allowExtraHeaders: true
+          x-bodyMatchMode: NONE
+          x-arrayOrderedMatching: false
+          x-arrayCheckCount: false
+          x-matchResponseSchema: true
+          headers: {}
+        x-testShouldPass: true
+        x-testEnabled: true
+        x-testName: Failure
+        x-testDescription: "Отправка кода чека.\nВнутренняя ошибка сервера.\n\nRequest:\n* headers:\n	* Authorization: Token {access_token}\n* body:\n	* Empty\n\nResponse:\n* status: 500\n* body: \n	* key (String): sendQRParametersInvalid\n	* msgUser (String): Сообщение для юзера\n	* msgDev (String): Сообщение для разработчика\n	* domain (String):"
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+  /getOrders:
+    get:
+      description: >-
+        Запрос всех покупок с чеками. Успешный запрос.
+
+
+        Request:
+
+        * headers:
+        	* Authorization: Token {access_token}
+        * body:
+        	* Empty
+
+        Response:
+
+        * status: 200
+
+        * body:
+        	* orders (Collection): Список покупок
+        		* id (Int): ID покупки из системы Switips
+        		* shopName (String): Название магазина
+        		* dateTimeOrder (DateTime): Дата покупки
+        		* amount (Float): Сумма
+        		* cashBack (Float): Сумма кешбэка
+        		* status (String): Статус (pending — В ожидании; approved — Подтверждён; declined — Отменен).
+      summary: Successfull
+      tags:
+      - getOrders
+      operationId: GetOrdersGet
+      produces:
+      - application/json
+      parameters: []
+      responses:
+        200:
+          description: ''
+          schema:
+            $ref: '#/definitions/Successfull11'
+          examples:
+            application/json:
+              orders:
+              - id: 37967
+                shopName: Aviasales.ru и cash back от WWP Capital
+                dateTimeOrder: 2018-01-27 00:00:00
+                amount: 9341
+                cashBack: 136.00999999999999
+                status: approved
+              - id: 28795
+                shopName: Aviasales.ru и cash back от WWP Capital
+                dateTimeOrder: 2018-01-05 00:00:00
+                amount: 19426
+                cashBack: 282.83999999999997
+                status: approved
+      security:
+      - auth: []
+      x-unitTests:
+      - request:
+          method: GET
+          uri: /getOrders
+        expectedResponse:
+          x-allowExtraHeaders: true
+          x-bodyMatchMode: RAW
+          x-arrayOrderedMatching: false
+          x-arrayCheckCount: false
+          x-matchResponseSchema: true
+          headers:
+            Cache-Control: no-store, must-revalidate, private, max-age=0
+            Connection: close
+            Content-Type: application/json; charset=utf-8
+            Server: thin
+            Set-Cookie: request_method=; path=/; max-age=0; expires=Thu, 01 Jan 1970 00:00:00 -0000
+            X-Content-Type-Options: nosniff
+            X-Frame-Options: SAMEORIGIN
+            X-Meta-Request-Version: 0.4.0
+            X-MiniProfiler-Ids: '["v6y8s0bqqb8zhm6owwu8","tov9p91k3nukjd5uew6x","1vfcyw4frvavhsjjjkjb","s4812k8yiyt9vz574dpi","i249okj3w92pd27yt5zv","uf4lmyfks43hdkik5bop","wxkrsustq1xx0qlflz1f","wsejehzo6ymcksk4oob0","zb8yicgox7scbnfjce9v","ubc4j10o8enb224h7ohe"]'
+            X-Request-Id: 2ec51ec6-82a2-4fb9-8358-28728447b2bc
+            X-Runtime: 0.169428
+            X-XSS-Protection: 1; mode=block
+          body: '{"orders":[{"id":37967,"shopName":"Aviasales.ru и cash back от WWP Capital","dateTimeOrder":"2018-01-27 00:00:00","amount":9341.0,"cashBack":136.01,"status":"approved"},{"id":28795,"shopName":"Aviasales.ru и cash back от WWP Capital","dateTimeOrder":"2018-01-05 00:00:00","amount":19426.0,"cashBack":282.84,"status":"approved"}]}'
+        x-testShouldPass: true
+        x-testEnabled: true
+        x-testName: Successfull
+        x-testDescription: >-
+          Запрос всех покупок с чеками. Успешный запрос.
+
+
+          Request:
+
+          * headers:
+          	* Authorization: Token {access_token}
+          * body:
+          	* Empty
+
+          Response:
+
+          * status: 200
+
+          * body:
+          	* orders (Collection): Список покупок
+          		* id (Int): ID покупки из системы Switips
+          		* shopName (String): Название магазина
+          		* dateTimeOrder (DateTime): Дата покупки
+          		* amount (Float): Сумма
+          		* cashBack (Float): Сумма кешбэка
+          		* status (String): Статус (pending — В ожидании; approved — Подтверждён; declined — Отменен).
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+  /getCashVouchers:
+    get:
+      description: >-
+        Запрос всех чеков
+
+
+        Request:
+
+        * headers:
+          * Authorization: Token {access_token}
+        * body:
+          * Empty
+
+        Response:
+
+        * status: 200
+
+        * body:
+          * vouchers (Collection): Список покупок
+            * id (Int): ID покупки из системы Switips
+            * shopName (String): Название магазина
+            * dateTimeOrder (DateTime): Дата покупки
+            * amount (Float): Сумма
+            * cashBack (Float): Сумма кешбэка
+            * status (String): Статус (pending — В ожидании; approved — Подтверждён; declined — Отменен).
+      summary: Successfull
+      tags:
+      - getCashVouchers
+      operationId: GetCashVouchersGet
+      produces:
+      - application/json
+      parameters: []
+      responses:
+        200:
+          description: ''
+          schema:
+            $ref: '#/definitions/Successfull13'
+          examples:
+            application/json:
+              vouchers:
+              - id: 59
+                shopName: Buyon и cash back от WWP Capital
+                dateTimeOrder: 2018-04-17 00:00:00
+                amount: 123.5
+                cashBack: 9.8800000000000008
+                status: declined
+              - id: 60
+                shopName: Buyon и cash back от WWP Capital
+                dateTimeOrder: 2018-04-17 00:00:00
+                amount: 123.5
+                cashBack: 9.8800000000000008
+                status: declined
+              - id: 61
+                shopName: Buyon и cash back от WWP Capital
+                dateTimeOrder: 2018-04-17 00:00:00
+                amount: 123.5
+                cashBack: 9.8800000000000008
+                status: approved
+              - id: 62
+                shopName: Buyon и cash back от WWP Capital
+                dateTimeOrder: 2018-04-17 00:00:00
+                amount: 123.5
+                cashBack: 0
+                status: pending
+      security:
+      - auth: []
+      x-unitTests:
+      - request:
+          method: GET
+          uri: /getCashVouchers
+        expectedResponse:
+          x-allowExtraHeaders: true
+          x-bodyMatchMode: RAW
+          x-arrayOrderedMatching: false
+          x-arrayCheckCount: false
+          x-matchResponseSchema: true
+          headers:
+            Cache-Control: no-store, must-revalidate, private, max-age=0
+            Connection: close
+            Content-Type: application/json; charset=utf-8
+            Server: thin
+            Set-Cookie: __profilin=p%3Dt; path=/
+            X-Content-Type-Options: nosniff
+            X-Frame-Options: SAMEORIGIN
+            X-Meta-Request-Version: 0.4.0
+            X-MiniProfiler-Ids: '["g8wxrr904mkr1rtt2xvs","tov9p91k3nukjd5uew6x","1vfcyw4frvavhsjjjkjb","s4812k8yiyt9vz574dpi","i249okj3w92pd27yt5zv","uf4lmyfks43hdkik5bop","wxkrsustq1xx0qlflz1f","wsejehzo6ymcksk4oob0","zb8yicgox7scbnfjce9v","ubc4j10o8enb224h7ohe"]'
+            X-Request-Id: 630a0416-17e2-45d0-8f7b-4599f06de692
+            X-Runtime: 0.087457
+            X-XSS-Protection: 1; mode=block
+          body: '{"vouchers":[{"id":59,"shopName":"Buyon и cash back от WWP Capital","dateTimeOrder":"2018-04-17 00:00:00","amount":123.5,"cashBack":9.88,"status":"declined"},{"id":60,"shopName":"Buyon и cash back от WWP Capital","dateTimeOrder":"2018-04-17 00:00:00","amount":123.5,"cashBack":9.88,"status":"declined"},{"id":61,"shopName":"Buyon и cash back от WWP Capital","dateTimeOrder":"2018-04-17 00:00:00","amount":123.5,"cashBack":9.88,"status":"approved"},{"id":62,"shopName":"Buyon и cash back от WWP Capital","dateTimeOrder":"2018-04-17 00:00:00","amount":123.5,"cashBack":0.0,"status":"pending"}]}'
+        x-testShouldPass: true
+        x-testEnabled: true
+        x-testName: Successfull
+        x-testDescription: >-
+          Запрос всех чеков
+
+
+          Request:
+
+          * headers:
+            * Authorization: Token {access_token}
+          * body:
+            * Empty
+
+          Response:
+
+          * status: 200
+
+          * body:
+            * vouchers (Collection): Список покупок
+              * id (Int): ID покупки из системы Switips
+              * shopName (String): Название магазина
+              * dateTimeOrder (DateTime): Дата покупки
+              * amount (Float): Сумма
+              * cashBack (Float): Сумма кешбэка
+              * status (String): Статус (pending — В ожидании; approved — Подтверждён; declined — Отменен).
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+  /sendFeedback:
+    post:
+      description: "Отправка сообщения.\nВнутренняя ошибка сервера.\n\nRequest:\n* headers:\n	* Authorization: Token {access_token}\n* params:\n	* title (String): Загаловок сообщения\n	* description (Text): Текст сообщения\n\nResponse:\n* status: 500\n* body: \n	* key (String): sendFeedbackParametersInvalid\n	* msgUser (String): Сообщение для юзера\n	* msgDev (String): Сообщение для разработчика\n	* domain (String):"
+      summary: Failure
+      tags:
+      - sendFeedback
+      operationId: SendFeedbackPost2
+      produces:
+      - application/json
+      parameters: []
+      responses:
+        200:
+          description: ''
+        default:
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/Failure'
+          examples:
+            application/json:
+              key: sendFeedbackParametersInvalid
+              msgUser: Внутренняя ошибка приложения
+              msgDev: Обязательные параметры title и description не переданы
+              domain: ''
+      security:
+      - auth: []
+      x-unitTests:
+      - request:
+          method: POST
+          uri: /sendFeedback
+        expectedResponse:
+          x-allowExtraHeaders: true
+          x-bodyMatchMode: NONE
+          x-arrayOrderedMatching: false
+          x-arrayCheckCount: false
+          x-matchResponseSchema: true
+          headers: {}
+        x-testShouldPass: true
+        x-testEnabled: true
+        x-testName: Failure
+        x-testDescription: "Отправка сообщения.\nВнутренняя ошибка сервера.\n\nRequest:\n* headers:\n	* Authorization: Token {access_token}\n* params:\n	* title (String): Загаловок сообщения\n	* description (Text): Текст сообщения\n\nResponse:\n* status: 500\n* body: \n	* key (String): sendFeedbackParametersInvalid\n	* msgUser (String): Сообщение для юзера\n	* msgDev (String): Сообщение для разработчика\n	* domain (String):"
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+definitions:
+  Successfull:
+    title: Successfull
+    example:
+      access_token: eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyMDIxNzAsImV4cCI6MTUyNDMxNDUyNn0.WKojqh6gLLQJA6ce2aUJj0X_KsubFWB45044HKVdFxA
+    type: object
+    properties:
+      access_token:
+        description: ''
+        example: eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyMDIxNzAsImV4cCI6MTUyNDMxNDUyNn0.WKojqh6gLLQJA6ce2aUJj0X_KsubFWB45044HKVdFxA
+        type: string
+    required:
+    - access_token
+  Failure:
+    title: Failure
+    example:
+      key: badCredentials
+      msgUser: Не верно введен логин или пароль
+      msgDev: Не верно введен логин или пароль
+      domain: ''
+    type: object
+    properties:
+      key:
+        description: ''
+        example: badCredentials
+        type: string
+      msgUser:
+        description: ''
+        example: Не верно введен логин или пароль
+        type: string
+      msgDev:
+        description: ''
+        example: Не верно введен логин или пароль
+        type: string
+      domain:
+        description: ''
+        type: string
+    required:
+    - key
+    - msgUser
+    - msgDev
+    - domain
+  VersionMismatch:
+    title: Version mismatch
+    example:
+      key: versionMismatch
+      msgUser: Версия приложения устарела, скачайте обновление
+      msgDev: Версия приложения не совпадает с версией API
+      domain: ''
+    type: object
+    properties:
+      key:
+        description: ''
+        example: versionMismatch
+        type: string
+      msgUser:
+        description: ''
+        example: Версия приложения устарела, скачайте обновление
+        type: string
+      msgDev:
+        description: ''
+        example: Версия приложения не совпадает с версией API
+        type: string
+      domain:
+        description: ''
+        type: string
+    required:
+    - key
+    - msgUser
+    - msgDev
+    - domain
+  VersionParametersError:
+    title: Version parameters error
+    example:
+      key: versionParametersInvalid
+      msgUser: Внутренняя ошибка приложения
+      msgDev: Ошибка параметров в запросе соответствия версии приложения и API
+      domain: ''
+    type: object
+    properties:
+      key:
+        description: ''
+        example: versionParametersInvalid
+        type: string
+      msgUser:
+        description: ''
+        example: Внутренняя ошибка приложения
+        type: string
+      msgDev:
+        description: ''
+        example: Ошибка параметров в запросе соответствия версии приложения и API
+        type: string
+      domain:
+        description: ''
+        type: string
+    required:
+    - key
+    - msgUser
+    - msgDev
+    - domain
+  Successfull5:
+    title: Successfull5
+    example:
+      user:
+        id: 5039
+        first_name: Пужанская
+        last_name: Яна
+        login: win17
+        email: winyanamagazine@yandex.ru
+        available_balance: 181320.14999999999
+        awaiting_balance: 0
+        ref_link: https://switips.com/?u=win17
+    type: object
+    properties:
+      user:
+        $ref: '#/definitions/User'
+    required:
+    - user
+  User:
+    title: User
+    example:
+      id: 5039
+      first_name: Пужанская
+      last_name: Яна
+      login: win17
+      email: winyanamagazine@yandex.ru
+      available_balance: 181320.14999999999
+      awaiting_balance: 0
+      ref_link: https://switips.com/?u=win17
+    type: object
+    properties:
+      id:
+        description: ''
+        example: 5039
+        type: integer
+        format: int32
+      first_name:
+        description: ''
+        example: Пужанская
+        type: string
+      last_name:
+        description: ''
+        example: Яна
+        type: string
+      login:
+        description: ''
+        example: win17
+        type: string
+      email:
+        description: ''
+        example: winyanamagazine@yandex.ru
+        type: string
+      available_balance:
+        description: ''
+        example: 181320.14999999999
+        type: number
+        format: double
+      awaiting_balance:
+        description: ''
+        example: 0
+        type: number
+        format: double
+      ref_link:
+        description: ''
+        example: https://switips.com/?u=win17
+        type: string
+    required:
+    - id
+    - first_name
+    - last_name
+    - login
+    - email
+    - available_balance
+    - awaiting_balance
+    - ref_link
+  Successfull8:
+    title: Successfull8
+    example:
+      available_balance: 181320.14999999999
+      awaiting_balance: 9.8800000000000008
+    type: object
+    properties:
+      available_balance:
+        description: ''
+        example: 181320.14999999999
+        type: number
+        format: double
+      awaiting_balance:
+        description: ''
+        example: 9.8800000000000008
+        type: number
+        format: double
+    required:
+    - available_balance
+    - awaiting_balance
+  Successfull11:
+    title: Successfull11
+    example:
+      orders:
+      - id: 37967
+        shopName: Aviasales.ru и cash back от WWP Capital
+        dateTimeOrder: 2018-01-27 00:00:00
+        amount: 9341
+        cashBack: 136.00999999999999
+        status: approved
+      - id: 28795
+        shopName: Aviasales.ru и cash back от WWP Capital
+        dateTimeOrder: 2018-01-05 00:00:00
+        amount: 19426
+        cashBack: 282.83999999999997
+        status: approved
+    type: object
+    properties:
+      orders:
+        description: ''
+        example:
+        - id: 37967
+          shopName: Aviasales.ru и cash back от WWP Capital
+          dateTimeOrder: 2018-01-27 00:00:00
+          amount: 9341
+          cashBack: 136.00999999999999
+          status: approved
+        - id: 28795
+          shopName: Aviasales.ru и cash back от WWP Capital
+          dateTimeOrder: 2018-01-05 00:00:00
+          amount: 19426
+          cashBack: 282.83999999999997
+          status: approved
+        type: array
+        items:
+          $ref: '#/definitions/Order'
+    required:
+    - orders
+  Order:
+    title: Order
+    example:
+      id: 37967
+      shopName: Aviasales.ru и cash back от WWP Capital
+      dateTimeOrder: 2018-01-27 00:00:00
+      amount: 9341
+      cashBack: 136.00999999999999
+      status: approved
+    type: object
+    properties:
+      id:
+        description: ''
+        example: 37967
+        type: integer
+        format: int32
+      shopName:
+        description: ''
+        example: Aviasales.ru и cash back от WWP Capital
+        type: string
+      dateTimeOrder:
+        description: ''
+        example: 2018-01-27 00:00:00
+        type: string
+      amount:
+        description: ''
+        example: 9341
+        type: number
+        format: double
+      cashBack:
+        description: ''
+        example: 136.00999999999999
+        type: number
+        format: double
+      status:
+        description: ''
+        example: approved
+        type: string
+    required:
+    - id
+    - shopName
+    - dateTimeOrder
+    - amount
+    - cashBack
+    - status
+  Successfull13:
+    title: Successfull13
+    example:
+      vouchers:
+      - id: 59
+        shopName: Buyon и cash back от WWP Capital
+        dateTimeOrder: 2018-04-17 00:00:00
+        amount: 123.5
+        cashBack: 9.8800000000000008
+        status: declined
+      - id: 60
+        shopName: Buyon и cash back от WWP Capital
+        dateTimeOrder: 2018-04-17 00:00:00
+        amount: 123.5
+        cashBack: 9.8800000000000008
+        status: declined
+      - id: 61
+        shopName: Buyon и cash back от WWP Capital
+        dateTimeOrder: 2018-04-17 00:00:00
+        amount: 123.5
+        cashBack: 9.8800000000000008
+        status: approved
+      - id: 62
+        shopName: Buyon и cash back от WWP Capital
+        dateTimeOrder: 2018-04-17 00:00:00
+        amount: 123.5
+        cashBack: 0
+        status: pending
+    type: object
+    properties:
+      vouchers:
+        description: ''
+        example:
+        - id: 59
+          shopName: Buyon и cash back от WWP Capital
+          dateTimeOrder: 2018-04-17 00:00:00
+          amount: 123.5
+          cashBack: 9.8800000000000008
+          status: declined
+        - id: 60
+          shopName: Buyon и cash back от WWP Capital
+          dateTimeOrder: 2018-04-17 00:00:00
+          amount: 123.5
+          cashBack: 9.8800000000000008
+          status: declined
+        - id: 61
+          shopName: Buyon и cash back от WWP Capital
+          dateTimeOrder: 2018-04-17 00:00:00
+          amount: 123.5
+          cashBack: 9.8800000000000008
+          status: approved
+        - id: 62
+          shopName: Buyon и cash back от WWP Capital
+          dateTimeOrder: 2018-04-17 00:00:00
+          amount: 123.5
+          cashBack: 0
+          status: pending
+        type: array
+        items:
+          $ref: '#/definitions/Voucher'
+    required:
+    - vouchers
+  Voucher:
+    title: Voucher
+    example:
+      id: 59
+      shopName: Buyon и cash back от WWP Capital
+      dateTimeOrder: 2018-04-17 00:00:00
+      amount: 123.5
+      cashBack: 9.8800000000000008
+      status: declined
+    type: object
+    properties:
+      id:
+        description: ''
+        example: 59
+        type: integer
+        format: int32
+      shopName:
+        description: ''
+        example: Buyon и cash back от WWP Capital
+        type: string
+      dateTimeOrder:
+        description: ''
+        example: 2018-04-17 00:00:00
+        type: string
+      amount:
+        description: ''
+        example: 123.5
+        type: number
+        format: double
+      cashBack:
+        description: ''
+        example: 9.8800000000000008
+        type: number
+        format: double
+      status:
+        description: ''
+        example: declined
+        type: string
+    required:
+    - id
+    - shopName
+    - dateTimeOrder
+    - amount
+    - cashBack
+    - status
