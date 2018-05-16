@@ -24,32 +24,36 @@ paths:
       description: "Метод для регистрации пользователей на сервисе"
       tags:
       - Registration
-      operationId: RegistrationGet
+      operationId: Registration
       produces:
       - application/json
       consumes:
       - application/json
       parameters:
       - name: login
-        in: formData
-        required: true
+        in: query
         type: string
+        required: true
         description: 'Имя пользователя'
+        x-example: 'capitan jack'
       - name: email
-        in: formData
+        in: query
         required: true
         type: string
         description: 'e-mail пользователя'
+        x-example: 'capitanjack@gmail.com'
       - name: password
-        in: formData
+        in: query
         required: true
         type: string
         description: 'Пароль'
+        x-example: 'vorobei'
       - name: inviteLogin
-        in: formData
+        in: query
         required: true
         type: string
         description: 'login пригласившего пользователя'
+        x-example: 'mario'
       responses:
         200:
           description: 'Пользователь успешно зарегистрирован'
@@ -150,39 +154,13 @@ paths:
             - msgUser
             - msgDev
         408:
-          description: Login is too short
-          schema:
-            title: Login is too short
-            example:
-              key: loginIsToShort
-              msgUser: Указанный логин содержит слишком мало символов. Минимальная длина логина 4 символа.
-              msgDev: Указанный логин короче 4 символов.
-            type: object
-            properties:
-              key:
-                description: ''
-                example: loginIsToShort
-                type: string
-              msgUser:
-                description: ''
-                example: Указанный логин содержит слишком мало символов. Минимальная длина логина 4 символа.
-                type: string
-              msgDev:
-                description: ''
-                example: Указанный логин короче 4 символов.
-                type: string
-            required:
-            - key
-            - msgUser
-            - msgDev
-        409:
           description: Login includes wrong symbols
           schema:
             title: Login includes wrong symbols
             example:
               key: loginIncludesWrongSymbols
-              msgUser: Указанный логин содержит не допустимые символы. Логин может содержать только цифры, буквы латинского алфавита, "_", тире и точку.
-              msgDev: Указанный логин содержит не допустимые символы.
+              msgUser: Указанный логин содержит недопустимые символы. Логин может содержать только цифры, буквы латинского алфавита, "_", тире и точку.
+              msgDev: Указанный логин содержит недопустимые символы.
             type: object
             properties:
               key:
@@ -191,17 +169,17 @@ paths:
                 type: string
               msgUser:
                 description: ''
-                example: Указанный логин содержит не допустимые символы. Логин может содержать только цифры, буквы латинского алфавита, "_", тире и точку.
+                example: Указанный логин содержит недопустимые символы. Логин может содержать только цифры, буквы латинского алфавита, "_", тире и точку.
                 type: string
               msgDev:
                 description: ''
-                example: Указанный логин содержит не допустимые символы.
+                example: Указанный логин содержит недопустимые символы.
                 type: string
             required:
             - key
             - msgUser
             - msgDev
-        410:
+        409:
           description: Wrong email
           schema:
             title: Wrong email
@@ -227,7 +205,7 @@ paths:
             - key
             - msgUser
             - msgDev
-        411:
+        410:
           description: Password is too short
           schema:
             title: Password is too short
@@ -253,7 +231,7 @@ paths:
             - key
             - msgUser
             - msgDev
-        412:
+        411:
           description: Password is too long
           schema:
             title: Password is too long
@@ -279,7 +257,7 @@ paths:
             - key
             - msgUser
             - msgDev
-        413:
+        412:
           description: Password Includes wrong symbols
           schema:
             title: Password Includes wrong symbols
@@ -295,7 +273,7 @@ paths:
                 type: string
               msgUser:
                 description: ''
-                example: Пароль содержит не верные символы. Пароль может содержать только буквы и цифры.
+                example: Пароль содержит неверные символы. Пароль может содержать только буквы и цифры.
                 type: string
               msgDev:
                 description: ''
@@ -305,27 +283,27 @@ paths:
             - key
             - msgUser
             - msgDev
-        414:
-          description: Don't exist user with this login
+        413:
+          description: Email exists
           schema:
-            title: Don't exist user with this login
+            title: Email exists
             example:
-              key: dontExistUserWithThisLogin
-              msgUser: Не существует пользователя с указанным логином. Введите логин пользователя, который вас пригласил.
-              msgDev: Не существует пользователя с указанным логином.
+              key: emailExists
+              msgUser: Указанный email уже используется другим пользователем.
+              msgDev: Указанный email уже используется другим пользователем.
             type: object
             properties:
               key:
                 description: ''
-                example: dontExistUserWithThisLogin
+                example: emailExists
                 type: string
               msgUser:
                 description: ''
-                example: Не существует пользователя с указанным логином. Введите логин пользователя, который вас пригласил.
+                example: Указанный email уже используется другим пользователем.
                 type: string
               msgDev:
                 description: ''
-                example: Не существует пользователя с указанным логином.
+                example: Указанный email уже используется другим пользователем.
                 type: string
             required:
             - key
@@ -337,7 +315,7 @@ paths:
       description: "Метод для аутентификации пользователя на сервисе"
       tags:
       - Login
-      operationId: LoginGet1
+      operationId: Login1
       produces:
       - application/json
       consumes:
@@ -381,16 +359,15 @@ paths:
           examples:
             application/json:
               key: badCredentials
-              msgUser: Не верно введен логин или пароль
-              msgDev: Не верно введен логин или пароль
+              msgUser: Неверно введен логин или пароль
+              msgDev: Неверно введен логин или пароль
       security: []
   /Logout:
     get:
       description: "Инвалидация выданных токенов для текущего юзера"
-      summary: Failure
       tags:
       - Logout
-      operationId: LogoutGet2
+      operationId: Logout2
       produces:
       - application/json
       parameters:
@@ -402,6 +379,8 @@ paths:
       responses:
         200:
           description: 'Разавторизация пользователя прошла успешно'
+          examples:
+            application/json: []
         401:
           description: "Unauthorized"
           examples:
@@ -417,7 +396,7 @@ paths:
       description: 'Получение версии приложения'
       tags:
       - getVersion
-      operationId: GetVersionGet3
+      operationId: GetVersion3
       produces:
       - application/json
       parameters:
@@ -435,6 +414,8 @@ paths:
       responses:
         200:
           description: 'Версия актуальна'
+          examples:
+            application/json: []
         default:
           description: Internal Server Error
           schema:
@@ -464,27 +445,50 @@ paths:
       produces:
       - application/json
       parameters:
-        - in: header
-          name: access_token
-          required: true
+        - in: query
+          name: login
+          required: false
           type: string
-          description: 'Токен авторизации'
+          description: 'Логин пользователя'
+        - in: query
+          name: email
+          required: false
+          type: string
+          description: 'Email пользователя'
       responses:
         200:
           description: 'Верификационный код для восстановления пароля отправлен на почту (или push уведомлением)'
+          examples:
+            application/json: []        
         401:
-          description: "Unauthorized"
+          description: 'Unauthorized'
           examples:
             application/json:
               key: tokenInvalid
               msgUser: 'Сессия не действительна или истекло время, авторизуйтесь'
               msgDev: 'Сессия недействительна, требуется выдача нового token'
               domain: ''
+        414:
+          description: 'notEnoughData'
+          examples:
+            application/json:
+              key: notEnoughData
+              msgUser: 'Не достаточно данных для восстановления'
+              msgDev: 'Пользователь не указал ни логина ни email'
+              domain: ''
+        415:
+          description: 'userNorFound'
+          examples:
+            application/json:
+              key: userNorFound
+              msgUser: 'Не найдено пользователя с таким логином или email'
+              msgDev: 'Не найдено пользователя с таким логином или email'
+              domain: ''
       security:
       - auth: []
   /SendVerificationCode:
     get:
-      description: "Отправка кода верификации для смены пароля"
+      description: 'Отправка кода верификации для смены пароля'
       tags:
       - SendVerificationCode
       operationId: SendVerificationCode5
@@ -499,6 +503,8 @@ paths:
       responses:
         200:
           description: 'Код верификации верный'
+          examples:
+            application/json: []
         415:
           description: "Не верный код верификации"
           examples:
@@ -513,8 +519,8 @@ paths:
     get:
       description: "Установка нового пароля"
       tags:
-      - SetNewPasport
-      operationId: SetNewPasport
+      - SetNewPassword
+      operationId: SetNewPasport6
       produces:
       - application/json
       parameters:
@@ -531,6 +537,8 @@ paths:
       responses:
         200:
           description: 'Новый пароль задан успешно'
+          examples:
+            application/json: []
         416:
           description: "Пароль и подтверждение пароля не совпадают"
           examples:
@@ -568,16 +576,33 @@ paths:
   /getProfileDetails:
     get:
       description: "Получение профиля текущего авторизованного юзера."
-      summary: Failure
       tags:
       - getProfileDetails
-      operationId: GetProfileDetailsGet2
+      operationId: GetProfileDetails7
       produces:
       - application/json
-      parameters: []
+      parameters: 
+        - in: header
+          name: access_token
+          required: true
+          type: string
+          description: 'Токен авторизации'
       responses:
         200:
-          description: ''
+          description: 'Данные профиля'
+          schema:
+            $ref: '#/definitions/User'
+          examples:
+            application/json:
+              user:
+              - id: 37967
+                first_name: 'Сергей'
+                last_name: 'Петров'
+                login: 'seroga'
+                email: 'seregaRulit@gmail.com'
+                available_balance: 0.5422
+                awaiting_balance: 0.122
+                ref_link: '/ref/6546243243'
         401:
           description: Unauthorized
           schema:
@@ -588,27 +613,8 @@ paths:
               msgUser: Сессия не действительна или истекло время, авторизуйтесь
               msgDev: Сессия недействительна, требуется выдача нового token
               domain: ''
-      security: []
-      x-unitTests:
-      - request:
-          method: GET
-          uri: /getProfileDetails
-        expectedResponse:
-          x-allowExtraHeaders: true
-          x-bodyMatchMode: NONE
-          x-arrayOrderedMatching: false
-          x-arrayCheckCount: false
-          x-matchResponseSchema: true
-          headers: {}
-        x-testShouldPass: true
-        x-testEnabled: true
-        x-testName: Failure
-        x-testDescription: "Получение профиля текущего авторизованного юзера.\nВнутренняя ошибка сервера.\n\nRequest:\n* headers:\n	* Authorization: Token {access_token}\n* body:\n	* Empty\n\nResponse:\n* status: 401\n* body: \n	* key (String): tokenInvalid\n	* msgUser (String): Сообщение для юзера\n	* msgDev (String): Сообщение для разработчика\n	* domain (String):"
-      x-operation-settings:
-        CollectParameters: false
-        AllowDynamicQueryParameters: false
-        AllowDynamicFormParameters: false
-        IsMultiContentStreaming: false
+      security:
+      - auth: []      
   /getBalance:
     get:
       description: "Получение баланса профиля текущего авторизованного юзера.\nВнутренняя ошибка сервера.\n\nRequest:\n* headers:\n	* Authorization: Token {access_token}\n* body:\n	* Empty\n\nResponse:\n* status: 401\n* body: \n	* key (String): internalServerError\n	* msgUser (String): Сообщение для юзера\n	* msgDev (String): Сообщение для разработчика\n	* domain (String):"
@@ -992,8 +998,8 @@ definitions:
     title: Failure
     example:
       key: badCredentials
-      msgUser: Не верно введен логин или пароль
-      msgDev: Не верно введен логин или пароль
+      msgUser: Неверно введен логин или пароль
+      msgDev: Неверно введен логин или пароль
       domain: ''
     type: object
     properties:
@@ -1003,11 +1009,11 @@ definitions:
         type: string
       msgUser:
         description: ''
-        example: Не верно введен логин или пароль
+        example: Неверно введен логин или пароль
         type: string
       msgDev:
         description: ''
-        example: Не верно введен логин или пароль
+        example: Неверно введен логин или пароль
         type: string
       domain:
         description: ''
@@ -1131,7 +1137,7 @@ definitions:
         description: ''
         example: 181320.14999999999
         type: number
-        format: double
+        format: float
       awaiting_balance:
         description: ''
         example: 0
