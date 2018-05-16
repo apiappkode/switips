@@ -754,8 +754,7 @@ paths:
       - auth: []      
   /sendQRCode:
     post:
-      description: "Отправка кода чека.\nВнутренняя ошибка сервера.\n\nRequest:\n* headers:\n	* Authorization: Token {access_token}\n* body:\n	* Empty\n\nResponse:\n* status: 500\n* body: \n	* key (String): sendQRParametersInvalid\n	* msgUser (String): Сообщение для юзера\n	* msgDev (String): Сообщение для разработчика\n	* domain (String):"
-      summary: Failure
+      description: "Отправка кода чекаring"
       tags:
       - sendQRCode
       operationId: SendQRCodePost2
@@ -779,32 +778,10 @@ paths:
               domain: ''
       security:
       - auth: []
-      x-unitTests:
-      - request:
-          method: POST
-          uri: /sendQRCode
-        expectedResponse:
-          x-allowExtraHeaders: true
-          x-bodyMatchMode: NONE
-          x-arrayOrderedMatching: false
-          x-arrayCheckCount: false
-          x-matchResponseSchema: true
-          headers: {}
-        x-testShouldPass: true
-        x-testEnabled: true
-        x-testName: Failure
-        x-testDescription: "Отправка кода чека.\nВнутренняя ошибка сервера.\n\nRequest:\n* headers:\n	* Authorization: Token {access_token}\n* body:\n	* Empty\n\nResponse:\n* status: 500\n* body: \n	* key (String): sendQRParametersInvalid\n	* msgUser (String): Сообщение для юзера\n	* msgDev (String): Сообщение для разработчика\n	* domain (String):"
-      x-operation-settings:
-        CollectParameters: false
-        AllowDynamicQueryParameters: false
-        AllowDynamicFormParameters: false
-        IsMultiContentStreaming: false
   /getOrders:
     get:
       description: >-
         Запрос всех покупок с чеками. Успешный запрос.
-
-
         Request:
 
         * headers:
@@ -1031,8 +1008,7 @@ paths:
         IsMultiContentStreaming: false
   /sendFeedback:
     post:
-      description: "Отправка сообщения.\nВнутренняя ошибка сервера.\n\nRequest:\n* headers:\n	* Authorization: Token {access_token}\n* params:\n	* title (String): Загаловок сообщения\n	* description (Text): Текст сообщения\n\nResponse:\n* status: 500\n* body: \n	* key (String): sendFeedbackParametersInvalid\n	* msgUser (String): Сообщение для юзера\n	* msgDev (String): Сообщение для разработчика\n	* domain (String):"
-      summary: Failure
+      description: "Отправка сообщения"
       tags:
       - sendFeedback
       operationId: SendFeedbackPost2
@@ -1054,26 +1030,6 @@ paths:
               domain: ''
       security:
       - auth: []
-      x-unitTests:
-      - request:
-          method: POST
-          uri: /sendFeedback
-        expectedResponse:
-          x-allowExtraHeaders: true
-          x-bodyMatchMode: NONE
-          x-arrayOrderedMatching: false
-          x-arrayCheckCount: false
-          x-matchResponseSchema: true
-          headers: {}
-        x-testShouldPass: true
-        x-testEnabled: true
-        x-testName: Failure
-        x-testDescription: "Отправка сообщения.\nВнутренняя ошибка сервера.\n\nRequest:\n* headers:\n	* Authorization: Token {access_token}\n* params:\n	* title (String): Загаловок сообщения\n	* description (Text): Текст сообщения\n\nResponse:\n* status: 500\n* body: \n	* key (String): sendFeedbackParametersInvalid\n	* msgUser (String): Сообщение для юзера\n	* msgDev (String): Сообщение для разработчика\n	* domain (String):"
-      x-operation-settings:
-        CollectParameters: false
-        AllowDynamicQueryParameters: false
-        AllowDynamicFormParameters: false
-        IsMultiContentStreaming: false
 definitions:
   Successfull:
     title: Successfull
