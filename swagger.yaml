@@ -661,7 +661,7 @@ paths:
             $ref: '#/definitions/Shop'
           examples:
             application/json:
-              user:
+              shops:
               - id: 37967
                 first_name: 'Сергей'
                 last_name: 'Петров'
@@ -669,19 +669,24 @@ paths:
                 email: 'seregaRulit@gmail.com'
                 available_balance: 0.5422
                 awaiting_balance: 0.122
+                ref_link: '/ref/65462Shop list43243'
+              - id: 37967
+                first_name: 'Иван'
+                last_name: 'Петров'
+                login: 'seroga'
+                email: 'seregaRulit@gmail.com'
+                available_balance: 0.5422
+                awaiting_balance: 0.122
                 ref_link: '/ref/6546243243'
-        401:
-          description: Unauthorized
-          schema:
-            $ref: '#/definitions/Failure'
-          examples:
-            application/json:
-              key: tokenInvalid
-              msgUser: Сессия не действительна или истекло время, авторизуйтесь
-              msgDev: Сессия недействительна, требуется выдача нового token
-              domain: ''
-      security:
-      - auth: [] 
+              - id: 37967
+                first_name: 'Дмитрий'
+                last_name: 'Петров'
+                login: 'seroga'
+                email: 'seregaRulit@gmail.com'
+                available_balance: 0.5422
+                awaiting_balance: 0.122
+                ref_link: '/ref/6546243243'
+      security: [] 
   /getBalance:
     get:
       description: 'Получение баланса профиля текущего авторизованного юзера.'
