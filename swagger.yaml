@@ -57,26 +57,20 @@ paths:
             title: Successful registration
             example:
               key: successfulRegistration
-              msgUser: Пользователь успешно зарегистрирован и авторизован
-              msgDev: Пользователь успешно зарегистрирован и авторизован
+              access_token: 'eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyMDIxNzAsImV4cCI6MTUyNDMxNDUyNn0.WKojqh6gLLQJA6ce2aUJj0X_KsubFWB45044HKVdFxA'
             type: object
             properties:
               key:
                 description: ''
                 example: successfulRegistration
                 type: string
-              msgUser:
+              access_token:
                 description: ''
-                example: Пользователь успешно зарегистрирован и авторизован
-                type: string
-              msgDev:
-                description: ''
-                example: Пользователь успешно зарегистрирован и авторизован
+                example: 'eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyMDIxNzAsImV4cCI6MTUyNDMxNDUyNn0.WKojqh6gLLQJA6ce2aUJj0X_KsubFWB45044HKVdFxA'
                 type: string
             required:
             - key
-            - msgUser
-            - msgDev
+            - access_token
         405:
           description: Login exists
           schema:
@@ -366,26 +360,20 @@ paths:
             title: Successful authorisation
             example:
               key: successfulAuthorisation
-              msgUser: Пользователь успешно авторизован.
-              msgDev: Пользователь успешно авторизован.
+              access_token: 'eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyMDIxNzAsImV4cCI6MTUyNDMxNDUyNn0.WKojqh6gLLQJA6ce2aUJj0X_KsubFWB45044HKVdFxA'
             type: object
             properties:
               key:
                 description: ''
-                example: dontExistUserWithThisLogin
+                example: successfulAuthorisation
                 type: string
-              msgUser:
+              access_token:
                 description: ''
-                example: Пользователь успешно авторизован.
-                type: string
-              msgDev:
-                description: ''
-                example: Пользователь успешно авторизован.
+                example: 'eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyMDIxNzAsImV4cCI6MTUyNDMxNDUyNn0.WKojqh6gLLQJA6ce2aUJj0X_KsubFWB45044HKVdFxA'
                 type: string
             required:
             - key
-            - msgUser
-            - msgDev          
+            - access_token            
         401:
           description: Unauthorized
           schema:
@@ -405,7 +393,12 @@ paths:
       operationId: LogoutGet2
       produces:
       - application/json
-      parameters: []
+      parameters:
+        - in: header
+          name: access_token
+          required: true
+          type: string
+          description: 'Токен авторизации'
       responses:
         200:
           description: 'Разавторизация пользователя прошла успешно'
@@ -427,17 +420,21 @@ paths:
       operationId: GetVersionGet3
       produces:
       - application/json
-      parameters: 
-      - in: header
-        name: platform
+      parameters:
+      - name: platform
+        in: query
+        description: 'Платформа мобильного устройства'
+        type: string
+        enum: [ios, android]
+        required: true
+      - name: version
+        in: query
         required: true
         type: string
-        description: 'Название платформы "ios" или "android"'
+        description: 'Версия мобильного приложения (0.0.2)'
       responses:
         200:
-          description: ''
-          schema:
-             $ref: '#/definitions/VersionMismatch'
+          description: 'Версия актуальна'
         default:
           description: Internal Server Error
           schema:
@@ -448,6 +445,124 @@ paths:
               msgUser: Внутренняя ошибка приложения
               msgDev: Ошибка параметров в запросе соответствия версии приложения и API
               domain: ''
+        590:
+          description: "Unauthorized"
+          examples:
+            application/json:
+              key: versionMismatch
+              msgUser: Версия приложения устарела, скачайте обновление
+              msgDev: Версия приложения не совпадает с версией API
+              domain: ''     
+      security:
+      - auth: []
+  /RestorePassword:
+    get:
+      description: "Восстановление пароля"
+      tags:
+      - RestorePassword
+      operationId: RestorePassword4
+      produces:
+      - application/json
+      parameters:
+        - in: header
+          name: access_token
+          required: true
+          type: string
+          description: 'Токен авторизации'
+      responses:
+        200:
+          description: 'Верификационный код для восстановления пароля отправлен на почту (или push уведомлением)'
+        401:
+          description: "Unauthorized"
+          examples:
+            application/json:
+              key: tokenInvalid
+              msgUser: 'Сессия не действительна или истекло время, авторизуйтесь'
+              msgDev: 'Сессия недействительна, требуется выдача нового token'
+              domain: ''
+      security:
+      - auth: []
+  /SendVerificationCode:
+    get:
+      description: "Отправка кода верификации для смены пароля"
+      tags:
+      - SendVerificationCode
+      operationId: SendVerificationCode5
+      produces:
+      - application/json
+      parameters:
+        - in: query
+          name: verification_code
+          required: true
+          type: string
+          description: 'Код верификации для смены пароля'
+      responses:
+        200:
+          description: 'Код верификации верный'
+        415:
+          description: "Не верный код верификации"
+          examples:
+            application/json:
+              key: WrongCode
+              msgUser: 'Введен не верный код верификации'
+              msgDev: 'Введен не верный код верификации'
+              domain: ''
+      security:
+      - auth: []
+  /SetNewPassword:
+    get:
+      description: "Установка нового пароля"
+      tags:
+      - SetNewPasport
+      operationId: SetNewPasport
+      produces:
+      - application/json
+      parameters:
+        - in: query
+          name: password
+          required: true
+          type: string
+          description: 'Новый пароль'
+        - in: query
+          name: confirmPassword
+          required: true
+          type: string
+          description: 'Подтверждение пароля'
+      responses:
+        200:
+          description: 'Новый пароль задан успешно'
+        416:
+          description: "Пароль и подтверждение пароля не совпадают"
+          examples:
+            application/json:
+              key: WrongCode
+              msgUser: 'Пароль и подтверждение пароля не совпадают'
+              msgDev: 'Пароль и подтверждение пароля не совпадают'
+              domain: ''
+        411:
+          description: Password is too short
+          examples:
+            application/json:
+              key: WrongCode
+              msgUser: 'Указан слишком короткий пароль. Пароль не может быть короче 6 символов'
+              msgDev: 'Пароль не может быть короче 6 символов'
+              domain: ''
+        412:
+          description: Password is too long
+          examples:
+            application/json:
+              key: passwordIsTooLong
+              msgUser: 'Указан слишком длинный пароль. Пароль не может быть длиннее 30 символов'
+              msgDev: 'Пароль не может быть длиннее 30 символов'
+              domain: ''
+        413:
+          description: Password Includes wrong symbols
+          examples:
+            application/json:
+              key: passwordIncludesWrongSymbols
+              msgUser: 'Пароль содержит не верные символы. Пароль может содержать только буквы и цифры'
+              msgDev: 'Пароль может содержать только буквы и цифры'
+              domain: ''  
       security:
       - auth: []
   /getProfileDetails:
