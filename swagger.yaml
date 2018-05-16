@@ -614,20 +614,62 @@ paths:
               msgDev: Сессия недействительна, требуется выдача нового token
               domain: ''
       security:
-      - auth: []      
-  /getBalance:
+      - auth: []    
+  /getShopList:
     get:
-      description: "Получение баланса профиля текущего авторизованного юзера.\nВнутренняя ошибка сервера.\n\nRequest:\n* headers:\n	* Authorization: Token {access_token}\n* body:\n	* Empty\n\nResponse:\n* status: 401\n* body: \n	* key (String): internalServerError\n	* msgUser (String): Сообщение для юзера\n	* msgDev (String): Сообщение для разработчика\n	* domain (String):"
-      summary: Failure
+      description: "Получение списка магазинов."
       tags:
-      - getBalance
-      operationId: GetBalanceGet2
+      - getShopList
+      operationId: getShopList8
       produces:
       - application/json
-      parameters: []
+      parameters: 
+        - in: query
+          name: sort_type
+          required: false
+          type: string
+          description: 'Тип сортировки'
+        - in: query
+          name: filter_name
+          required: false
+          type: string
+          description: 'Фильтр по названию партнера'
+        - in: query
+          name: filter_country
+          required: false
+          type: string
+          description: 'Фильтр по стране'
+        - in: query
+          name: filter_vip
+          required: false
+          type: string
+          description: 'Фильтр по признаку VIP предложение'
+        - in: query
+          name: filter_category
+          required: false
+          type: string
+          description: 'Фильтр по категории, подкатегории'
+        - in: query
+          name: filter_favourite
+          required: false
+          type: string
+          description: 'Фильтр по избранным партнерам этого пользователя'
       responses:
         200:
-          description: ''
+          description: 'Получение списка магазинов'
+          schema:
+            $ref: '#/definitions/Shop'
+          examples:
+            application/json:
+              user:
+              - id: 37967
+                first_name: 'Сергей'
+                last_name: 'Петров'
+                login: 'seroga'
+                email: 'seregaRulit@gmail.com'
+                available_balance: 0.5422
+                awaiting_balance: 0.122
+                ref_link: '/ref/6546243243'
         401:
           description: Unauthorized
           schema:
@@ -638,27 +680,49 @@ paths:
               msgUser: Сессия не действительна или истекло время, авторизуйтесь
               msgDev: Сессия недействительна, требуется выдача нового token
               domain: ''
-      security: []
-      x-unitTests:
-      - request:
-          method: GET
-          uri: /getBalance
-        expectedResponse:
-          x-allowExtraHeaders: true
-          x-bodyMatchMode: NONE
-          x-arrayOrderedMatching: false
-          x-arrayCheckCount: false
-          x-matchResponseSchema: true
-          headers: {}
-        x-testShouldPass: true
-        x-testEnabled: true
-        x-testName: Failure
-        x-testDescription: "Получение баланса профиля текущего авторизованного юзера.\nВнутренняя ошибка сервера.\n\nRequest:\n* headers:\n	* Authorization: Token {access_token}\n* body:\n	* Empty\n\nResponse:\n* status: 401\n* body: \n	* key (String): internalServerError\n	* msgUser (String): Сообщение для юзера\n	* msgDev (String): Сообщение для разработчика\n	* domain (String):"
-      x-operation-settings:
-        CollectParameters: false
-        AllowDynamicQueryParameters: false
-        AllowDynamicFormParameters: false
-        IsMultiContentStreaming: false
+      security:
+      - auth: [] 
+  /getBalance:
+    get:
+      description: 'Получение баланса профиля текущего авторизованного юзера.'
+      tags:
+      - getBalance
+      operationId: GetBalance8
+      produces:
+      - application/json
+      parameters: 
+        - in: header
+          name: access_token
+          required: true
+          type: string
+          description: 'Токен авторизации'
+      responses:
+        200:
+          description: 'Отображение баланса профиля текущего авторизованного юзера'
+          schema:
+            title: balanceShowing
+            example:
+              balance: 21.65423
+            type: object
+            properties:
+              balance:
+                description: 'Баланс профиля'
+                example: 21.65423
+                type: number
+            required:
+            - balance
+        401:
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/Failure'
+          examples:
+            application/json:
+              key: tokenInvalid
+              msgUser: Сессия не действительна или истекло время, авторизуйтесь
+              msgDev: Сессия недействительна, требуется выдача нового token
+              domain: ''
+      security: 
+      - auth: []      
   /sendQRCode:
     post:
       description: "Отправка кода чека.\nВнутренняя ошибка сервера.\n\nRequest:\n* headers:\n	* Authorization: Token {access_token}\n* body:\n	* Empty\n\nResponse:\n* status: 500\n* body: \n	* key (String): sendQRParametersInvalid\n	* msgUser (String): Сообщение для юзера\n	* msgDev (String): Сообщение для разработчика\n	* domain (String):"
@@ -1099,6 +1163,101 @@ definitions:
         $ref: '#/definitions/User'
     required:
     - user
+  Shop:
+    title: Shop
+    example:
+      id: 5039
+      title: 'Ali express russia'
+      list_image: '/url/docs/list_image.jpg'
+      logo: '/url/docs/image.jpg'
+      is_online: true
+      have_actions: true
+      is_top10: false
+      ref: 'https://aliexpress.com'
+      cashback: 0.05
+      status: 2
+      category_id: 34
+      country_id: 7
+      detail_text: 'Подробное описание партнеров'
+      description: 'Условия начисления кэшбэка, условия продаж'
+      conditions: 'Особые условия партнера'
+    type: object
+    properties:
+      id:
+        description: 'Идентификатор, назначается автоматически'
+        example: 5039
+        type: integer
+        format: int32
+      title:
+        description: 'Название партнера/магазина'
+        example: 'Али экспресс'
+        type: string
+      list_image:
+        description: 'Изображение для отображения в списке'
+        example: '/url/docs/list_image.jpg'
+        type: string
+      logo:
+        description: 'Изображение логотипа партнера'
+        example: '/url/docs/image.jpg'
+        type: string
+      is_online:
+        description: 'Доступность покупки в интернет магазине'
+        example: false
+        type: boolean
+      have_actions:
+        description: 'Магазин имеет акции'
+        example: true
+        type: boolean
+      is_top10:
+        description: 'Магазин имеет шильду Топ10'
+        example: true
+        type: boolean
+      ref:
+        description: 'Ссылка на сайт партнера'
+        example: 'https://aliexpress.com'
+        type: string
+      cashback:
+        description: 'Текущая ставка кэшбэка партнера'
+        example: 0.2123
+        type: number
+        format: float
+      status:
+        description: 'Статус партнера'
+        example: 4
+        type: integer
+        format: int8
+      category_id:
+        description: 'Идентификатор категории'
+        example: 4
+        type: integer
+        format: int8
+      country_id:
+        description: 'Идентификатор страны'
+        example: 4
+        type: integer
+        format: int8
+      detail_text:
+        description: 'Подробное описание партнеров'
+        example: 'adidas - это компания, которая каждый день меняет жизнь людей через спорт, создавая новое и стирая границы невозможного. Это компания, которая живет спортом, вдохновляет своим примером и помогает людям делать уверенные шаги навстречу ярким достижениям'
+        type: string
+      description:
+        description: 'Условия начисления кэшбэка, условия продаж'
+        example: 'Cash Back будет начислен за каждую сделанную покупку в интернет-магазине партнера только в том случае, если вы перейдете с сайта Switips в этот интернет-магазин. Оплатить свою покупку вы можете любым способом, который предлагается в интернет-магазине партнера.'
+        type: string
+      conditions:
+        description: 'Особые условия'
+        example: 'В настоящий момент партнер не предоставляет эксклюзивных условий для участников.'
+        type: string
+    required:
+    - id
+    - title
+    - list_image
+    - logo
+    - is_online
+    - have_actions
+    - is_top10
+    - status
+    - category_id
   User:
     title: User
     example:
