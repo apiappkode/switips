@@ -663,29 +663,53 @@ paths:
             application/json:
               shops:
               - id: 37967
-                first_name: 'Сергей'
-                last_name: 'Петров'
-                login: 'seroga'
-                email: 'seregaRulit@gmail.com'
-                available_balance: 0.5422
-                awaiting_balance: 0.122
-                ref_link: '/ref/65462Shop list43243'
+                title: 'Али экспресс'
+                list_image: '/url/file/image.jpg'
+                logo: '/url/file/logo.jpg'
+                is_online: true
+                have_actions: true
+                is_top10: true
+                ref: 'https://aliexpress.com/ref/65462S/'
+                active_ref: 'https://aliexpress.com/ref/65462S/?ref=dsfsfscvfs'
+                cashback: 0.06
+                status: 2
+                category_id: 12
+                country_id: 7
+                detail_text: 'Детальное описание по магазину'
+                description: 'Условия по покупке'
+                conditions: 'Особые словия по покупке'
               - id: 37967
-                first_name: 'Иван'
-                last_name: 'Петров'
-                login: 'seroga'
-                email: 'seregaRulit@gmail.com'
-                available_balance: 0.5422
-                awaiting_balance: 0.122
-                ref_link: '/ref/6546243243'
+                title: 'Али экспресс'
+                list_image: '/url/file/image.jpg'
+                logo: '/url/file/logo.jpg'
+                is_online: true
+                have_actions: true
+                is_top10: true
+                ref: 'https://aliexpress.com/ref/65462S/'
+                active_ref: 'https://aliexpress.com/ref/65462S/?ref=dsfsfscvfs'
+                cashback: 0.06
+                status: 2
+                category_id: 12
+                country_id: 7
+                detail_text: 'Детальное описание по магазину'
+                description: 'Условия по покупке'
+                conditions: 'Особые словия по покупке'
               - id: 37967
-                first_name: 'Дмитрий'
-                last_name: 'Петров'
-                login: 'seroga'
-                email: 'seregaRulit@gmail.com'
-                available_balance: 0.5422
-                awaiting_balance: 0.122
-                ref_link: '/ref/6546243243'
+                title: 'Али экспресс'
+                list_image: '/url/file/image.jpg'
+                logo: '/url/file/logo.jpg'
+                is_online: true
+                have_actions: true
+                is_top10: true
+                ref: 'https://aliexpress.com/ref/65462S/'
+                active_ref: 'https://aliexpress.com/ref/65462S/?ref=dsfsfscvfs'
+                cashback: 0.06
+                status: 2
+                category_id: 12
+                country_id: 7
+                detail_text: 'Детальное описание по магазину'
+                description: 'Условия по покупке'
+                conditions: 'Особые словия по покупке'
       security: [] 
   /getBalance:
     get:
@@ -1179,6 +1203,7 @@ definitions:
       have_actions: true
       is_top10: false
       ref: 'https://aliexpress.com'
+      active_ref: 'https://aliexpress.com/?ref=sdfsdfsdfsd'
       cashback: 0.05
       status: 2
       category_id: 34
@@ -1220,6 +1245,10 @@ definitions:
       ref:
         description: 'Ссылка на сайт партнера'
         example: 'https://aliexpress.com'
+        type: string
+      active_ref:
+        description: 'Ссылка на магазин партнера с реферальными метками для возврата кэшбека'
+        example: 'https://aliexpress.com/?ref=dfdffdfd'
         type: string
       cashback:
         description: 'Текущая ставка кэшбэка партнера'
