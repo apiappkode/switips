@@ -1122,6 +1122,8 @@ definitions:
         detail_text: 'Детальное описание по магазину'
         description: 'Условия по покупке'
         conditions: 'Особые словия по покупке'
+        loc_x: 0.34554564
+        loc_y: 0.56767345
     type: object
     properties:
       shops:
@@ -1159,6 +1161,8 @@ definitions:
           detail_text: 'Детальное описание по магазину'
           description: 'Условия по покупке'
           conditions: 'Особые словия по покупке'
+          loc_x: 0.34554564
+          loc_y: 0.56767345
         type: array
         items:
           $ref: '#/definitions/Shop'
@@ -1184,6 +1188,8 @@ definitions:
       detail_text: 'Подробное описание партнеров'
       description: 'Условия начисления кэшбэка, условия продаж'
       conditions: 'Особые условия партнера'
+      loc_x: 0.34554564
+      loc_y: 0.56767345
     type: object
     properties:
       id:
@@ -1271,6 +1277,16 @@ definitions:
         description: 'Особые условия'
         example: 'В настоящий момент партнер не предоставляет эксклюзивных условий для участников.'
         type: string
+      loc_x:
+        description: 'Координата местонахождения магазина Х'
+        example: 0.2334556
+        type: number
+        format: float
+      loc_y:
+        description: 'Координата местонахождения магазина Y'
+        example: 0.6786788
+        type: number
+        format: float
     required:
     - id
     - active
