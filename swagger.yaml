@@ -658,7 +658,7 @@ paths:
         200:
           description: 'Получение списка магазинов'
           schema:
-            $ref: '#/definitions/Shop'
+            $ref: '#/definitions/Shops'
           examples:
             application/json:
               shops:
@@ -754,18 +754,30 @@ paths:
       - auth: []      
   /sendQRCode:
     post:
-      description: "Отправка кода чекаring"
+      description: "Отправка кода чека"
       tags:
       - sendQRCode
-      operationId: SendQRCodePost2
+      operationId: SendQRCode2
       produces:
       - application/json
-      parameters: []
+      parameters: 
+        - in: header
+          name: access_token
+          required: true
+          type: string
+          description: 'Токен авторизации'  
+        - in: query
+          name: dataqrcode
+          required: true
+          type: string
+          description: 'Строка расшифрованного штрихкода чека' 
       responses:
         200:
-          description: ''
-        401:
-          description: ''
+          description: 'Код чека успешно отправлен'
+          examples:
+            application/json: []
+        500:
+          description: 'Обязательный параметр dataqrcode не передан'
         default:
           description: Internal Server Error
           schema:
@@ -780,39 +792,23 @@ paths:
       - auth: []
   /getOrders:
     get:
-      description: >-
-        Запрос всех покупок с чеками. Успешный запрос.
-        Request:
-
-        * headers:
-        	* Authorization: Token {access_token}
-        * body:
-        	* Empty
-
-        Response:
-
-        * status: 200
-
-        * body:
-        	* orders (Collection): Список покупок
-        		* id (Int): ID покупки из системы Switips
-        		* shopName (String): Название магазина
-        		* dateTimeOrder (DateTime): Дата покупки
-        		* amount (Float): Сумма
-        		* cashBack (Float): Сумма кешбэка
-        		* status (String): Статус (pending — В ожидании; approved — Подтверждён; declined — Отменен).
-      summary: Successfull
+      description: 'Запрос всех покупок с чеками'
       tags:
       - getOrders
-      operationId: GetOrdersGet
+      operationId: GetOrders
       produces:
       - application/json
-      parameters: []
+      parameters:
+      - in: header
+        name: access_token
+        required: true
+        type: string
+        description: 'Токен авторизации'  
       responses:
         200:
-          description: ''
+          description: 'Успешное получение списка заказов пользователя'
           schema:
-            $ref: '#/definitions/Successfull11'
+            $ref: '#/definitions/Orders'
           examples:
             application/json:
               orders:
@@ -830,61 +826,6 @@ paths:
                 status: approved
       security:
       - auth: []
-      x-unitTests:
-      - request:
-          method: GET
-          uri: /getOrders
-        expectedResponse:
-          x-allowExtraHeaders: true
-          x-bodyMatchMode: RAW
-          x-arrayOrderedMatching: false
-          x-arrayCheckCount: false
-          x-matchResponseSchema: true
-          headers:
-            Cache-Control: no-store, must-revalidate, private, max-age=0
-            Connection: close
-            Content-Type: application/json; charset=utf-8
-            Server: thin
-            Set-Cookie: request_method=; path=/; max-age=0; expires=Thu, 01 Jan 1970 00:00:00 -0000
-            X-Content-Type-Options: nosniff
-            X-Frame-Options: SAMEORIGIN
-            X-Meta-Request-Version: 0.4.0
-            X-MiniProfiler-Ids: '["v6y8s0bqqb8zhm6owwu8","tov9p91k3nukjd5uew6x","1vfcyw4frvavhsjjjkjb","s4812k8yiyt9vz574dpi","i249okj3w92pd27yt5zv","uf4lmyfks43hdkik5bop","wxkrsustq1xx0qlflz1f","wsejehzo6ymcksk4oob0","zb8yicgox7scbnfjce9v","ubc4j10o8enb224h7ohe"]'
-            X-Request-Id: 2ec51ec6-82a2-4fb9-8358-28728447b2bc
-            X-Runtime: 0.169428
-            X-XSS-Protection: 1; mode=block
-          body: '{"orders":[{"id":37967,"shopName":"Aviasales.ru и cash back от WWP Capital","dateTimeOrder":"2018-01-27 00:00:00","amount":9341.0,"cashBack":136.01,"status":"approved"},{"id":28795,"shopName":"Aviasales.ru и cash back от WWP Capital","dateTimeOrder":"2018-01-05 00:00:00","amount":19426.0,"cashBack":282.84,"status":"approved"}]}'
-        x-testShouldPass: true
-        x-testEnabled: true
-        x-testName: Successfull
-        x-testDescription: >-
-          Запрос всех покупок с чеками. Успешный запрос.
-
-
-          Request:
-
-          * headers:
-          	* Authorization: Token {access_token}
-          * body:
-          	* Empty
-
-          Response:
-
-          * status: 200
-
-          * body:
-          	* orders (Collection): Список покупок
-          		* id (Int): ID покупки из системы Switips
-          		* shopName (String): Название магазина
-          		* dateTimeOrder (DateTime): Дата покупки
-          		* amount (Float): Сумма
-          		* cashBack (Float): Сумма кешбэка
-          		* status (String): Статус (pending — В ожидании; approved — Подтверждён; declined — Отменен).
-      x-operation-settings:
-        CollectParameters: false
-        AllowDynamicQueryParameters: false
-        AllowDynamicFormParameters: false
-        IsMultiContentStreaming: false
   /getCashVouchers:
     get:
       description: >-
@@ -921,7 +862,7 @@ paths:
         200:
           description: ''
           schema:
-            $ref: '#/definitions/Successfull13'
+            $ref: '#/definitions/Vouchers'
           examples:
             application/json:
               vouchers:
@@ -1148,6 +1089,84 @@ definitions:
         $ref: '#/definitions/User'
     required:
     - user
+  Shops:
+    title: Shops
+    example:
+      shops:
+      - id: 37967
+        title: 'Али экспресс'
+        list_image: '/url/file/image.jpg'
+        logo: '/url/file/logo.jpg'
+        is_online: true
+        have_actions: true
+        is_top10: true
+        ref: 'https://aliexpress.com/ref/65462S/'
+        active_ref: 'https://aliexpress.com/ref/65462S/?ref=dsfsfscvfs'
+        cashback: 0.06
+        status: 2
+        category_id: 12
+        country_id: 7
+        detail_text: 'Детальное описание по магазину'
+        description: 'Условия по покупке'
+        conditions: 'Особые словия по покупке'
+      - id: 37967
+        title: 'Али экспресс'
+        list_image: '/url/file/image.jpg'
+        logo: '/url/file/logo.jpg'
+        is_online: true
+        have_actions: true
+        is_top10: true
+        ref: 'https://aliexpress.com/ref/65462S/'
+        active_ref: 'https://aliexpress.com/ref/65462S/?ref=dsfsfscvfs'
+        cashback: 0.06
+        status: 2
+        category_id: 12
+        country_id: 7
+        detail_text: 'Детальное описание по магазину'
+        description: 'Условия по покупке'
+        conditions: 'Особые словия по покупке'
+    type: object
+    properties:
+      shops:
+        description: 'Список магазинов'
+        example:
+        - id: 37967
+          title: 'Али экспресс'
+          list_image: '/url/file/image.jpg'
+          logo: '/url/file/logo.jpg'
+          is_online: true
+          have_actions: true
+          is_top10: true
+          ref: 'https://aliexpress.com/ref/65462S/'
+          active_ref: 'https://aliexpress.com/ref/65462S/?ref=dsfsfscvfs'
+          cashback: 0.06
+          status: 2
+          category_id: 12
+          country_id: 7
+          detail_text: 'Детальное описание по магазину'
+          description: 'Условия по покупке'
+          conditions: 'Особые словия по покупке'
+        - id: 37967
+          title: 'Али экспресс'
+          list_image: '/url/file/image.jpg'
+          logo: '/url/file/logo.jpg'
+          is_online: true
+          have_actions: true
+          is_top10: true
+          ref: 'https://aliexpress.com/ref/65462S/'
+          active_ref: 'https://aliexpress.com/ref/65462S/?ref=dsfsfscvfs'
+          cashback: 0.06
+          status: 2
+          category_id: 12
+          country_id: 7
+          detail_text: 'Детальное описание по магазину'
+          description: 'Условия по покупке'
+          conditions: 'Особые словия по покупке'
+        type: array
+        items:
+          $ref: '#/definitions/Shop'
+    required:
+    - orders
   Shop:
     title: Shop
     example:
@@ -1325,8 +1344,8 @@ definitions:
     required:
     - available_balance
     - awaiting_balance
-  Successfull11:
-    title: Successfull11
+  Orders:
+    title: Orders
     example:
       orders:
       - id: 37967
@@ -1408,8 +1427,8 @@ definitions:
     - amount
     - cashBack
     - status
-  Successfull13:
-    title: Successfull13
+  Vouchers:
+    title: Vouchers
     example:
       vouchers:
       - id: 59
