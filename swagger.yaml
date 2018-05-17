@@ -1114,6 +1114,7 @@ definitions:
     title: Shop
     example:
       id: 5039
+      active: true
       title: 'Ali express russia'
       list_image: '/url/docs/list_image.jpg'
       logo: '/url/docs/image.jpg'
@@ -1136,19 +1137,23 @@ definitions:
         example: 5039
         type: integer
         format: int32
+      active:
+        description: 'Активность'
+        example: true
+        type: boolean
       title:
         description: 'Название партнера/магазина'
         example: 'Али экспресс'
         type: string
       list_image:
-        description: 'Изображение для отображения в списке'
+        description: 'Изображение для отображения в списке (Маркетинговое изображение партнера)'
         example: '/url/docs/list_image.jpg'
         type: string
       logo:
-        description: 'Изображение логотипа партнера'
+        description: 'Изображение логотипа партнера (Логотип партнера)'
         example: '/url/docs/image.jpg'
         type: string
-      is_online:
+      online:
         description: 'Доступность покупки в интернет магазине'
         example: false
         type: boolean
@@ -1156,16 +1161,20 @@ definitions:
         description: 'Магазин имеет акции'
         example: true
         type: boolean
-      is_top10:
+      top10:
         description: 'Магазин имеет шильду Топ10'
         example: true
         type: boolean
-      is_favourite:
+      favourite:
         description: 'Магазин является избранным'
         example: true
         type: boolean
-      is_vip:
+      vip:
         description: 'Магазин является VIP партнером'
+        example: true
+        type: boolean
+      mobile_trafic:
+        description: 'Признак выставляется у магазинов, которые поддерживают работы с мобильными устройствами'
         example: true
         type: boolean
       ref:
@@ -1173,7 +1182,7 @@ definitions:
         example: 'https://aliexpress.com'
         type: string
       active_ref:
-        description: 'Ссылка на магазин партнера с реферальными метками для возврата кэшбека'
+        description: 'Ссылка на магазин партнера с реферальными метками для возврата кэшбека (Кнопка перехода за покупками)'
         example: 'https://aliexpress.com/?ref=dfdffdfd'
         type: string
       cashback:
@@ -1187,7 +1196,7 @@ definitions:
         type: integer
         format: int8
       category_id:
-        description: 'Идентификатор категории'
+        description: 'Идентификатор категории (Группа товаров по которой у партнера актуально предложение)'
         example: 4
         type: integer
         format: int8
