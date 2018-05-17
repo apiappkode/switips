@@ -729,17 +729,11 @@ paths:
         200:
           description: 'Отображение баланса профиля текущего авторизованного юзера'
           schema:
-            title: balanceShowing
-            example:
-              balance: 21.65423
-            type: object
-            properties:
-              balance:
-                description: 'Баланс профиля'
-                example: 21.65423
-                type: number
-            required:
-            - balance
+            $ref: '#/definitions/Balance'
+          examples:
+            application/json:
+              available_balance: 181320.14999999999
+              awaiting_balance: 9.8800000000000008
         401:
           description: Unauthorized
           schema:
@@ -828,39 +822,21 @@ paths:
       - auth: []
   /getCashVouchers:
     get:
-      description: >-
-        Запрос всех чеков
-
-
-        Request:
-
-        * headers:
-          * Authorization: Token {access_token}
-        * body:
-          * Empty
-
-        Response:
-
-        * status: 200
-
-        * body:
-          * vouchers (Collection): Список покупок
-            * id (Int): ID покупки из системы Switips
-            * shopName (String): Название магазина
-            * dateTimeOrder (DateTime): Дата покупки
-            * amount (Float): Сумма
-            * cashBack (Float): Сумма кешбэка
-            * status (String): Статус (pending — В ожидании; approved — Подтверждён; declined — Отменен).
-      summary: Successfull
+      description: 'Запрос всех чеков'
       tags:
       - getCashVouchers
-      operationId: GetCashVouchersGet
+      operationId: GetCashVouchers
       produces:
       - application/json
-      parameters: []
+      parameters:
+      - in: header
+        name: access_token
+        required: true
+        type: string
+        description: 'Токен авторизации'  
       responses:
         200:
-          description: ''
+          description: 'Получение списка чеков'
           schema:
             $ref: '#/definitions/Vouchers'
           examples:
@@ -892,73 +868,33 @@ paths:
                 status: pending
       security:
       - auth: []
-      x-unitTests:
-      - request:
-          method: GET
-          uri: /getCashVouchers
-        expectedResponse:
-          x-allowExtraHeaders: true
-          x-bodyMatchMode: RAW
-          x-arrayOrderedMatching: false
-          x-arrayCheckCount: false
-          x-matchResponseSchema: true
-          headers:
-            Cache-Control: no-store, must-revalidate, private, max-age=0
-            Connection: close
-            Content-Type: application/json; charset=utf-8
-            Server: thin
-            Set-Cookie: __profilin=p%3Dt; path=/
-            X-Content-Type-Options: nosniff
-            X-Frame-Options: SAMEORIGIN
-            X-Meta-Request-Version: 0.4.0
-            X-MiniProfiler-Ids: '["g8wxrr904mkr1rtt2xvs","tov9p91k3nukjd5uew6x","1vfcyw4frvavhsjjjkjb","s4812k8yiyt9vz574dpi","i249okj3w92pd27yt5zv","uf4lmyfks43hdkik5bop","wxkrsustq1xx0qlflz1f","wsejehzo6ymcksk4oob0","zb8yicgox7scbnfjce9v","ubc4j10o8enb224h7ohe"]'
-            X-Request-Id: 630a0416-17e2-45d0-8f7b-4599f06de692
-            X-Runtime: 0.087457
-            X-XSS-Protection: 1; mode=block
-          body: '{"vouchers":[{"id":59,"shopName":"Buyon и cash back от WWP Capital","dateTimeOrder":"2018-04-17 00:00:00","amount":123.5,"cashBack":9.88,"status":"declined"},{"id":60,"shopName":"Buyon и cash back от WWP Capital","dateTimeOrder":"2018-04-17 00:00:00","amount":123.5,"cashBack":9.88,"status":"declined"},{"id":61,"shopName":"Buyon и cash back от WWP Capital","dateTimeOrder":"2018-04-17 00:00:00","amount":123.5,"cashBack":9.88,"status":"approved"},{"id":62,"shopName":"Buyon и cash back от WWP Capital","dateTimeOrder":"2018-04-17 00:00:00","amount":123.5,"cashBack":0.0,"status":"pending"}]}'
-        x-testShouldPass: true
-        x-testEnabled: true
-        x-testName: Successfull
-        x-testDescription: >-
-          Запрос всех чеков
-
-
-          Request:
-
-          * headers:
-            * Authorization: Token {access_token}
-          * body:
-            * Empty
-
-          Response:
-
-          * status: 200
-
-          * body:
-            * vouchers (Collection): Список покупок
-              * id (Int): ID покупки из системы Switips
-              * shopName (String): Название магазина
-              * dateTimeOrder (DateTime): Дата покупки
-              * amount (Float): Сумма
-              * cashBack (Float): Сумма кешбэка
-              * status (String): Статус (pending — В ожидании; approved — Подтверждён; declined — Отменен).
-      x-operation-settings:
-        CollectParameters: false
-        AllowDynamicQueryParameters: false
-        AllowDynamicFormParameters: false
-        IsMultiContentStreaming: false
   /sendFeedback:
     post:
       description: "Отправка сообщения"
       tags:
       - sendFeedback
-      operationId: SendFeedbackPost2
+      operationId: SendFeedbackPost
       produces:
       - application/json
-      parameters: []
+      parameters:
+      - in: header
+        name: access_token
+        required: true
+        type: string
+        description: 'Токен авторизации' 
+      - in: query
+        name: title
+        required: true
+        type: string
+        description: 'Заголовок письма' 
+      - in: query
+        name: description
+        required: true
+        type: string
+        description: 'Текст письма'
       responses:
         200:
-          description: ''
+          description: 'Успешная отправка сообщения'
         default:
           description: Internal Server Error
           schema:
@@ -979,7 +915,7 @@ definitions:
     type: object
     properties:
       access_token:
-        description: ''
+        description: 'Токен авторизации'
         example: eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyMDIxNzAsImV4cCI6MTUyNDMxNDUyNn0.WKojqh6gLLQJA6ce2aUJj0X_KsubFWB45044HKVdFxA
         type: string
     required:
@@ -994,15 +930,15 @@ definitions:
     type: object
     properties:
       key:
-        description: ''
+        description: 'Код ошибки'
         example: badCredentials
         type: string
       msgUser:
-        description: ''
+        description: 'Сообщение об ошибке для пользователя'
         example: Неверно введен логин или пароль
         type: string
       msgDev:
-        description: ''
+        description: 'Сообщение об ошибке для разработчика'
         example: Неверно введен логин или пароль
         type: string
       domain:
@@ -1023,15 +959,15 @@ definitions:
     type: object
     properties:
       key:
-        description: ''
+        description: 'Код ошибки'
         example: versionMismatch
         type: string
       msgUser:
-        description: ''
+        description: 'Сообщение об ошибке для пользователя'
         example: Версия приложения устарела, скачайте обновление
         type: string
       msgDev:
-        description: ''
+        description: 'Сообщение об ошибке для разработчика'
         example: Версия приложения не совпадает с версией API
         type: string
       domain:
@@ -1052,15 +988,15 @@ definitions:
     type: object
     properties:
       key:
-        description: ''
+        description: 'Код ошибки'
         example: versionParametersInvalid
         type: string
       msgUser:
-        description: ''
+        description: 'Сообщение об ошибке для пользователя'
         example: Внутренняя ошибка приложения
         type: string
       msgDev:
-        description: ''
+        description: 'Сообщение об ошибке для разработчика'
         example: Ошибка параметров в запросе соответствия версии приложения и API
         type: string
       domain:
@@ -1281,38 +1217,38 @@ definitions:
     type: object
     properties:
       id:
-        description: ''
+        description: 'Идентификатор пользователя, назначается автоматически'
         example: 5039
         type: integer
         format: int32
       first_name:
-        description: ''
+        description: 'Имя пользователя'
         example: Пужанская
         type: string
       last_name:
-        description: ''
+        description: 'Фамилия пользователя'
         example: Яна
         type: string
       login:
-        description: ''
+        description: 'Логин'
         example: win17
         type: string
       email:
-        description: ''
+        description: 'Электронная почта'
         example: winyanamagazine@yandex.ru
         type: string
       available_balance:
-        description: ''
+        description: 'Доступный внутренний баланс пользователя'
         example: 181320.14999999999
         type: number
         format: float
       awaiting_balance:
-        description: ''
+        description: 'Баланс ожидающий поступления на счет пользователя, не доступный для зачисления'
         example: 0
         type: number
         format: double
       ref_link:
-        description: ''
+        description: 'Рефераальная ссылка пользователя'
         example: https://switips.com/?u=win17
         type: string
     required:
@@ -1324,20 +1260,20 @@ definitions:
     - available_balance
     - awaiting_balance
     - ref_link
-  Successfull8:
-    title: Successfull8
+  Balance:
+    title: Balance
     example:
       available_balance: 181320.14999999999
       awaiting_balance: 9.8800000000000008
     type: object
     properties:
       available_balance:
-        description: ''
+        description: 'Доступный внутренний баланс пользователя'
         example: 181320.14999999999
         type: number
         format: double
       awaiting_balance:
-        description: ''
+        description: 'Баланс ожидающий поступления на счет пользователя, не доступный для зачисления'
         example: 9.8800000000000008
         type: number
         format: double
@@ -1363,7 +1299,7 @@ definitions:
     type: object
     properties:
       orders:
-        description: ''
+        description: 'Список заказов'
         example:
         - id: 37967
           shopName: Aviasales.ru и cash back от WWP Capital
@@ -1394,30 +1330,30 @@ definitions:
     type: object
     properties:
       id:
-        description: ''
+        description: 'ID заказа из системы Switips'
         example: 37967
         type: integer
         format: int32
       shopName:
-        description: ''
+        description: 'Название магазина'
         example: Aviasales.ru и cash back от WWP Capital
         type: string
       dateTimeOrder:
-        description: ''
+        description: 'Дата покупки'
         example: 2018-01-27 00:00:00
         type: string
       amount:
-        description: ''
+        description: 'Сумма заказа'
         example: 9341
         type: number
-        format: double
+        format: float
       cashBack:
-        description: ''
+        description: 'Сумма кешбэка'
         example: 136.00999999999999
         type: number
-        format: double
+        format: float
       status:
-        description: ''
+        description: 'Статус (pending — В ожидании; approved — Подтверждён; declined — Отменен)'
         example: approved
         type: string
     required:
@@ -1458,7 +1394,7 @@ definitions:
     type: object
     properties:
       vouchers:
-        description: ''
+        description: 'Список покупок (список чеков)'
         example:
         - id: 59
           shopName: Buyon и cash back от WWP Capital
@@ -1501,30 +1437,30 @@ definitions:
     type: object
     properties:
       id:
-        description: ''
+        description: 'ID чека из системы Switips'
         example: 59
         type: integer
         format: int32
       shopName:
-        description: ''
+        description: 'Название магазина'
         example: Buyon и cash back от WWP Capital
         type: string
       dateTimeOrder:
-        description: ''
+        description: 'Дата/время заказа'
         example: 2018-04-17 00:00:00
         type: string
       amount:
-        description: ''
+        description: 'Сумма заказа'
         example: 123.5
         type: number
-        format: double
+        format: float
       cashBack:
-        description: ''
+        description: 'Сумма кешбэка'
         example: 9.8800000000000008
         type: number
-        format: double
+        format: float
       status:
-        description: ''
+        description: 'Статус чека (pending — В ожидании; approved — Подтверждён; declined — Отменен).'
         example: declined
         type: string
     required:
