@@ -376,6 +376,7 @@ paths:
           required: true
           type: string
           description: 'Токен авторизации'
+          default: 'eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyMDIxNzAsImV4cCI6MTUyNDMxNDUyNn0.WKojqh6gLLQJA6ceKVdFxA'
       responses:
         200:
           description: 'Разавторизация пользователя прошла успешно'
@@ -587,6 +588,7 @@ paths:
           required: true
           type: string
           description: 'Токен авторизации'
+          default: 'eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyMDIxNzAsImV4cCI6MTUyNDMxNDUyNn0.WKojqh6gLLQJA6ceKVdFxA'
       responses:
         200:
           description: 'Данные профиля'
@@ -725,6 +727,7 @@ paths:
           required: true
           type: string
           description: 'Токен авторизации'
+          default: 'eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyMDIxNzAsImV4cCI6MTUyNDMxNDUyNn0.WKojqh6gLLQJA6ceKVdFxA'
       responses:
         200:
           description: 'Отображение баланса профиля текущего авторизованного юзера'
@@ -760,6 +763,7 @@ paths:
           required: true
           type: string
           description: 'Токен авторизации'  
+          default: 'eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyMDIxNzAsImV4cCI6MTUyNDMxNDUyNn0.WKojqh6gLLQJA6ceKVdFxA'
         - in: query
           name: dataqrcode
           required: true
@@ -798,6 +802,7 @@ paths:
         required: true
         type: string
         description: 'Токен авторизации'  
+        default: 'eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyMDIxNzAsImV4cCI6MTUyNDMxNDUyNn0.WKojqh6gLLQJA6ceKVdFxA'
       responses:
         200:
           description: 'Успешное получение списка заказов пользователя'
@@ -833,7 +838,8 @@ paths:
         name: access_token
         required: true
         type: string
-        description: 'Токен авторизации'  
+        description: 'Токен авторизации' 
+        default: 'eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyMDIxNzAsImV4cCI6MTUyNDMxNDUyNn0.WKojqh6gLLQJA6ceKVdFxA'
       responses:
         200:
           description: 'Получение списка чеков'
@@ -882,6 +888,7 @@ paths:
         required: true
         type: string
         description: 'Токен авторизации' 
+        default: 'eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyMDIxNzAsImV4cCI6MTUyNDMxNDUyNn0.WKojqh6gLLQJA6ceKVdFxA'
       - in: query
         name: title
         required: true
@@ -1151,6 +1158,14 @@ definitions:
         type: boolean
       is_top10:
         description: 'Магазин имеет шильду Топ10'
+        example: true
+        type: boolean
+      is_favourite:
+        description: 'Магазин является избранным'
+        example: true
+        type: boolean
+      is_vip:
+        description: 'Магазин является VIP партнером'
         example: true
         type: boolean
       ref:
