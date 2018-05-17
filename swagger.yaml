@@ -874,6 +874,60 @@ paths:
                 status: pending
       security:
       - auth: []
+  /getActions:
+    get:
+      description: 'Запрос списка акций'
+      tags:
+      - getActions
+      operationId: getActions
+      produces:
+      - application/json
+      parameters:
+        - in: query
+          name: sort_type
+          required: false
+          type: string
+          description: 'Тип сортировки'
+        - in: query
+          name: filter_name
+          required: false
+          type: string
+          description: 'Фильтр по названию акции'
+        - in: query
+          name: filter_category
+          required: false
+          type: string
+          description: 'Фильтр по категории акции'
+      responses:
+        200:
+          description: 'Получение списка акций'
+          schema:
+            $ref: '#/definitions/Actions'
+          examples:
+            application/json:
+              actions:
+              - id: 5039
+                active: true
+                title: 'Ali express russia'
+                logo: '/url/docs/image.jpg'
+                extra_benefits: 'Дополнительные преимущества'      
+                all_shop_actions_link: '/actionlist/ali_express/'
+                ref: 'https://aliexpress.com'
+                active_ref: 'https://aliexpress.com/?ref=sdfsdfsdfsd'
+                expiry_date: '2018-04-17 00:00:00'
+                detail_text: 'Подробные условия акции'
+              - id: 5039
+                active: true
+                title: 'Ali express russia'
+                logo: '/url/docs/image.jpg'
+                extra_benefits: 'Дополнительные преимущества'      
+                all_shop_actions_link: '/actionlist/ali_express/'
+                ref: 'https://aliexpress.com'
+                active_ref: 'https://aliexpress.com/?ref=sdfsdfsdfsd'
+                expiry_date: '2018-04-17 00:00:00'
+                detail_text: 'Подробные условия акции'
+      security:
+      - auth: []      
   /sendFeedback:
     post:
       description: "Отправка сообщения"
@@ -1109,7 +1163,7 @@ definitions:
         items:
           $ref: '#/definitions/Shop'
     required:
-    - orders
+    - shops
   Shop:
     title: Shop
     example:
@@ -1219,14 +1273,15 @@ definitions:
         type: string
     required:
     - id
+    - active
     - title
     - list_image
     - logo
-    - is_online
-    - have_actions
-    - is_top10
+    - online
     - status
     - category_id
+    - cashback
+    - country_id
   User:
     title: User
     example:
@@ -1494,3 +1549,124 @@ definitions:
     - amount
     - cashBack
     - status
+  Action:
+    title: Action
+    example:
+      id: 5039
+      active: true
+      title: 'Ali express russia'
+      logo: '/url/docs/image.jpg'
+      extra_benefits: 'Дополнительные преимущества'      
+      all_shop_actions_link: '/actionlist/ali_express/'
+      ref: 'https://aliexpress.com'
+      active_ref: 'https://aliexpress.com/?ref=sdfsdfsdfsd'
+      expiry_date: '2018-04-17 00:00:00'
+      detail_text: 'Подробные условия акции'
+    type: object
+    properties:
+      id:
+        description: 'Идентификатор, назначается автоматически'
+        example: 5039
+        type: integer
+        format: int32
+      active:
+        description: 'Активность'
+        example: true
+        type: boolean
+      title:
+        description: 'Заголовок акции'
+        example: 'Али экспресс'
+        type: string
+      logo:
+        description: 'Изображение логотипа партнера (Логотип партнера)'
+        example: '/url/docs/image.jpg'
+        type: string
+      extra_benefits:
+        description: 'Дополнительные преимущества акции'
+        example: 'Обновите крупную бытовую технику с выгодой! Действует уникальная акция на холодильники, посудомоечные и стиральные машины, плиты, а также встраиваемую технику Bosch. '
+        type: string
+      all_shop_actions_link:
+        description: 'Ссылка на просмотр всех акций этого партнера'
+        example: '/actionlist/ali_express/'
+        type: string
+      ref:
+        description: 'Ссылка на сайт партнера'
+        example: 'https://aliexpress.com'
+        type: string
+      active_ref:
+        description: 'Ссылка на магазин партнера с реферальными метками для возврата кэшбека (Кнопка перехода за покупками)'
+        example: 'https://aliexpress.com/?ref=dfdffdfd'
+        type: string
+      expiry_date:
+        description: 'Дата окончания акции'
+        example: '2018-04-17 00:00:00'
+        type: string
+      detail_text:
+        description: 'Подробные условия акции'
+        example: 'одробные условия акции'
+        type: string
+    required:
+    - id
+    - active
+    - title
+    - logo
+    - extra_benefits
+    - all_shop_actions_link
+    - ref
+    - active_ref
+    - expiry_date 
+    - detail_text
+  Actions:
+    title: Actions
+    example:
+      actions:
+      - id: 5039
+        active: true
+        title: 'Ali express russia'
+        logo: '/url/docs/image.jpg'
+        extra_benefits: 'Дополнительные преимущества'      
+        all_shop_actions_link: '/actionlist/ali_express/'
+        ref: 'https://aliexpress.com'
+        active_ref: 'https://aliexpress.com/?ref=sdfsdfsdfsd'
+        expiry_date: '2018-04-17 00:00:00'
+        detail_text: 'Подробные условия акции'
+      - id: 5039
+        active: true
+        title: 'Ali express russia'
+        logo: '/url/docs/image.jpg'
+        extra_benefits: 'Дополнительные преимущества'      
+        all_shop_actions_link: '/actionlist/ali_express/'
+        ref: 'https://aliexpress.com'
+        active_ref: 'https://aliexpress.com/?ref=sdfsdfsdfsd'
+        expiry_date: '2018-04-17 00:00:00'
+        detail_text: 'Подробные условия акции'
+    type: object
+    properties:
+      actions:
+        description: 'Список акций'
+        example:
+        - id: 5039
+          active: true
+          title: 'Ali express russia'
+          logo: '/url/docs/image.jpg'
+          extra_benefits: 'Дополнительные преимущества'      
+          all_shop_actions_link: '/actionlist/ali_express/'
+          ref: 'https://aliexpress.com'
+          active_ref: 'https://aliexpress.com/?ref=sdfsdfsdfsd'
+          expiry_date: '2018-04-17 00:00:00'
+          detail_text: 'Подробные условия акции'
+        - id: 5039
+          active: true
+          title: 'Ali express russia'
+          logo: '/url/docs/image.jpg'
+          extra_benefits: 'Дополнительные преимущества'      
+          all_shop_actions_link: '/actionlist/ali_express/'
+          ref: 'https://aliexpress.com'
+          active_ref: 'https://aliexpress.com/?ref=sdfsdfsdfsd'
+          expiry_date: '2018-04-17 00:00:00'
+          detail_text: 'Подробные условия акции'
+        type: array
+        items:
+          $ref: '#/definitions/Action'
+    required:
+    - actions
