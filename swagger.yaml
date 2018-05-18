@@ -35,7 +35,7 @@ paths:
         type: string
         required: true
         description: 'Имя пользователя'
-        x-example: 'capitan jack'
+        x-example: 'capitan_jack'
       - name: email
         in: query
         required: true
@@ -438,7 +438,7 @@ paths:
       security:
       - auth: []
   /RestorePassword:
-    get:
+    post:
       description: "Восстановление пароля"
       tags:
       - RestorePassword
@@ -488,7 +488,7 @@ paths:
       security:
       - auth: []
   /SendVerificationCode:
-    get:
+    post:
       description: 'Отправка кода верификации для смены пароля'
       tags:
       - SendVerificationCode
@@ -517,7 +517,7 @@ paths:
       security:
       - auth: []
   /SetNewPassword:
-    get:
+    post:
       description: "Установка нового пароля"
       tags:
       - SetNewPassword
