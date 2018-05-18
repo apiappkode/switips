@@ -440,15 +440,10 @@ paths:
       - application/json
       parameters:
         - in: query
-          name: login
-          required: false
+          name: login_email
+          required: true
           type: string
-          description: 'Логин пользователя'
-        - in: query
-          name: email
-          required: false
-          type: string
-          description: 'Email пользователя'
+          description: 'Логин или email пользователя'
       responses:
         200:
           description: 'Верификационный код для восстановления пароля отправлен на почту (или push уведомлением)'
@@ -591,6 +586,7 @@ paths:
                 email: 'seregaRulit@gmail.com'
                 available_balance: 0.5422
                 awaiting_balance: 0.122
+                rejected_balance: 0.522
                 ref_link: '/ref/6546243243'
         401:
           description: Unauthorized
@@ -1265,6 +1261,7 @@ definitions:
       email: winyanamagazine@yandex.ru
       available_balance: 181320.14999999999
       awaiting_balance: 0
+      rejected_balance: 0.522
       ref_link: https://switips.com/?u=win17
     type: object
     properties:
@@ -1299,6 +1296,11 @@ definitions:
         example: 0
         type: number
         format: double
+      rejected_balance:
+        description: 'Баланс отклоненных средств'
+        example: 9.8800000000000008
+        type: number
+        format: double
       ref_link:
         description: 'Рефераальная ссылка пользователя'
         example: https://switips.com/?u=win17
@@ -1317,6 +1319,7 @@ definitions:
     example:
       available_balance: 181320.14999999999
       awaiting_balance: 9.8800000000000008
+      rejected_balance: 1.14999999999
     type: object
     properties:
       available_balance:
@@ -1329,9 +1332,15 @@ definitions:
         example: 9.8800000000000008
         type: number
         format: double
+      rejected_balance:
+        description: 'Баланс отклоненных средств'
+        example: 9.8800000000000008
+        type: number
+        format: double
     required:
     - available_balance
     - awaiting_balance
+    - rejected_balance
   Orders:
     title: Orders
     example:
