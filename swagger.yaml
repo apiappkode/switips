@@ -91,15 +91,15 @@ paths:
             type: object
             properties:
               key:
-                description: ''
+                description: 'Ключ'
                 example: loginExists
                 type: string
               msgUser:
-                description: ''
+                description: 'Сообщение для пользователя'
                 example: Указанный логин уже используется другим пользователем, укажите другой логин
                 type: string
               msgDev:
-                description: ''
+                description: 'Сообщение для разработчика'
                 example: указанный логин найден в БД
                 type: string
             required:
@@ -117,15 +117,15 @@ paths:
             type: object
             properties:
               key:
-                description: ''
+                description: 'Ключ'
                 example: loginIsToLong
                 type: string
               msgUser:
-                description: ''
+                description: 'Сообщение для пользователя'
                 example: Указанный логин содержит слишком много символов. Максимальная длина логина 30 символов.
                 type: string
               msgDev:
-                description: ''
+                description: 'Сообщение для разработчика'
                 example: Указанный логин длиннее 30 символов.
                 type: string
             required:
@@ -143,15 +143,15 @@ paths:
             type: object
             properties:
               key:
-                description: ''
+                description: 'Ключ'
                 example: loginIsToShort
                 type: string
               msgUser:
-                description: ''
+                description: 'Сообщение для пользователя'
                 example: Указанный логин содержит слишком мало символов. Минимальная длина логина 4 символа.
                 type: string
               msgDev:
-                description: ''
+                description: 'Сообщение для разработчика'
                 example: Указанный логин короче 4 символов.
                 type: string
             required:
@@ -169,15 +169,15 @@ paths:
             type: object
             properties:
               key:
-                description: ''
+                description: 'Ключ'
                 example: loginIncludesWrongSymbols
                 type: string
               msgUser:
-                description: ''
+                description: 'Сообщение для пользователя'
                 example: Указанный логин содержит недопустимые символы. Логин может содержать только цифры, буквы латинского алфавита, "_", тире и точку.
                 type: string
               msgDev:
-                description: ''
+                description: 'Сообщение для разработчика'
                 example: Указанный логин содержит недопустимые символы.
                 type: string
             required:
@@ -927,6 +927,78 @@ paths:
               domain: ''
       security:
       - auth: []
+  /getFavourites:
+    get:
+      description: "Получение списка избранных магазинов."
+      tags:
+      - getFavourites
+      operationId: getFavourites
+      produces:
+      - application/json
+      parameters: 
+        - in: query
+          name: sort_type
+          required: false
+          type: string
+          description: 'Тип сортировки'
+      responses:
+        200:
+          description: 'Получение списка избранных магазинов'
+          schema:
+            $ref: '#/definitions/Shops'
+          examples:
+            application/json:
+              shops:
+              - id: 37967
+                title: 'Али экспресс'
+                list_image: '/url/file/image.jpg'
+                logo: '/url/file/logo.jpg'
+                is_online: true
+                have_actions: true
+                is_top10: true
+                ref: 'https://aliexpress.com/ref/65462S/'
+                active_ref: 'https://aliexpress.com/ref/65462S/?ref=dsfsfscvfs'
+                cashback: 0.06
+                status: 2
+                category_id: 12
+                country_id: 7
+                detail_text: 'Детальное описание по магазину'
+                description: 'Условия по покупке'
+                conditions: 'Особые словия по покупке'
+              - id: 37967
+                title: 'Али экспресс'
+                list_image: '/url/file/image.jpg'
+                logo: '/url/file/logo.jpg'
+                is_online: true
+                have_actions: true
+                is_top10: true
+                ref: 'https://aliexpress.com/ref/65462S/'
+                active_ref: 'https://aliexpress.com/ref/65462S/?ref=dsfsfscvfs'
+                cashback: 0.06
+                status: 2
+                category_id: 12
+                country_id: 7
+                detail_text: 'Детальное описание по магазину'
+                description: 'Условия по покупке'
+                conditions: 'Особые словия по покупке'
+              - id: 37967
+                title: 'Али экспресс'
+                list_image: '/url/file/image.jpg'
+                logo: '/url/file/logo.jpg'
+                is_online: true
+                have_actions: true
+                is_top10: true
+                ref: 'https://aliexpress.com/ref/65462S/'
+                active_ref: 'https://aliexpress.com/ref/65462S/?ref=dsfsfscvfs'
+                cashback: 0.06
+                status: 2
+                category_id: 12
+                country_id: 7
+                detail_text: 'Деталvouьное описание по магазину'
+                description: 'Условия по покупке'
+                conditions: 'Особые словия по покупке'
+      security:
+      - auth: []
 definitions:
   Successfull:
     title: Successfull
@@ -1662,3 +1734,85 @@ definitions:
           $ref: '#/definitions/Action'
     required:
     - actions
+  Favourites:
+    title: Favourites
+    example:
+      favourites:
+      - id: 37967
+        title: 'Али экспресс'
+        list_image: '/url/file/image.jpg'
+        logo: '/url/file/logo.jpg'
+        is_online: true
+        have_actions: true
+        is_top10: true
+        ref: 'https://aliexpress.com/ref/65462S/'
+        active_ref: 'https://aliexpress.com/ref/65462S/?ref=dsfsfscvfs'
+        cashback: 0.06
+        status: 2
+        category_id: 12
+        country_id: 7
+        detail_text: 'Детальное описание по магазину'
+        description: 'Условия по покупке'
+        conditions: 'Особые словия по покупке'
+      - id: 37967
+        title: 'Али экспресс'
+        list_image: '/url/file/image.jpg'
+        logo: '/url/file/logo.jpg'
+        is_online: true
+        have_actions: true
+        is_top10: true
+        ref: 'https://aliexpress.com/ref/65462S/'
+        active_ref: 'https://aliexpress.com/ref/65462S/?ref=dsfsfscvfs'
+        cashback: 0.06
+        status: 2
+        category_id: 12
+        country_id: 7
+        detail_text: 'Детальное описание по магазину'
+        description: 'Условия по покупке'
+        conditions: 'Особые словия по покупке'
+        loc_x: 0.34554564
+        loc_y: 0.56767345
+    type: object
+    properties:
+      favourites:
+        description: 'Список магазинов'
+        example:
+        - id: 37967
+          title: 'Али экспресс'
+          list_image: '/url/file/image.jpg'
+          logo: '/url/file/logo.jpg'
+          is_online: true
+          have_actions: true
+          is_top10: true
+          ref: 'https://aliexpress.com/ref/65462S/'
+          active_ref: 'https://aliexpress.com/ref/65462S/?ref=dsfsfscvfs'
+          cashback: 0.06
+          status: 2
+          category_id: 12
+          country_id: 7
+          detail_text: 'Детальное описание по магазину'
+          description: 'Условия по покупке'
+          conditions: 'Особые словия по покупке'
+        - id: 37967
+          title: 'Али экспресс'
+          list_image: '/url/file/image.jpg'
+          logo: '/url/file/logo.jpg'
+          is_online: true
+          have_actions: true
+          is_top10: true
+          ref: 'https://aliexpress.com/ref/65462S/'
+          active_ref: 'https://aliexpress.com/ref/65462S/?ref=dsfsfscvfs'
+          cashback: 0.06
+          status: 2
+          category_id: 12
+          country_id: 7
+          detail_text: 'Детальное описание по магазину'
+          description: 'Условия по покупке'
+          conditions: 'Особые словия по покупке'
+          loc_x: 0.34554564
+          loc_y: 0.56767345
+        type: array
+        items:
+          $ref: '#/definitions/Shop'
+    required:
+    - shops
