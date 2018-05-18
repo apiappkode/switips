@@ -7,11 +7,10 @@ host: switips.com
 basePath: /api/v1/app
 securityDefinitions:
   auth:
-    type: oauth2
-    flow: implicit
-    authorizationUrl: http://switips.com/api/v1/app
-    scopes: {}
-    x-skip-client-authentication: false
+    type: apiKey
+    in: header
+    name: access_token
+    description: Token
 schemes:
 - https
 consumes:
@@ -370,13 +369,7 @@ paths:
       operationId: Logout2
       produces:
       - application/json
-      parameters:
-        - in: header
-          name: access_token
-          required: true
-          type: string
-          description: 'Токен авторизации'
-          default: 'eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyMDIxNzAsImV4cCI6MTUyNDMxNDUyNn0.WKojqh6gLLQJA6ceKVdFxA'
+      parameters: []
       responses:
         200:
           description: 'Разавторизация пользователя прошла успешно'
@@ -582,13 +575,7 @@ paths:
       operationId: GetProfileDetails7
       produces:
       - application/json
-      parameters: 
-        - in: header
-          name: access_token
-          required: true
-          type: string
-          description: 'Токен авторизации'
-          default: 'eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyMDIxNzAsImV4cCI6MTUyNDMxNDUyNn0.WKojqh6gLLQJA6ceKVdFxA'
+      parameters: []
       responses:
         200:
           description: 'Данные профиля'
@@ -721,13 +708,7 @@ paths:
       operationId: GetBalance8
       produces:
       - application/json
-      parameters: 
-        - in: header
-          name: access_token
-          required: true
-          type: string
-          description: 'Токен авторизации'
-          default: 'eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyMDIxNzAsImV4cCI6MTUyNDMxNDUyNn0.WKojqh6gLLQJA6ceKVdFxA'
+      parameters: []
       responses:
         200:
           description: 'Отображение баланса профиля текущего авторизованного юзера'
@@ -758,12 +739,6 @@ paths:
       produces:
       - application/json
       parameters: 
-        - in: header
-          name: access_token
-          required: true
-          type: string
-          description: 'Токен авторизации'  
-          default: 'eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyMDIxNzAsImV4cCI6MTUyNDMxNDUyNn0.WKojqh6gLLQJA6ceKVdFxA'
         - in: query
           name: dataqrcode
           required: true
@@ -796,13 +771,7 @@ paths:
       operationId: GetOrders
       produces:
       - application/json
-      parameters:
-      - in: header
-        name: access_token
-        required: true
-        type: string
-        description: 'Токен авторизации'  
-        default: 'eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyMDIxNzAsImV4cCI6MTUyNDMxNDUyNn0.WKojqh6gLLQJA6ceKVdFxA'
+      parameters: []
       responses:
         200:
           description: 'Успешное получение списка заказов пользователя'
@@ -833,13 +802,7 @@ paths:
       operationId: GetCashVouchers
       produces:
       - application/json
-      parameters:
-      - in: header
-        name: access_token
-        required: true
-        type: string
-        description: 'Токен авторизации' 
-        default: 'eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyMDIxNzAsImV4cCI6MTUyNDMxNDUyNn0.WKojqh6gLLQJA6ceKVdFxA'
+      parameters: []
       responses:
         200:
           description: 'Получение списка чеков'
@@ -937,12 +900,6 @@ paths:
       produces:
       - application/json
       parameters:
-      - in: header
-        name: access_token
-        required: true
-        type: string
-        description: 'Токен авторизации' 
-        default: 'eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyMDIxNzAsImV4cCI6MTUyNDMxNDUyNn0.WKojqh6gLLQJA6ceKVdFxA'
       - in: query
         name: title
         required: true
