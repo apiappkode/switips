@@ -53,6 +53,12 @@ paths:
         type: string
         description: 'login пригласившего пользователя'
         x-example: 'mario'
+      - name: subscription_agreement
+        in: query
+        required: true
+        type: boolean
+        description: 'Согласие на получение рекламной рассылки'
+        x-example: true
       responses:
         200:
           description: 'Пользователь успешно зарегистрирован'
@@ -1305,6 +1311,10 @@ definitions:
         description: 'Рефераальная ссылка пользователя'
         example: https://switips.com/?u=win17
         type: string
+      subscription_agreement:
+        type: boolean
+        description: 'Согласие на получение рекламной рассылки'
+        example: true
     required:
     - id
     - first_name
