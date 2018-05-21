@@ -399,15 +399,17 @@ paths:
       operationId: GetVersion3
       produces:
       - application/json
+      consumes:
+      - application/x-www-form-urlencoded
       parameters:
       - name: platform
-        in: query
+        in: formData
         description: 'Платформа мобильного устройства'
         type: string
         enum: [ios, android, safari, firefox, chrome]
         required: true
       - name: version
-        in: query
+        in: formData
         required: true
         type: string
         description: 'Версия мобильного приложения (0.0.2)'
@@ -443,8 +445,10 @@ paths:
       operationId: RestorePassword4
       produces:
       - application/json
+      consumes:
+      - application/x-www-form-urlencoded
       parameters:
-        - in: query
+        - in: formData
           name: login_email
           required: true
           type: string
@@ -488,8 +492,10 @@ paths:
       operationId: SendVerificationCode5
       produces:
       - application/json
+      consumes:
+      - application/x-www-form-urlencoded
       parameters:
-        - in: query
+        - in: formData
           name: verification_code
           required: true
           type: string
@@ -517,13 +523,15 @@ paths:
       operationId: SetNewPasport6
       produces:
       - application/json
+      consumes:
+      - application/x-www-form-urlencoded
       parameters:
-        - in: query
+        - in: formData
           name: password
           required: true
           type: string
           description: 'Новый пароль'
-        - in: query
+        - in: formData
           name: confirmPassword
           required: true
           type: string
@@ -613,33 +621,35 @@ paths:
       operationId: getShopList8
       produces:
       - application/json
-      parameters: 
-        - in: query
+      consumes:
+      - application/x-www-form-urlencoded
+      parameters:
+        - in: formData
           name: sort_type
           required: false
           type: string
           description: 'Тип сортировки'
-        - in: query
+        - in: formData
           name: filter_name
           required: false
           type: string
           description: 'Фильтр по названию партнера'
-        - in: query
+        - in: formData
           name: filter_country
           required: false
           type: string
           description: 'Фильтр по стране'
-        - in: query
+        - in: formData
           name: filter_vip
           required: false
           type: string
           description: 'Фильтр по признаку VIP предложение'
-        - in: query
+        - in: formData
           name: filter_category
           required: false
           type: string
           description: 'Фильтр по категории, подкатегории'
-        - in: query
+        - in: formData
           name: filter_favourite
           required: false
           type: string
@@ -739,8 +749,10 @@ paths:
       operationId: SendQRCode2
       produces:
       - application/json
-      parameters: 
-        - in: query
+      consumes:
+      - application/x-www-form-urlencoded
+      parameters:
+        - in: formData
           name: dataqrcode
           required: true
           type: string
@@ -846,18 +858,20 @@ paths:
       operationId: getActions
       produces:
       - application/json
+      consumes:
+      - application/x-www-form-urlencoded
       parameters:
-        - in: query
+        - in: formData
           name: sort_type
           required: false
           type: string
           description: 'Тип сортировки'
-        - in: query
+        - in: formData
           name: filter_name
           required: false
           type: string
           description: 'Фильтр по названию акции'
-        - in: query
+        - in: formData
           name: filter_category
           required: false
           type: string
@@ -899,13 +913,15 @@ paths:
       operationId: SendFeedbackPost
       produces:
       - application/json
+      consumes:
+      - application/x-www-form-urlencoded
       parameters:
-      - in: query
+      - in: formData
         name: title
         required: true
         type: string
         description: 'Заголовок письма' 
-      - in: query
+      - in: formData
         name: description
         required: true
         type: string
@@ -933,8 +949,10 @@ paths:
       operationId: getFavourites
       produces:
       - application/json
+      consumes:
+      - application/x-www-form-urlencoded
       parameters: 
-        - in: query
+        - in: formData
           name: sort_type
           required: false
           type: string
