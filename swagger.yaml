@@ -9,8 +9,8 @@ securityDefinitions:
   auth:
     type: apiKey
     in: header
-    name: 'Authorization: Token {access_token}'
-    description: Token
+    name: 'Authorization: '
+    description: 'Token {access_token}'
 schemes:
 - https
 consumes:
