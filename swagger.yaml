@@ -404,7 +404,7 @@ paths:
         in: query
         description: 'Платформа мобильного устройства'
         type: string
-        enum: [ios, android]
+        enum: [ios, android, safari, firefox, chrome]
         required: true
       - name: version
         in: query
