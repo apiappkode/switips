@@ -387,7 +387,7 @@ paths:
             application/json:
               key: tokenInvalid
               msgUser: Сессия не действительна или истекло время, авторизуйтесь
-              msgDev: Сессия недействительна, требуется выдача нового token
+              msgDev: Сессия не действительна, требуется выдача нового token
               domain: ''
       security:
       - auth: []
@@ -469,7 +469,7 @@ paths:
             application/json:
               key: tokenInvalid
               msgUser: 'Сессия не действительна или истекло время, авторизуйтесь'
-              msgDev: 'Сессия недействительна, требуется выдача нового token'
+              msgDev: 'Сессия не действительна, требуется выдача нового token'
               domain: ''
         414:
           description: 'notEnoughData'
@@ -626,7 +626,7 @@ paths:
             application/json:
               key: tokenInvalid
               msgUser: Сессия не действительна или истекло время, авторизуйтесь
-              msgDev: Сессия недействительна, требуется выдача нового token
+              msgDev: Сессия не действительна, требуется выдача нового token
               domain: ''
       security:
       - auth: []    
@@ -730,8 +730,8 @@ paths:
     get:
       description: "Получение информации о магазине."
       tags:
-      - getShopList
-      operationId: getShopList8
+      - getShop
+      operationId: getShop9
       produces:
       - application/json
       consumes:
@@ -792,7 +792,7 @@ paths:
             application/json:
               key: tokenInvalid
               msgUser: Сессия не действительна или истекло время, авторизуйтесь
-              msgDev: Сессия недействительна, требуется выдача нового token
+              msgDev: Сессия не действительна, требуется выдача нового token
               domain: ''
       security: 
       - auth: []      
