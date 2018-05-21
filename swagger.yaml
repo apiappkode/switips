@@ -456,8 +456,13 @@ paths:
       responses:
         200:
           description: 'Верификационный код для восстановления пароля отправлен на почту (или push уведомлением)'
+          schema:
+            $ref: '#/definitions/UserShort'
           examples:
-            application/json: []        
+            application/json:
+              user:
+              - id: 37967
+                login: 'seroga'
         401:
           description: 'Unauthorized'
           examples:
@@ -499,11 +504,21 @@ paths:
           required: true
           type: string
           description: 'Код верификации для смены пароля'
+        - in: formData
+          name: login
+          required: true
+          type: string
+          description: 'Логин пользователя, полученный от метода RestorePassword'
       responses:
         200:
           description: 'Код верификации верный'
+          schema:
+            $ref: '#/definitions/UserShort'
           examples:
-            application/json: []
+            application/json:
+              user:
+              - id: 37967
+                login: 'seroga'
         415:
           description: "Не верный код верификации"
           examples:
@@ -534,6 +549,11 @@ paths:
           required: true
           type: string
           description: 'Подтверждение пароля'
+        - in: formData
+          name: login
+          required: true
+          type: string
+          description: 'Логин пользователя, полученный от метода SendVerificationCode'
       responses:
         200:
           description: 'Новый пароль задан успешно'
@@ -1409,6 +1429,25 @@ definitions:
     - available_balance
     - awaiting_balance
     - ref_link
+  UserShort:
+    title: UserShort
+    example:
+      id: 5039
+      login: win17
+    type: object
+    properties:
+      id:
+        description: 'Идентификатор пользователя, назначается автоматически'
+        example: 5039
+        type: integer
+        format: int32
+      login:
+        description: 'Логин'
+        example: win17
+        type: string
+    required:
+    - id
+    - login
   Balance:
     title: Balance
     example:
