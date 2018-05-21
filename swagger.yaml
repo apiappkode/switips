@@ -9,7 +9,7 @@ securityDefinitions:
   auth:
     type: apiKey
     in: header
-    name: access_token
+    name: 'Authorization: Token {access_token}'
     description: Token
 schemes:
 - https
