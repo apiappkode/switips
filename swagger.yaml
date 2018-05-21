@@ -554,6 +554,11 @@ paths:
           required: true
           type: string
           description: 'Логин пользователя, полученный от метода SendVerificationCode'
+        - in: formData
+          name: verification_code
+          required: true
+          type: string
+          description: 'Код верификации для смены пароля'
       responses:
         200:
           description: 'Новый пароль задан успешно'
@@ -691,6 +696,7 @@ paths:
                 cashback: 0.06
                 status: 2
                 category_id: 12
+                category_title: 'Обувь'
                 country_id: 7
                 detail_text: 'Детальное описание по магазину'
                 description: 'Условия по покупке'
@@ -706,7 +712,9 @@ paths:
                 cashback: 0.06
                 status: 2
                 category_id: 12
+                category_title: 'Обувь'
                 country_id: 7
+                country_title: 'Обувь'
                 detail_text: 'Детальное описание по магазину'
                 description: 'Условия по покупке'
                 conditions: 'Особые словия по покупке'
@@ -721,7 +729,9 @@ paths:
                 cashback: 0.06
                 status: 2
                 category_id: 12
+                category_title: 'Обувь'
                 country_id: 7
+                country_title: 'Обувь'
                 detail_text: 'Детальное описание по магазину'
                 description: 'Условия по покупке'
                 conditions: 'Особые словия по покупке'
@@ -761,10 +771,55 @@ paths:
                 cashback: 0.06
                 status: 2
                 category_id: 12
+                category_title: 'Обувь'
                 country_id: 7
+                country_title: 'Россия'
                 detail_text: 'Детальное описание по магазину'
                 description: 'Условия по покупке'
                 conditions: 'Особые словия по покупке'
+      security: [] 
+  /getShop/{ShopId}/actions:
+    get:
+      description: "Получение списка акций магазина."
+      tags:
+      - getShopActions
+      operationId: getShopActions9
+      produces:
+      - application/json
+      consumes:
+      - application/x-www-form-urlencoded
+      parameters:
+        - in: path
+          name: ShopId
+          type: integer
+          required: true
+          description: Numeric ID of the Shop to get.
+      responses:
+        200:
+          description: 'Получение списк акций магазина магазине'
+          schema:
+            $ref: '#/definitions/Actions'
+          examples:
+            application/json:
+              actions:
+              - id: 5039
+                active: true
+                title: 'Ali express russia'
+                logo: '/url/docs/image.jpg'
+                extra_benefits: 'Дополнительные преимущества'      
+                all_shop_actions_link: '/actionlist/ali_express/'
+                active_ref: 'https://aliexpress.com/?ref=sdfsdfsdfsd'
+                expiry_date: '2018-04-17 00:00:00'
+                detail_text: 'Подробные условия акции'
+              - id: 5039
+                active: true
+                title: 'Ali express russia'
+                logo: '/url/docs/image.jpg'
+                extra_benefitsVersion Auth fix: 'Дополнительные преимущества'      
+                all_shop_actions_link: '/actionlist/ali_express/'
+                active_ref: 'https://aliexpress.com/?ref=sdfsdfsdfsd'
+                expiry_date: '2018-04-17 00:00:00'
+                detail_text: 'Подробные условия акции'
       security: [] 
   /getBalance:
     get:
@@ -922,6 +977,11 @@ paths:
           type: string
           description: 'Тип сортировки'
         - in: formData
+          name: sort_order
+          required: false
+          type: string
+          description: 'Порядок сортировки'
+        - in: formData
           name: filter_name
           required: false
           type: string
@@ -945,7 +1005,6 @@ paths:
                 logo: '/url/docs/image.jpg'
                 extra_benefits: 'Дополнительные преимущества'      
                 all_shop_actions_link: '/actionlist/ali_express/'
-                ref: 'https://aliexpress.com'
                 active_ref: 'https://aliexpress.com/?ref=sdfsdfsdfsd'
                 expiry_date: '2018-04-17 00:00:00'
                 detail_text: 'Подробные условия акции'
@@ -955,7 +1014,6 @@ paths:
                 logo: '/url/docs/image.jpg'
                 extra_benefitsVersion Auth fix: 'Дополнительные преимущества'      
                 all_shop_actions_link: '/actionlist/ali_express/'
-                ref: 'https://aliexpress.com'
                 active_ref: 'https://aliexpress.com/?ref=sdfsdfsdfsd'
                 expiry_date: '2018-04-17 00:00:00'
                 detail_text: 'Подробные условия акции'
@@ -1240,7 +1298,9 @@ definitions:
           cashback: 0.06
           status: 2
           category_id: 12
+          category_title: 'Обувь'  
           country_id: 7
+          country_title: 'Россия'          
           detail_text: 'Детальное описание по магазину'
           description: 'Условия по покупке'
           conditions: 'Особые словия по покупке'
@@ -1255,7 +1315,9 @@ definitions:
           cashback: 0.06
           status: 2
           category_id: 12
+          category_title: 'Обувь'  
           country_id: 7
+          country_title: 'Россия'
           detail_text: 'Детальное описание по магазину'
           description: 'Условия по покупке'
           conditions: 'Особые словия по покупке'
@@ -1280,8 +1342,10 @@ definitions:
       active_ref: 'https://aliexpress.com/?ref=sdfsdfsdfsd'
       cashback: 0.05
       status: 2
-      category_id: 34
+      category_id: 12
+      category_title: 'Обувь'  
       country_id: 7
+      country_title: 'Россия'
       detail_text: 'Подробное описание партнеров'
       description: 'Условия начисления кэшбэка, условия продаж'
       conditions: 'Особые условия партнера'
@@ -1353,11 +1417,19 @@ definitions:
         example: 4
         type: integer
         format: int8
+      category_title:
+        description: 'Название категории (Группа товаров по которой у партнера актуально предложение)'
+        example: 'Обувь'
+        type: string
       country_id:
         description: 'Идентификатор страны'
         example: 4
         type: integer
         format: int8
+      country_title:
+        description: 'Идентификатор страны'
+        example: 'Россия'
+        type: string
       detail_text:
         description: 'Подробное описание партнеров'
         example: 'adidas - это компания, которая каждый день меняет жизнь людей через спорт, создавая новое и стирая границы невозможного. Это компания, которая живет спортом, вдохновляет своим примером и помогает людям делать уверенные шаги навстречу ярким достижениям'
@@ -1703,7 +1775,6 @@ definitions:
       logo: '/url/docs/image.jpg'
       extra_benefits: 'Дополнительные преимущества'      
       all_shop_actions_link: '/actionlist/ali_express/'
-      ref: 'https://aliexpress.com'
       active_ref: 'https://aliexpress.com/?ref=sdfsdfsdfsd'
       expiry_date: '2018-04-17 00:00:00'
       detail_text: 'Подробные условия акции'
@@ -1734,10 +1805,6 @@ definitions:
         description: 'Ссылка на просмотр всех акций этого партнера'
         example: '/actionlist/ali_express/'
         type: string
-      ref:
-        description: 'Ссылка на сайт партнера'
-        example: 'https://aliexpress.com'
-        type: string
       active_ref:
         description: 'Ссылка на магазин партнера с реферальными метками для возврата кэшбека (Кнопка перехода за покупками)'
         example: 'https://aliexpress.com/?ref=dfdffdfd'
@@ -1757,7 +1824,6 @@ definitions:
     - logo
     - extra_benefits
     - all_shop_actions_link
-    - ref
     - active_ref
     - expiry_date 
     - detail_text
@@ -1771,7 +1837,6 @@ definitions:
         logo: '/url/docs/image.jpg'
         extra_benefits: 'Дополнительные преимущества'      
         all_shop_actions_link: '/actionlist/ali_express/'
-        ref: 'https://aliexpress.com'
         active_ref: 'https://aliexpress.com/?ref=sdfsdfsdfsd'
         expiry_date: '2018-04-17 00:00:00'
         detail_text: 'Подробные условия акции'
@@ -1781,7 +1846,6 @@ definitions:
         logo: '/url/docs/image.jpg'
         extra_benefits: 'Дополнительные преимущества'      
         all_shop_actions_link: '/actionlist/ali_express/'
-        ref: 'https://aliexpress.com'
         active_ref: 'https://aliexpress.com/?ref=sdfsdfsdfsd'
         expiry_date: '2018-04-17 00:00:00'
         detail_text: 'Подробные условия акции'
@@ -1796,7 +1860,6 @@ definitions:
           logo: '/url/docs/image.jpg'
           extra_benefits: 'Дополнительные преимущества'      
           all_shop_actions_link: '/actionlist/ali_express/'
-          ref: 'https://aliexpress.com'
           active_ref: 'https://aliexpress.com/?ref=sdfsdfsdfsd'
           expiry_date: '2018-04-17 00:00:00'
           detail_text: 'Подробные условия акции'
@@ -1806,7 +1869,6 @@ definitions:
           logo: '/url/docs/image.jpg'
           extra_benefits: 'Дополнительные преимущества'      
           all_shop_actions_link: '/actionlist/ali_express/'
-          ref: 'https://aliexpress.com'
           active_ref: 'https://aliexpress.com/?ref=sdfsdfsdfsd'
           expiry_date: '2018-04-17 00:00:00'
           detail_text: 'Подробные условия акции'
@@ -1897,3 +1959,22 @@ definitions:
           $ref: '#/definitions/Shop'
     required:
     - shops
+  Category:
+    title: Category
+    example:
+      id: 37967
+      title: 'Обувь'
+    type: object
+    properties:
+      id:
+        description: 'ID категории из системы Switips'
+        example: 37967
+        type: integer
+        format: int32
+      title:
+        description: 'Заголовок категории'
+        example: 'Обувь'
+        type: string
+    required:
+    - id
+    - title
