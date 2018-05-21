@@ -434,8 +434,7 @@ paths:
               msgUser: Версия приложения устарела, скачайте обновление
               msgDev: Версия приложения не совпадает с версией API
               domain: ''     
-      security:
-      - auth: []
+      security: []
   /RestorePassword:
     post:
       description: "Восстановление пароля"
@@ -885,14 +884,13 @@ paths:
                 active: true
                 title: 'Ali express russia'
                 logo: '/url/docs/image.jpg'
-                extra_benefits: 'Дополнительные преимущества'      
+                extra_benefitsVersion Auth fix: 'Дополнительные преимущества'      
                 all_shop_actions_link: '/actionlist/ali_express/'
                 ref: 'https://aliexpress.com'
                 active_ref: 'https://aliexpress.com/?ref=sdfsdfsdfsd'
                 expiry_date: '2018-04-17 00:00:00'
                 detail_text: 'Подробные условия акции'
-      security:
-      - auth: []      
+      security: []      
   /sendFeedback:
     post:
       description: "Отправка сообщения"
