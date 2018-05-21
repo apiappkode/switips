@@ -27,34 +27,34 @@ paths:
       produces:
       - application/json
       consumes:
-      - application/json
+      - application/x-www-form-urlencoded
       parameters:
       - name: login
-        in: query
+        in: formData
         type: string
         required: true
         description: 'Имя пользователя'
         x-example: 'capitan_jack'
       - name: email
-        in: query
+        in: formData
         required: true
         type: string
         description: 'e-mail пользователя'
         x-example: 'capitanjack@gmail.com'
       - name: password
-        in: query
+        in: formData
         required: true
         type: string
         description: 'Пароль'
         x-example: 'vorobei'
       - name: inviteLogin
-        in: query
+        in: formData
         required: true
         type: string
         description: 'login пригласившего пользователя'
         x-example: 'mario'
       - name: subscription_agreement
-        in: query
+        in: formData
         required: true
         type: boolean
         description: 'Согласие на получение рекламной рассылки'
