@@ -676,6 +676,11 @@ paths:
           required: false
           type: string
           description: 'Фильтр по избранным партнерам этого пользователя'
+        - in: formData
+          name: is_online
+          required: false
+          type: string
+          description: 'Фильтр по признаку возможности совершения покупки через интернет магазин'
       responses:
         200:
           description: 'Получение списка магазинов'
