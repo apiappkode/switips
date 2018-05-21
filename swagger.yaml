@@ -482,8 +482,7 @@ paths:
               msgUser: 'Не найдено пользователя с таким логином или email'
               msgDev: 'Не найдено пользователя с таким логином или email'
               domain: ''
-      security:
-      - auth: []
+      security: []
   /SendVerificationCode:
     post:
       description: 'Отправка кода верификации для смены пароля'
@@ -513,8 +512,7 @@ paths:
               msgUser: 'Введен не верный код верификации'
               msgDev: 'Введен не верный код верификации'
               domain: ''
-      security:
-      - auth: []
+      security: []
   /SetNewPassword:
     post:
       description: "Установка нового пароля"
@@ -573,8 +571,7 @@ paths:
               msgUser: 'Пароль содержит не верные символы. Пароль может содержать только буквы и цифры'
               msgDev: 'Пароль может содержать только буквы и цифры'
               domain: ''  
-      security:
-      - auth: []
+      security: []
   /getProfileDetails:
     get:
       description: "Получение профиля текущего авторизованного юзера."
@@ -939,7 +936,7 @@ paths:
               msgUser: Внутренняя ошибка приложения
               msgDev: Обязательные параметры title и description не переданы
               domain: ''
-      security:
+      security: 
       - auth: []
   /getFavourites:
     get:
