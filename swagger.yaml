@@ -702,7 +702,6 @@ paths:
                 is_online: true
                 have_actions: true
                 is_top10: true
-                ref: 'https://aliexpress.com/ref/65462S/'
                 active_ref: 'https://aliexpress.com/ref/65462S/?ref=dsfsfscvfs'
                 cashback: 0.06
                 status: 2
@@ -711,6 +710,45 @@ paths:
                 detail_text: 'Детальное описание по магазину'
                 description: 'Условия по покупке'
                 conditions: 'Особые словия по покупке'
+              - id: 37967
+                title: 'Али экспресс'
+                list_image: '/url/file/image.jpg'
+                logo: '/url/file/logo.jpg'
+                is_online: true
+                have_actions: true
+                is_top10: true
+                active_ref: 'https://aliexpress.com/ref/65462S/?ref=dsfsfscvfs'
+                cashback: 0.06
+                status: 2
+                category_id: 12
+                country_id: 7
+                detail_text: 'Детальное описание по магазину'
+                description: 'Условия по покупке'
+                conditions: 'Особые словия по покупке'
+      security: [] 
+  /getShop/{ShopId}:
+    get:
+      description: "Получение информации о магазине."
+      tags:
+      - getShopList
+      operationId: getShopList8
+      produces:
+      - application/json
+      consumes:
+      - application/x-www-form-urlencoded
+      parameters:
+        - in: path
+          name: ShopId
+          type: integer
+          required: true
+          description: Numeric ID of the Shop to get.
+      responses:
+        200:
+          description: 'Получение информации о магазине'
+          schema:
+            $ref: '#/definitions/Shops'
+          examples:
+            application/json:
               - id: 37967
                 title: 'Али экспресс'
                 list_image: '/url/file/image.jpg'
@@ -1161,7 +1199,6 @@ definitions:
         is_online: true
         have_actions: true
         is_top10: true
-        ref: 'https://aliexpress.com/ref/65462S/'
         active_ref: 'https://aliexpress.com/ref/65462S/?ref=dsfsfscvfs'
         cashback: 0.06
         status: 2
@@ -1177,7 +1214,6 @@ definitions:
         is_online: true
         have_actions: true
         is_top10: true
-        ref: 'https://aliexpress.com/ref/65462S/'
         active_ref: 'https://aliexpress.com/ref/65462S/?ref=dsfsfscvfs'
         cashback: 0.06
         status: 2
@@ -1200,7 +1236,6 @@ definitions:
           is_online: true
           have_actions: true
           is_top10: true
-          ref: 'https://aliexpress.com/ref/65462S/'
           active_ref: 'https://aliexpress.com/ref/65462S/?ref=dsfsfscvfs'
           cashback: 0.06
           status: 2
@@ -1216,7 +1251,6 @@ definitions:
           is_online: true
           have_actions: true
           is_top10: true
-          ref: 'https://aliexpress.com/ref/65462S/'
           active_ref: 'https://aliexpress.com/ref/65462S/?ref=dsfsfscvfs'
           cashback: 0.06
           status: 2
@@ -1243,7 +1277,6 @@ definitions:
       is_online: true
       have_actions: true
       is_top10: false
-      ref: 'https://aliexpress.com'
       active_ref: 'https://aliexpress.com/?ref=sdfsdfsdfsd'
       cashback: 0.05
       status: 2
@@ -1301,12 +1334,8 @@ definitions:
         description: 'Признак выставляется у магазинов, которые поддерживают работы с мобильными устройствами'
         example: true
         type: boolean
-      ref:
-        description: 'Ссылка на сайт партнера'
-        example: 'https://aliexpress.com'
-        type: string
       active_ref:
-        description: 'Ссылка на магазин партнера с реферальными метками для возврата кэшбека (Кнопка перехода за покупками)'
+        description: 'Ссылка на магазин партнера с реферальными метками для возврата кэшбека (Кнопка перехода за покупками). Значение доступно только для авторизованных пользователей.'
         example: 'https://aliexpress.com/?ref=dfdffdfd'
         type: string
       cashback:
