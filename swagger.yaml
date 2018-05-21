@@ -1054,6 +1054,65 @@ paths:
               domain: ''
       security: 
       - auth: []
+  /addShopToFavourites:
+    post:
+      description: "Добавление магазина в избранное"
+      tags:
+      - addShopToFavourites
+      operationId: addShopToFavouritesPost
+      produces:
+      - application/json
+      consumes:
+      - application/x-www-form-urlencoded
+      parameters:
+      - in: formData
+        name: shopId
+        required: true
+        type: string
+        description: 'ID магазина' 
+      responses:
+        200:
+          description: 'Магазин успешно добавлен в избранное'
+          examples:
+            application/json: []
+        417:
+          description: Не указан shopId
+          schema:
+            $ref: '#/definitions/Failure'
+          examples:
+            application/json:
+              key: sendFeedbackParametersInvalid
+              msgUser: Внутренняя ошибка приложения
+              msgDev: Обязательный параметр shopId не передан
+              domain: ''
+        418:
+          description: Не найден магазин с указанным shopId
+          schema:
+            title: Shop not found
+            example:
+              key: shopNotFound
+              msgUser: Не найден магазин с указанным shopId
+              msgDev: Не найден магазин с указанным shopId
+            type: object
+            properties:
+              key:
+                description: 'Ключ'
+                example: shopNotFound
+                type: string
+              msgUser:
+                description: 'Сообщение для пользователя'
+                example: Не найден магазин с указанным shopId
+                type: string
+              msgDev:
+                description: 'Сообщение для разработчика'
+                example: Не найден магазин с указанным shopId
+                type: string
+            required:
+            - key
+            - msgUser
+            - msgDev
+      security: 
+      - auth: []
   /getFavourites:
     get:
       description: "Получение списка избранных магазинов."
