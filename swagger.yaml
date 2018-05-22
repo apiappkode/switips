@@ -1581,10 +1581,6 @@ definitions:
         description: 'Рефераальная ссылка пользователя'
         example: https://switips.com/?u=win17
         type: string
-      subscription_agreement:
-        type: boolean
-        description: 'Согласие на получение рекламной рассылки'
-        example: true
     required:
     - id
     - first_name
