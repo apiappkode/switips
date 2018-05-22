@@ -47,7 +47,7 @@ paths:
         type: string
         description: 'Пароль'
         x-example: 'vorobei'
-      - name: inviteLogin
+      - name: invite_login
         in: formData
         required: true
         type: string
@@ -545,7 +545,7 @@ paths:
           type: string
           description: 'Новый пароль'
         - in: formData
-          name: confirmPassword
+          name: confirm_password
           required: true
           type: string
           description: 'Подтверждение пароля'
@@ -741,7 +741,7 @@ paths:
                 description: 'Условия по покупке'
                 conditions: 'Особые словия по покупке'
       security: [] 
-  /getShop/{ShopId}:
+  /getShop/{shop_id}:
     get:
       description: "Получение информации о магазине."
       tags:
@@ -753,7 +753,7 @@ paths:
       - application/x-www-form-urlencoded
       parameters:
         - in: path
-          name: ShopId
+          name: shop_id
           type: integer
           required: true
           description: Numeric ID of the Shop to get.
@@ -783,7 +783,7 @@ paths:
                 description: 'Условия по покупке'
                 conditions: 'Особые словия по покупке'
       security: [] 
-  /getShop/{ShopId}/actions:
+  /getShop/{shop_id}/actions:
     get:
       description: "Получение списка акций магазина."
       tags:
@@ -795,7 +795,7 @@ paths:
       - application/x-www-form-urlencoded
       parameters:
         - in: path
-          name: ShopId
+          name: shop_id
           type: integer
           required: true
           description: Numeric ID of the Shop to get.
@@ -868,7 +868,7 @@ paths:
       - application/x-www-form-urlencoded
       parameters:
         - in: formData
-          name: dataqrcode
+          name: data_qrcode
           required: true
           type: string
           description: 'Строка расшифрованного штрихкода чека' 
@@ -909,16 +909,16 @@ paths:
             application/json:
               orders:
               - id: 37967
-                shopName: Aviasales.ru и cash back от WWP Capital
-                dateTimeOrder: '2018-01-27 00:00:00'
+                shop_name: Aviasales.ru и cash back от WWP Capital
+                date_time_order: '2018-01-27 00:00:00'
                 amount: 9341
-                cashBack: 136.00999999999999
+                cash_back: 136.00999999999999
                 status: approved
               - id: 28795
-                shopName: Aviasales.ru и cash back от WWP Capital
-                dateTimeOrder: '2018-01-05 00:00:00'
+                shop_name: Aviasales.ru и cash back от WWP Capital
+                date_time_order: '2018-01-05 00:00:00'
                 amount: 19426
-                cashBack: 282.83999999999997
+                cash_back: 282.83999999999997
                 status: approved
       security:
       - auth: []
@@ -940,29 +940,29 @@ paths:
             application/json:
               vouchers:
               - id: 59
-                shopName: Buyon и cash back от WWP Capital
-                dateTimeOrder: '2018-04-17 00:00:00'
+                shop_name: Buyon и cash back от WWP Capital
+                date_time_order: '2018-04-17 00:00:00'
                 amount: 123.5
-                cashBack: 9.8800000000000008
+                cash_back: 9.8800000000000008
                 status: declined
               - id: 60
-                shopName: Buyon и cash back от WWP Capital
-                dateTimeOrder: '2018-04-17 00:00:00'
+                shop_name: Buyon и cash back от WWP Capital
+                date_time_order: '2018-04-17 00:00:00'
                 amount: 123.5
-                cashBack: 9.8800000000000008
+                cash_back: 9.8800000000000008
                 status: declined
               - id: 61
-                shopName: Buyon и cash back от WWP Capital
-                dateTimeOrder: '2018-04-17 00:00:00'
+                shop_name: Buyon и cash back от WWP Capital
+                date_time_order: '2018-04-17 00:00:00'
                 amount: 123.5
-                cashBack: 9.8800000000000008
-                status: approved
+                cash_back: 9.8800000000000008
+                status: declined
               - id: 62
-                shopName: Buyon и cash back от WWP Capital
-                dateTimeOrder: '2018-04-17 00:00:00'
+                shop_name: Buyon и cash back от WWP Capital
+                date_time_order: '2018-04-17 00:00:00'
                 amount: 123.5
-                cashBack: 0
-                status: pending
+                cash_back: 9.8800000000000008
+                status: declined
       security:
       - auth: []
   /getActions:
@@ -1071,7 +1071,7 @@ paths:
       - application/x-www-form-urlencoded
       parameters:
       - in: formData
-        name: shopId
+        name: shop_id
         required: true
         type: string
         description: 'ID магазина' 
@@ -1645,16 +1645,16 @@ definitions:
     example:
       orders:
       - id: 37967
-        shopName: Aviasales.ru и cash back от WWP Capital
-        dateTimeOrder: '2018-01-27 00:00:00'
+        shop_name: Aviasales.ru и cash back от WWP Capital
+        date_time_order: '2018-01-27 00:00:00'
         amount: 9341
-        cashBack: 136.00999999999999
+        cash_back: 136.00999999999999
         status: approved
       - id: 28795
-        shopName: Aviasales.ru и cash back от WWP Capital
-        dateTimeOrder: '2018-01-05 00:00:00'
+        shop_name: Aviasales.ru и cash back от WWP Capital
+        date_time_order: '2018-01-05 00:00:00'
         amount: 19426
-        cashBack: 282.83999999999997
+        cash_back: 282.83999999999997
         status: approved
     type: object
     properties:
@@ -1662,16 +1662,16 @@ definitions:
         description: 'Список заказов'
         example:
         - id: 37967
-          shopName: Aviasales.ru и cash back от WWP Capital
-          dateTimeOrder: '2018-01-27 00:00:00'
+          shop_name: Aviasales.ru и cash back от WWP Capital
+          date_time_order: '2018-01-27 00:00:00'
           amount: 9341
-          cashBack: 136.00999999999999
+          cash_back: 136.00999999999999
           status: approved
         - id: 28795
-          shopName: Aviasales.ru и cash back от WWP Capital
-          dateTimeOrder: '2018-01-05 00:00:00'
+          shop_name: Aviasales.ru и cash back от WWP Capital
+          date_time_order: '2018-01-05 00:00:00'
           amount: 19426
-          cashBack: 282.83999999999997
+          cash_back: 282.83999999999997
           status: approved
         type: array
         items:
@@ -1682,10 +1682,10 @@ definitions:
     title: Order
     example:
       id: 37967
-      shopName: Aviasales.ru и cash back от WWP Capital
-      dateTimeOrder: '2018-01-27 00:00:00'
+      shop_name: Aviasales.ru и cash back от WWP Capital
+      date_time_order: '2018-01-27 00:00:00'
       amount: 9341
-      cashBack: 136.00999999999999
+      cash_back: 136.00999999999999
       status: approved
     type: object
     properties:
@@ -1694,11 +1694,11 @@ definitions:
         example: 37967
         type: integer
         format: int32
-      shopName:
+      shop_name:
         description: 'Название магазина'
         example: Aviasales.ru и cash back от WWP Capital
         type: string
-      dateTimeOrder:
+      date_time_order:
         description: 'Дата покупки'
         example: '2018-01-27 00:00:00'
         type: string
@@ -1707,7 +1707,7 @@ definitions:
         example: 9341
         type: number
         format: float
-      cashBack:
+      cash_back:
         description: 'Сумма кешбэка'
         example: 136.00999999999999
         type: number
@@ -1718,38 +1718,38 @@ definitions:
         type: string
     required:
     - id
-    - shopName
-    - dateTimeOrder
+    - shop_name
+    - date_time_order
     - amount
-    - cashBack
+    - cash_back
     - status
   Vouchers:
     title: Vouchers
     example:
       vouchers:
       - id: 59
-        shopName: Buyon и cash back от WWP Capital
-        dateTimeOrder: '2018-04-17 00:00:00'
+        shop_name: Buyon и cash back от WWP Capital
+        date_time_order: '2018-04-17 00:00:00'
         amount: 123.5
-        cashBack: 9.8800000000000008
+        cash_back: 9.8800000000000008
         status: declined
       - id: 60
-        shopName: Buyon и cash back от WWP Capital
-        dateTimeOrder: '2018-04-17 00:00:00'
+        shop_name: Buyon и cash back от WWP Capital
+        date_time_order: '2018-04-17 00:00:00'
         amount: 123.5
-        cashBack: 9.8800000000000008
+        cash_back: 9.8800000000000008
         status: declined
       - id: 61
-        shopName: Buyon и cash back от WWP Capital
-        dateTimeOrder: '2018-04-17 00:00:00'
+        shop_name: Buyon и cash back от WWP Capital
+        date_time_order: '2018-04-17 00:00:00'
         amount: 123.5
-        cashBack: 9.8800000000000008
+        cash_back: 9.8800000000000008
         status: approved
       - id: 62
-        shopName: Buyon и cash back от WWP Capital
-        da: '2018-04-17 00:00:00'
+        shop_name: Buyon и cash back от WWP Capital
+        date_time_order: '2018-04-17 00:00:00'
         amount: 123.5
-        cashBack: 0
+        cash_back: 0
         status: pending
     type: object
     properties:
@@ -1757,29 +1757,29 @@ definitions:
         description: 'Список покупок (список чеков)'
         example:
         - id: 59
-          shopName: Buyon и cash back от WWP Capital
-          dateTimeOrder: '2018-04-17 00:00:00'
+          shop_name: Buyon и cash back от WWP Capital
+          date_time_order: '2018-04-17 00:00:00'
           amount: 123.5
-          cashBack: 9.8800000000000008
+          cash_back: 9.8800000000000008
           status: declined
         - id: 60
-          shopName: Buyon и cash back от WWP Capital
-          dateTimeOrder: '2018-04-17 00:00:00'
+          shop_name: Buyon и cash back от WWP Capital
+          date_time_order: '2018-04-17 00:00:00'
           amount: 123.5
-          cashBack: 9.8800000000000008
+          cash_back: 9.8800000000000008
           status: declined
         - id: 61
-          shopName: Buyon и cash back от WWP Capital
-          dateTimeOrder: '2018-04-17 00:00:00'
+          shop_name: Buyon и cash back от WWP Capital
+          date_time_order: '2018-04-17 00:00:00'
           amount: 123.5
-          cashBack: 9.8800000000000008
-          status: approved
+          cash_back: 9.8800000000000008
+          status: declined
         - id: 62
-          shopName: Buyon и cash back от WWP Capital
-          dateTimeOrder: '2018-04-17 00:00:00'
+          shop_name: Buyon и cash back от WWP Capital
+          date_time_order: '2018-04-17 00:00:00'
           amount: 123.5
-          cashBack: 0
-          status: pending
+          cash_back: 9.8800000000000008
+          status: declined
         type: array
         items:
           $ref: '#/definitions/Voucher'
@@ -1801,11 +1801,11 @@ definitions:
         example: 59
         type: integer
         format: int32
-      shopName:
+      shop_name:
         description: 'Название магазина'
         example: Buyon и cash back от WWP Capital
         type: string
-      dateTimeOrder:
+      date_time_order:
         description: 'Дата/время заказа'
         example: '2018-04-17 00:00:00'
         type: string
@@ -1814,7 +1814,7 @@ definitions:
         example: 123.5
         type: number
         format: float
-      cashBack:
+      cash_back:
         description: 'Сумма кешбэка'
         example: 9.8800000000000008
         type: number
@@ -1825,10 +1825,10 @@ definitions:
         type: string
     required:
     - id
-    - shopName
-    - dateTimeOrder
+    - shop_name
+    - date_time_order
     - amount
-    - cashBack
+    - cash_back
     - status
   Action:
     title: Action
