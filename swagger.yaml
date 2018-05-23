@@ -652,6 +652,11 @@ paths:
           type: string
           description: 'Тип сортировки'
         - in: formData
+          name: sort_order
+          required: false
+          type: string
+          description: 'Порядок сортировки'
+        - in: formData
           name: filter_name
           required: false
           type: string
@@ -909,7 +914,19 @@ paths:
       operationId: GetOrders
       produces:
       - application/json
-      parameters: []
+      consumes:
+      - application/x-www-form-urlencoded
+      parameters: 
+        - in: formData
+          name: page_number
+          required: false
+          type: integer
+          description: 'Номер страницы (для постраничной навигации)'   
+        - in: formData
+          name: count
+          required: false
+          type: integer
+          description: 'Колличество записей на странице (для постраничной навигации)' 
       responses:
         200:
           description: 'Успешное получение списка заказов пользователя'
@@ -940,7 +957,19 @@ paths:
       operationId: GetCashVouchers
       produces:
       - application/json
-      parameters: []
+      consumes:
+      - application/x-www-form-urlencoded
+      parameters: 
+        - in: formData
+          name: page_number
+          required: false
+          type: integer
+          description: 'Номер страницы (для постраничной навигации)'   
+        - in: formData
+          name: count
+          required: false
+          type: integer
+          description: 'Колличество записей на странице (для постраничной навигации)' 
       responses:
         200:
           description: 'Получение списка чеков'
@@ -1213,6 +1242,21 @@ paths:
           required: false
           type: string
           description: 'Тип сортировки'
+        - in: formData
+          name: sort_order
+          required: false
+          type: string
+          description: 'Порядок сортировки'
+        - in: formData
+          name: page_number
+          required: false
+          type: integer
+          description: 'Номер страницы (для постраничной навигации)'   
+        - in: formData
+          name: count
+          required: false
+          type: integer
+          description: 'Колличество записей на странице (для постраничной навигации)' 
       responses:
         200:
           description: 'Получение списка избранных магазинов'
