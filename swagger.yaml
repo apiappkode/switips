@@ -288,7 +288,7 @@ paths:
             - key
             - msgUser
             - msgDev
-        413:
+        415:
           description: Email exists
           schema:
             title: Email exists
@@ -309,6 +309,32 @@ paths:
               msgDev:
                 description: ''
                 example: Указанный email уже используется другим пользователем.
+                type: string
+            required:
+            - key
+            - msgUser
+            - msgDev
+        416:
+          description: Invited login is not exist
+          schema:
+            title: Invited login is not exist
+            example:
+              key: invitedLoginIsNotExist
+              msgUser: Указанный email пригласившего не найден в системе.
+              msgDev: Указанный email пригласившего не найден в базе.
+            type: object
+            properties:
+              key:
+                description: ''
+                example: invitedLoginIsNotExist
+                type: string
+              msgUser:
+                description: ''
+                example: Указанный email пригласившего не найден в системе.
+                type: string
+              msgDev:
+                description: ''
+                example: Указанный email пригласившего не найден в базе.
                 type: string
             required:
             - key
@@ -471,7 +497,7 @@ paths:
               msgUser: 'Сессия не действительна или истекло время, авторизуйтесь'
               msgDev: 'Сессия не действительна, требуется выдача нового token'
               domain: ''
-        414:
+        420:
           description: 'notEnoughData'
           examples:
             application/json:
@@ -479,7 +505,7 @@ paths:
               msgUser: 'Не достаточно данных для восстановления'
               msgDev: 'Пользователь не указал ни логина ни email'
               domain: ''
-        415:
+        421:
           description: 'userNorFound'
           examples:
             application/json:
@@ -519,7 +545,7 @@ paths:
               user:
               - id: 37967
                 login: 'seroga'
-        415:
+        423:
           description: "Не верный код верификации"
           examples:
             application/json:
@@ -564,7 +590,7 @@ paths:
           description: 'Новый пароль задан успешно'
           examples:
             application/json: []
-        416:
+        424:
           description: "Пароль и подтверждение пароля не совпадают"
           examples:
             application/json:
@@ -572,7 +598,7 @@ paths:
               msgUser: 'Пароль и подтверждение пароля не совпадают'
               msgDev: 'Пароль и подтверждение пароля не совпадают'
               domain: ''
-        411:
+        412:
           description: Password is too short
           examples:
             application/json:
@@ -580,7 +606,7 @@ paths:
               msgUser: 'Указан слишком короткий пароль. Пароль не может быть короче 6 символов'
               msgDev: 'Пароль не может быть короче 6 символов'
               domain: ''
-        412:
+        413:
           description: Password is too long
           examples:
             application/json:
@@ -588,7 +614,7 @@ paths:
               msgUser: 'Указан слишком длинный пароль. Пароль не может быть длиннее 30 символов'
               msgDev: 'Пароль не может быть длиннее 30 символов'
               domain: ''
-        413:
+        414:
           description: Password Includes wrong symbols
           examples:
             application/json:
@@ -1129,7 +1155,7 @@ paths:
           description: 'Магазин успешно добавлен в избранное'
           examples:
             application/json: []
-        417:
+        418:
           description: Не указан shopId
           schema:
             $ref: '#/definitions/Failure'
@@ -1139,7 +1165,7 @@ paths:
               msgUser: Внутренняя ошибка приложения
               msgDev: Обязательный параметр shopId не передан
               domain: ''
-        418:
+        419:
           description: Не найден магазин с указанным shopId
           schema:
             title: Shop not found
