@@ -681,6 +681,16 @@ paths:
           required: false
           type: string
           description: 'Фильтр по признаку возможности совершения покупки через интернет магазин'
+        - in: formData
+          name: page_number
+          required: false
+          type: integer
+          description: 'Номер страницы (для постраничной навигации)'   
+        - in: formData
+          name: count
+          required: false
+          type: integer
+          description: 'Колличество записей на странице (для постраничной навигации)' 
       responses:
         200:
           description: 'Получение списка магазинов'
@@ -996,6 +1006,16 @@ paths:
           required: false
           type: string
           description: 'Фильтр по категории акции'
+        - in: formData
+          name: page_number
+          required: false
+          type: integer
+          description: 'Номер страницы (для постраничной навигации)'   
+        - in: formData
+          name: count
+          required: false
+          type: integer
+          description: 'Колличество записей на странице (для постраничной навигации)' 
       responses:
         200:
           description: 'Получение списка акций'
@@ -1118,6 +1138,65 @@ paths:
             - msgDev
       security: 
       - auth: []
+  /removeShopFromFavourites:
+    post:
+      description: "Добавление магазина в избранное"
+      tags:
+      - removeShopFromFavourites
+      operationId: removeShopFromFavouritesPost
+      produces:
+      - application/json
+      consumes:
+      - application/x-www-form-urlencoded
+      parameters:
+      - in: formData
+        name: shop_id
+        required: true
+        type: string
+        description: 'ID магазина' 
+      responses:
+        200:
+          description: 'Магазин успешно удален из избранного'
+          examples:
+            application/json: []
+        417:
+          description: Не указан shopId
+          schema:
+            $ref: '#/definitions/Failure'
+          examples:
+            application/json:
+              key: sendFeedbackParametersInvalid
+              msgUser: Внутренняя ошибка приложения
+              msgDev: Обязательный параметр shopId не передан
+              domain: ''
+        418:
+          description: Не найден магазин с указанным shopId
+          schema:
+            title: Shop not found
+            example:
+              key: shopNotFound
+              msgUser: Не найден магазин с указанным shopId
+              msgDev: Не найден магазин с указанным shopId
+            type: object
+            properties:
+              key:
+                description: 'Ключ'
+                example: shopNotFound
+                type: string
+              msgUser:
+                description: 'Сообщение для пользователя'
+                example: Не найден магазин с указанным shopId
+                type: string
+              msgDev:
+                description: 'Сообщение для разработчика'
+                example: Не найден магазин с указанным shopId
+                type: string
+            required:
+            - key
+            - msgUser
+            - msgDev
+      security: 
+      - auth: []      
   /getFavourites:
     get:
       description: "Получение списка избранных магазинов."
