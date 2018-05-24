@@ -505,7 +505,7 @@ paths:
               msgUser: 'Не достаточно данных для восстановления'
               msgDev: 'Пользователь не указал ни логина ни email'
               domain: ''
-        421:
+        404:
           description: 'userNorFound'
           examples:
             application/json:
