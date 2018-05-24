@@ -268,7 +268,7 @@ paths:
             title: Password Includes wrong symbols
             example:
               key: passwordIncludesWrongSymbols
-              msgUser: Пароль содержит не верные символы. Пароль может содержать только буквы и цифры.
+              msgUser: Пароль содержит не верные символы. Пароль может содержать только буквы латинского алфавита и цифры.
               msgDev: Пароль может содержать только буквы и цифры.
             type: object
             properties:
@@ -278,7 +278,7 @@ paths:
                 type: string
               msgUser:
                 description: ''
-                example: Пароль содержит неверные символы. Пароль может содержать только буквы и цифры.
+                example: Пароль содержит неверные символы. Пароль может содержать только буквы латинского алфавита и цифры.
                 type: string
               msgDev:
                 description: ''
