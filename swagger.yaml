@@ -598,7 +598,7 @@ paths:
               msgUser: 'Пароль и подтверждение пароля не совпадают'
               msgDev: 'Пароль и подтверждение пароля не совпадают'
               domain: ''
-        412:
+        411:
           description: Password is too short
           examples:
             application/json:
@@ -606,7 +606,7 @@ paths:
               msgUser: 'Указан слишком короткий пароль. Пароль не может быть короче 6 символов'
               msgDev: 'Пароль не может быть короче 6 символов'
               domain: ''
-        413:
+        412:
           description: Password is too long
           examples:
             application/json:
@@ -614,7 +614,7 @@ paths:
               msgUser: 'Указан слишком длинный пароль. Пароль не может быть длиннее 30 символов'
               msgDev: 'Пароль не может быть длиннее 30 символов'
               domain: ''
-        414:
+        413:
           description: Password Includes wrong symbols
           examples:
             application/json:
