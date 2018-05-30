@@ -806,7 +806,7 @@ paths:
           examples:
             application/json:
               shop:
-              - id: 37967
+                id: 37967
                 title: 'Али экспресс'
                 list_image: '/url/file/image.jpg'
                 logo: '/url/file/logo.jpg'
@@ -1545,7 +1545,7 @@ definitions:
   Shop:
     title: Shop
     example:
-     - shop: 
+      shop: 
         id: 5039
         active: true
         title: 'Ali express russia'
