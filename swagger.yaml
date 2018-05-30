@@ -802,9 +802,10 @@ paths:
         200:
           description: 'Получение информации о магазине'
           schema:
-            $ref: '#/definitions/Shops'
+            $ref: '#/definitions/Shop'
           examples:
             application/json:
+              shop:
               - id: 37967
                 title: 'Али экспресс'
                 list_image: '/url/file/image.jpg'
@@ -1544,26 +1545,27 @@ definitions:
   Shop:
     title: Shop
     example:
-      id: 5039
-      active: true
-      title: 'Ali express russia'
-      list_image: '/url/docs/list_image.jpg'
-      logo: '/url/docs/image.jpg'
-      is_online: true
-      have_actions: true
-      is_top10: false
-      active_ref: 'https://aliexpress.com/?ref=sdfsdfsdfsd'
-      cashback: 0.05
-      status: 'Новый'
-      category_id: 12
-      category_title: 'Обувь'  
-      country_id: 7
-      country_title: 'Россия'
-      detail_text: 'Подробное описание партнеров'
-      description: 'Условия начисления кэшбэка, условия продаж'
-      conditions: 'Особые условия партнера'
-      loc_x: 0.34554564
-      loc_y: 0.56767345
+     - shop: 
+        id: 5039
+        active: true
+        title: 'Ali express russia'
+        list_image: '/url/docs/list_image.jpg'
+        logo: '/url/docs/image.jpg'
+        is_online: true
+        have_actions: true
+        is_top10: false
+        active_ref: 'https://aliexpress.com/?ref=sdfsdfsdfsd'
+        cashback: 0.05
+        status: 'Новый'
+        category_id: 12
+        category_title: 'Обувь'  
+        country_id: 7
+        country_title: 'Россия'
+        detail_text: 'Подробное описание партнеров'
+        description: 'Условия начисления кэшбэка, условия продаж'
+        conditions: 'Особые условия партнера'
+        loc_x: 0.34554564
+        loc_y: 0.56767345
     type: object
     properties:
       id:
