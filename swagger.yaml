@@ -743,7 +743,7 @@ paths:
                 status: 'Новый'
                 category_id: 12
                 category_title: 'Обувь'
-                country_id: 7
+                country_title: 'Россия'
                 detail_text: 'Детальное описание по магазину'
                 description: 'Условия по покупке'
                 conditions: 'Особые словия по покупке'
@@ -759,8 +759,7 @@ paths:
                 status: 'Новый'
                 category_id: 12
                 category_title: 'Обувь'
-                country_id: 7
-                country_title: 'Обувь'
+                country_title: 'Россия'
                 detail_text: 'Детальное описание по магазину'
                 description: 'Условия по покупке'
                 conditions: 'Особые словия по покупке'
@@ -776,8 +775,7 @@ paths:
                 status: 'Новый'
                 category_id: 12
                 category_title: 'Обувь'
-                country_id: 7
-                country_title: 'Обувь'
+                country_title: 'Россия'
                 detail_text: 'Детальное описание по магазину'
                 description: 'Условия по покупке'
                 conditions: 'Особые словия по покупке'
@@ -805,24 +803,24 @@ paths:
             $ref: '#/definitions/Shop'
           examples:
             application/json:
-                id: 37967
-                title: 'Али экспресс'
-                list_image: '/url/file/image.jpg'
-                logo: '/url/file/logo.jpg'
-                is_online: true
-                have_actions: true
-                is_top10: true
-                ref: 'https://aliexpress.com/ref/65462S/'
-                active_ref: 'https://aliexpress.com/ref/65462S/?ref=dsfsfscvfs'
-                cashback: 0.06
-                status: 'Новый'
-                category_id: 12
-                category_title: 'Обувь'
-                country_id: 7
-                country_title: 'Россия'
-                detail_text: 'Детальное описание по магазину'
-                description: 'Условия по покупке'
-                conditions: 'Особые словия по покупке'
+              shop:
+                  id: 37967
+                  title: 'Али экспресс'
+                  list_image: '/url/file/image.jpg'
+                  logo: '/url/file/logo.jpg'
+                  is_online: true
+                  have_actions: true
+                  is_top10: true
+                  ref: 'https://aliexpress.com/ref/65462S/'
+                  active_ref: 'https://aliexpress.com/ref/65462S/?ref=dsfsfscvfs'
+                  cashback: 0.06
+                  status: 'Новый'
+                  category_id: 12
+                  category_title: 'Обувь'
+                  country_title: 'Россия'
+                  detail_text: 'Детальное описание по магазину'
+                  description: 'Условия по покупке'
+                  conditions: 'Особые словия по покупке'
       security: [] 
   /getShop/{shop_id}/actions:
     get:
@@ -1303,7 +1301,7 @@ paths:
                 cashback: 0.06
                 status: 'Новый'
                 category_id: 12
-                country_id: 7
+                country_title: 'Россия'
                 detail_text: 'Детальное описание по магазину'
                 description: 'Условия по покупке'
                 conditions: 'Особые словия по покупке'
@@ -1319,7 +1317,7 @@ paths:
                 cashback: 0.06
                 status: 'Новый'
                 category_id: 12
-                country_id: 7
+                country_title: 'Россия'
                 detail_text: 'Детальное описание по магазину'
                 description: 'Условия по покупке'
                 conditions: 'Особые словия по покупке'
@@ -1335,7 +1333,7 @@ paths:
                 cashback: 0.06
                 status: 'Новый'
                 category_id: 12
-                country_id: 7
+                country_title: 'Россия'
                 detail_text: 'Деталvouьное описание по магазину'
                 description: 'Условия по покупке'
                 conditions: 'Особые словия по покупке'
@@ -1474,7 +1472,7 @@ definitions:
         cashback: 0.06
         status: 'Новый'
         category_id: 12
-        country_id: 7
+        country_title: 'Россия'
         detail_text: 'Детальное описание по магазину'
         description: 'Условия по покупке'
         conditions: 'Особые словия по покупке'
@@ -1489,7 +1487,7 @@ definitions:
         cashback: 0.06
         status: 2
         category_id: 12
-        country_id: 7
+        country_title: 'Россия'
         detail_text: 'Детальное описание по магазину'
         description: 'Условия по покупке'
         conditions: 'Особые словия по покупке'
@@ -1512,7 +1510,6 @@ definitions:
           status: 'Новый'
           category_id: 12
           category_title: 'Обувь'  
-          country_id: 7
           country_title: 'Россия'          
           detail_text: 'Детальное описание по магазину'
           description: 'Условия по покупке'
@@ -1529,7 +1526,6 @@ definitions:
           status: 'Новый'
           category_id: 12
           category_title: 'Обувь'  
-          country_id: 7
           country_title: 'Россия'
           detail_text: 'Детальное описание по магазину'
           description: 'Условия по покупке'
@@ -1558,7 +1554,6 @@ definitions:
         status: 'Новый'
         category_id: 12
         category_title: 'Обувь'  
-        country_id: 7
         country_title: 'Россия'
         detail_text: 'Подробное описание партнеров'
         description: 'Условия начисления кэшбэка, условия продаж'
@@ -1634,13 +1629,8 @@ definitions:
         description: 'Название категории (Группа товаров по которой у партнера актуально предложение)'
         example: 'Обувь'
         type: string
-      country_id:
-        description: 'Идентификатор страны'
-        example: 4
-        type: integer
-        format: int8
       country_title:
-        description: 'Идентификатор страны'
+        description: 'Название страны'
         example: 'Россия'
         type: string
       detail_text:
@@ -1675,7 +1665,6 @@ definitions:
     - status
     - category_id
     - cashback
-    - country_id
   User:
     title: User
     example:
@@ -2102,7 +2091,7 @@ definitions:
         cashback: 0.06
         status: 'Новый'
         category_id: 12
-        country_id: 7
+        country_title: 'Россия'
         detail_text: 'Детальное описание по магазину'
         description: 'Условия по покупке'
         conditions: 'Особые словия по покупке'
@@ -2118,7 +2107,7 @@ definitions:
         cashback: 0.06
         status: 'Новый'
         category_id: 12
-        country_id: 7
+        country_title: 'Россия'
         detail_text: 'Детальное описание по магазину'
         description: 'Условия по покупке'
         conditions: 'Особые словия по покупке'
@@ -2141,7 +2130,7 @@ definitions:
           cashback: 0.06
           status: 'Новый'
           category_id: 12
-          country_id: 7
+          country_title: 'Россия'
           detail_text: 'Детальное описание по магазину'
           description: 'Условия по покупке'
           conditions: 'Особые словия по покупке'
@@ -2157,7 +2146,7 @@ definitions:
           cashback: 0.06
           status: 'Новый'
           category_id: 12
-          country_id: 7
+          country_title: 'Россия'
           detail_text: 'Детальное описание по магазину'
           description: 'Условия по покупке'
           conditions: 'Особые словия по покупке'
