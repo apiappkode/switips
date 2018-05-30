@@ -805,7 +805,6 @@ paths:
             $ref: '#/definitions/Shop'
           examples:
             application/json:
-              shop:
                 id: 37967
                 title: 'Али экспресс'
                 list_image: '/url/file/image.jpg'
