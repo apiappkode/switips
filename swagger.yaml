@@ -268,7 +268,7 @@ paths:
             title: Password Includes wrong symbols
             example:
               key: passwordIncludesWrongSymbols
-              msgUser: Пароль содержит не верные символы. Пароль может содержать только буквы латинского алфавита и цифры.
+              msgUser: Пароль содержит неxtверные символы. Пароль может содержать только буквы латинского алфавита и цифры.
               msgDev: Пароль может содержать только буквы и цифры.
             type: object
             properties:
@@ -510,8 +510,8 @@ paths:
           examples:
             application/json:
               key: userNorFound
-              msgUser: 'Не найдено пользователя с таким логином или email'
-              msgDev: 'Не найдено пользователя с таким логином или email'
+              msgUser: 'Пользователь не найден'
+              msgDev: 'Пользователь не найден'
               domain: ''
       security: []
   /SendVerificationCode:
@@ -546,12 +546,12 @@ paths:
               - id: 37967
                 login: 'seroga'
         423:
-          description: "Не верный код верификации"
+          description: "Неверный код верификации"
           examples:
             application/json:
               key: WrongCode
-              msgUser: 'Введен не верный код верификации'
-              msgDev: 'Введен не верный код верификации'
+              msgUser: 'Введен неверный код верификации'
+              msgDev: 'Введен неверный код верификации'
               domain: ''
       security: []
   /SetNewPassword:
@@ -619,8 +619,8 @@ paths:
           examples:
             application/json:
               key: passwordIncludesWrongSymbols
-              msgUser: 'Пароль содержит не верные символы. Пароль может содержать только буквы латинского алфавита и цифры'
-              msgDev: 'Пароль содержит не верные символы. Пароль может содержать только буквы латинского алфавита и цифры'
+              msgUser: 'Пароль содержит неверные символы. Пароль может содержать только буквы латинского алфавита и цифры'
+              msgDev: 'Пароль содержит неверные символы. Пароль может содержать только буквы латинского алфавита и цифры'
               domain: ''  
       security: []
   /getProfileDetails:
