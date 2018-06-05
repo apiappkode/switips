@@ -732,24 +732,6 @@ paths:
               shops:
               - id: 37967
                 title: 'Али экспресс'
-                list_image: '/url/file/image.jpg'
-                logo: '/url/file/logo.jpg'
-                is_online: true
-                have_actions: true
-                is_top10: true
-                ref: 'https://aliexpress.com/ref/65462S/'
-                active_ref: 'https://aliexpress.com/ref/65462S/?ref=dsfsfscvfs'
-                cashback: 0.06
-                status: 'Новый'
-                category_id: 12
-                category_title: 'Обувь'
-                country_title: 'Россия'
-                detail_text: 'Детальное описание по магазину'
-                description: 'Условия по покупке'
-                conditions: 'Особые словия по покупке'
-              - id: 37967
-                title: 'Али экспресс'
-                list_image: '/url/file/image.jpg'
                 logo: '/url/file/logo.jpg'
                 is_online: true
                 have_actions: true
@@ -765,7 +747,6 @@ paths:
                 conditions: 'Особые словия по покупке'
               - id: 37967
                 title: 'Али экспресс'
-                list_image: '/url/file/image.jpg'
                 logo: '/url/file/logo.jpg'
                 is_online: true
                 have_actions: true
@@ -779,6 +760,83 @@ paths:
                 detail_text: 'Детальное описание по магазину'
                 description: 'Условия по покупке'
                 conditions: 'Особые словия по покупке'
+              - id: 37967
+                title: 'Али экспресс'
+                logo: '/url/file/logo.jpg'
+                is_online: true
+                have_actions: true
+                is_top10: true
+                active_ref: 'https://aliexpress.com/ref/65462S/?ref=dsfsfscvfs'
+                cashback: 0.06
+                status: 'Новый'
+                category_id: 12
+                category_title: 'Обувь'
+                country_title: 'Россия'
+                detail_text: 'Детальное описание по магазину'
+                description: 'Условия по покупке'
+                conditions: 'Особые словия по покупке'
+      security: [] 
+  /getShopForMap:
+    get:
+      description: "Получение списка магазинов для их отображния на карте"
+      tags:
+      - getShopListForMap
+      operationId: getShopListForMap8
+      produces:
+      - application/json
+      consumes:
+      - application/x-www-form-urlencoded
+      parameters:
+        - in: formData
+          name: min_latitude
+          required: false
+          type: number
+          description: 'Минимальная широта'
+        - in: formData
+          name: min_longitude
+          required: false
+          type: number
+          description: 'Минимальная долгота'
+        - in: formData
+          name: max_latitude
+          required: false
+          type: number
+          description: 'Максимальная широта'
+        - in: formData
+          name: max_longitude
+          required: false
+          type: number
+          description: 'Максимальная долгота'
+      responses:
+        200:
+          description: 'Получение списка магазинов для карты'
+          schema:
+            $ref: '#/definitions/MapsShops'
+          examples:
+            application/json:
+              shops:
+              - id: 37967
+                title: 'Али экспресс'
+                logo: '/url/file/logo.jpg'
+                have_actions: true
+                top10: true
+                favourite: true
+                vip: true
+                cashback: 0.06
+                oldCashback: 0.06
+                category_title: 'Обувь'
+                loc: [{0.34554564, 0.345656}, {0.34554564, 0.345656}]
+              - id: 37967
+                title: 'Али экспресс'
+                logo: '/url/file/logo.jpg'
+                have_actions: true
+                top10: true
+                favourite: true
+                vip: true
+                cashback: 0.06
+                oldCashback: 0.06
+                category_title: 'Обувь'
+                loc: [{0.34554564, 0.345656}, {0.34554564, 0.345656}]
       security: [] 
   /getShop/{shop_id}:
     get:
@@ -811,7 +869,6 @@ paths:
                   is_online: true
                   have_actions: true
                   is_top10: true
-                  ref: 'https://aliexpress.com/ref/65462S/'
                   active_ref: 'https://aliexpress.com/ref/65462S/?ref=dsfsfscvfs'
                   cashback: 0.06
                   status: 'Новый'
@@ -821,7 +878,7 @@ paths:
                   detail_text: 'Детальное описание по магазину'
                   description: 'Условия по покупке'
                   conditions: 'Особые словия по покупке'
-      security: [] 
+      security: []
   /getShop/{shop_id}/actions:
     get:
       description: "Получение списка акций магазина."
@@ -851,7 +908,6 @@ paths:
                 title: 'Ali express russia'
                 logo: '/url/docs/image.jpg'
                 extra_benefits: 'Дополнительные преимущества'      
-                all_shop_actions_link: '/actionlist/ali_express/'
                 active_ref: 'https://aliexpress.com/?ref=sdfsdfsdfsd'
                 expiry_date: '2018-04-17 00:00:00'
                 detail_text: 'Подробные условия акции'
@@ -860,7 +916,6 @@ paths:
                 title: 'Ali express russia'
                 logo: '/url/docs/image.jpg'
                 extra_benefitsVersion Auth fix: 'Дополнительные преимущества'      
-                all_shop_actions_link: '/actionlist/ali_express/'
                 active_ref: 'https://aliexpress.com/?ref=sdfsdfsdfsd'
                 expiry_date: '2018-04-17 00:00:00'
                 detail_text: 'Подробные условия акции'
@@ -1291,12 +1346,10 @@ paths:
               shops:
               - id: 37967
                 title: 'Али экспресс'
-                list_image: '/url/file/image.jpg'
                 logo: '/url/file/logo.jpg'
                 is_online: true
                 have_actions: true
                 is_top10: true
-                ref: 'https://aliexpress.com/ref/65462S/'
                 active_ref: 'https://aliexpress.com/ref/65462S/?ref=dsfsfscvfs'
                 cashback: 0.06
                 status: 'Новый'
@@ -1307,12 +1360,10 @@ paths:
                 conditions: 'Особые словия по покупке'
               - id: 37967
                 title: 'Али экспресс'
-                list_image: '/url/file/image.jpg'
                 logo: '/url/file/logo.jpg'
                 is_online: true
                 have_actions: true
                 is_top10: true
-                ref: 'https://aliexpress.com/ref/65462S/'
                 active_ref: 'https://aliexpress.com/ref/65462S/?ref=dsfsfscvfs'
                 cashback: 0.06
                 status: 'Новый'
@@ -1323,18 +1374,16 @@ paths:
                 conditions: 'Особые словия по покупке'
               - id: 37967
                 title: 'Али экспресс'
-                list_image: '/url/file/image.jpg'
                 logo: '/url/file/logo.jpg'
                 is_online: true
                 have_actions: true
                 is_top10: true
-                ref: 'https://aliexpress.com/ref/65462S/'
                 active_ref: 'https://aliexpress.com/ref/65462S/?ref=dsfsfscvfs'
                 cashback: 0.06
                 status: 'Новый'
                 category_id: 12
                 country_title: 'Россия'
-                detail_text: 'Деталvouьное описание по магазину'
+                detail_text: 'Детальное описание по магазину'
                 description: 'Условия по покупке'
                 conditions: 'Особые словия по покупке'
       security:
@@ -1463,13 +1512,13 @@ definitions:
       shops:
       - id: 37967
         title: 'Али экспресс'
-        list_image: '/url/file/image.jpg'
         logo: '/url/file/logo.jpg'
         is_online: true
         have_actions: true
         is_top10: true
         active_ref: 'https://aliexpress.com/ref/65462S/?ref=dsfsfscvfs'
         cashback: 0.06
+        oldCashback: 0.06
         status: 'Новый'
         category_id: 12
         country_title: 'Россия'
@@ -1478,21 +1527,19 @@ definitions:
         conditions: 'Особые словия по покупке'
       - id: 37967
         title: 'Али экспресс'
-        list_image: '/url/file/image.jpg'
         logo: '/url/file/logo.jpg'
         is_online: true
         have_actions: true
         is_top10: true
         active_ref: 'https://aliexpress.com/ref/65462S/?ref=dsfsfscvfs'
         cashback: 0.06
-        status: 2
+        oldCashback: 0.06
+        status: 'Новый'
         category_id: 12
         country_title: 'Россия'
         detail_text: 'Детальное описание по магазину'
         description: 'Условия по покупке'
         conditions: 'Особые словия по покупке'
-        loc_x: 0.34554564
-        loc_y: 0.56767345
     type: object
     properties:
       shops:
@@ -1500,29 +1547,13 @@ definitions:
         example:
         - id: 37967
           title: 'Али экспресс'
-          list_image: '/url/file/image.jpg'
           logo: '/url/file/logo.jpg'
           is_online: true
           have_actions: true
           is_top10: true
           active_ref: 'https://aliexpress.com/ref/65462S/?ref=dsfsfscvfs'
           cashback: 0.06
-          status: 'Новый'
-          category_id: 12
-          category_title: 'Обувь'  
-          country_title: 'Россия'          
-          detail_text: 'Детальное описание по магазину'
-          description: 'Условия по покупке'
-          conditions: 'Особые словия по покупке'
-        - id: 37967
-          title: 'Али экспресс'
-          list_image: '/url/file/image.jpg'
-          logo: '/url/file/logo.jpg'
-          is_online: true
-          have_actions: true
-          is_top10: true
-          active_ref: 'https://aliexpress.com/ref/65462S/?ref=dsfsfscvfs'
-          cashback: 0.06
+          oldCashback: 0.06
           status: 'Новый'
           category_id: 12
           category_title: 'Обувь'  
@@ -1530,8 +1561,22 @@ definitions:
           detail_text: 'Детальное описание по магазину'
           description: 'Условия по покупке'
           conditions: 'Особые словия по покупке'
-          loc_x: 0.34554564
-          loc_y: 0.56767345
+        - id: 37967
+          title: 'Али экспресс'
+          logo: '/url/file/logo.jpg'
+          is_online: true
+          have_actions: true
+          is_top10: true
+          active_ref: 'https://aliexpress.com/ref/65462S/?ref=dsfsfscvfs'
+          cashback: 0.06
+          oldCashback: 0.06
+          status: 'Новый'
+          category_id: 12
+          category_title: 'Обувь'  
+          country_title: 'Россия'
+          detail_text: 'Детальное описание по магазину'
+          description: 'Условия по покупке'
+          conditions: 'Особые словия по покупке'
         type: array
         items:
           $ref: '#/definitions/Shop'
@@ -1544,13 +1589,13 @@ definitions:
         id: 5039
         active: true
         title: 'Ali express russia'
-        list_image: '/url/docs/list_image.jpg'
         logo: '/url/docs/image.jpg'
         is_online: true
         have_actions: true
         is_top10: false
         active_ref: 'https://aliexpress.com/?ref=sdfsdfsdfsd'
         cashback: 0.05
+        oldCashback: 0.05
         status: 'Новый'
         category_id: 12
         category_title: 'Обувь'  
@@ -1558,8 +1603,7 @@ definitions:
         detail_text: 'Подробное описание партнеров'
         description: 'Условия начисления кэшбэка, условия продаж'
         conditions: 'Особые условия партнера'
-        loc_x: 0.34554564
-        loc_y: 0.56767345
+        loc: [{0.34554564, 0.345656}, {0.34554564, 0.345656}]
     type: object
     properties:
       id:
@@ -1574,10 +1618,6 @@ definitions:
       title:
         description: 'Название партнера/магазина'
         example: 'Али экспресс'
-        type: string
-      list_image:
-        description: 'Изображение для отображения в списке (Маркетинговое изображение партнера)'
-        example: '/url/docs/list_image.jpg'
         type: string
       logo:
         description: 'Изображение логотипа партнера (Логотип партнера)'
@@ -1616,6 +1656,11 @@ definitions:
         example: 0.2123
         type: number
         format: float
+      oldCashback:
+        description: 'Текущая ставка кэшбэка партнера'
+        example: 0.2123
+        type: number
+        format: float
       status:
         description: 'Статус партнера'
         example: 'Новый'
@@ -1645,25 +1690,18 @@ definitions:
         description: 'Особые условия'
         example: 'В настоящий момент партнер не предоставляет эксклюзивных условий для участников.'
         type: string
-      loc_x:
-        description: 'Координата местонахождения магазина Х'
-        example: 0.2334556
-        type: number
-        format: float
-      loc_y:
-        description: 'Координата местонахождения магазина Y'
-        example: 0.6786788
-        type: number
-        format: float
+      loc:
+        description: 'Координаты местонахождения магазинов'
+        example: [{0.34554564, 0.345656}, {0.34554564, 0.345656}]
+        type: string
     required:
     - id
     - active
     - title
-    - list_image
     - logo
     - online
     - status
-    - category_id
+    - category_title
     - cashback
   User:
     title: User
@@ -2021,7 +2059,6 @@ definitions:
     - title
     - logo
     - extra_benefits
-    - all_shop_actions_link
     - active_ref
     - expiry_date 
     - detail_text
@@ -2034,7 +2071,6 @@ definitions:
         title: 'Ali express russia'
         logo: '/url/docs/image.jpg'
         extra_benefits: 'Дополнительные преимущества'      
-        all_shop_actions_link: '/actionlist/ali_express/'
         active_ref: 'https://aliexpress.com/?ref=sdfsdfsdfsd'
         expiry_date: '2018-04-17 00:00:00'
         detail_text: 'Подробные условия акции'
@@ -2043,7 +2079,6 @@ definitions:
         title: 'Ali express russia'
         logo: '/url/docs/image.jpg'
         extra_benefits: 'Дополнительные преимущества'      
-        all_shop_actions_link: '/actionlist/ali_express/'
         active_ref: 'https://aliexpress.com/?ref=sdfsdfsdfsd'
         expiry_date: '2018-04-17 00:00:00'
         detail_text: 'Подробные условия акции'
@@ -2057,7 +2092,6 @@ definitions:
           title: 'Ali express russia'
           logo: '/url/docs/image.jpg'
           extra_benefits: 'Дополнительные преимущества'      
-          all_shop_actions_link: '/actionlist/ali_express/'
           active_ref: 'https://aliexpress.com/?ref=sdfsdfsdfsd'
           expiry_date: '2018-04-17 00:00:00'
           detail_text: 'Подробные условия акции'
@@ -2066,7 +2100,6 @@ definitions:
           title: 'Ali express russia'
           logo: '/url/docs/image.jpg'
           extra_benefits: 'Дополнительные преимущества'      
-          all_shop_actions_link: '/actionlist/ali_express/'
           active_ref: 'https://aliexpress.com/?ref=sdfsdfsdfsd'
           expiry_date: '2018-04-17 00:00:00'
           detail_text: 'Подробные условия акции'
@@ -2086,9 +2119,9 @@ definitions:
         is_online: true
         have_actions: true
         is_top10: true
-        ref: 'https://aliexpress.com/ref/65462S/'
         active_ref: 'https://aliexpress.com/ref/65462S/?ref=dsfsfscvfs'
         cashback: 0.06
+        oldCashback: 0.01
         status: 'Новый'
         category_id: 12
         country_title: 'Россия'
@@ -2102,17 +2135,15 @@ definitions:
         is_online: true
         have_actions: true
         is_top10: true
-        ref: 'https://aliexpress.com/ref/65462S/'
         active_ref: 'https://aliexpress.com/ref/65462S/?ref=dsfsfscvfs'
         cashback: 0.06
+        oldCashback: 0.01
         status: 'Новый'
         category_id: 12
         country_title: 'Россия'
         detail_text: 'Детальное описание по магазину'
         description: 'Условия по покупке'
         conditions: 'Особые словия по покупке'
-        loc_x: 0.34554564
-        loc_y: 0.56767345
     type: object
     properties:
       favourites:
@@ -2125,9 +2156,9 @@ definitions:
           is_online: true
           have_actions: true
           is_top10: true
-          ref: 'https://aliexpress.com/ref/65462S/'
           active_ref: 'https://aliexpress.com/ref/65462S/?ref=dsfsfscvfs'
           cashback: 0.06
+          oldCashback: 0.01
           status: 'Новый'
           category_id: 12
           country_title: 'Россия'
@@ -2141,17 +2172,15 @@ definitions:
           is_online: true
           have_actions: true
           is_top10: true
-          ref: 'https://aliexpress.com/ref/65462S/'
           active_ref: 'https://aliexpress.com/ref/65462S/?ref=dsfsfscvfs'
           cashback: 0.06
+          oldCashback: 0.01
           status: 'Новый'
           category_id: 12
           country_title: 'Россия'
           detail_text: 'Детальное описание по магазину'
           description: 'Условия по покупке'
           conditions: 'Особые словия по покупке'
-          loc_x: 0.34554564
-          loc_y: 0.56767345
         type: array
         items:
           $ref: '#/definitions/Shop'
@@ -2176,3 +2205,135 @@ definitions:
     required:
     - id
     - title
+  MapsShops:
+    title: MapsShops
+    example:
+      shops:
+      - id: 37967
+        title: 'Али экспресс'
+        logo: '/url/file/logo.jpg'
+        have_actions: true
+        top10: true
+        favourite: true
+        vip: true
+        cashback: 0.06
+        oldCashback: 0.06
+        category_title: 'Обувь'
+        loc: [{0.34554564, 0.345656}, {0.34554564, 0.345656}]
+      - id: 37967
+        title: 'Али экспресс'
+        logo: '/url/file/logo.jpg'
+        have_actions: true
+        top10: true
+        favourite: true
+        vip: true
+        cashback: 0.06
+        oldCashback: 0.06
+        category_title: 'Обувь'
+        loc: [{0.34554564, 0.345656}, {0.34554564, 0.345656}]
+    type: object
+    properties:
+      shops:
+        description: 'Список магазинов'
+        example:
+        - id: 37967
+          title: 'Али экспресс'
+          logo: '/url/file/logo.jpg'
+          have_actions: true
+          is_top10: true
+          cashback: 0.06
+          oldCashback: 0.06
+          category_title: 'Обувь'
+          country_title: 'Россия'
+        - id: 37967
+          title: 'Али экспресс'
+          logo: '/url/file/logo.jpg'
+          have_actions: true
+          top10: true
+          favourite: true
+          vip: true
+          cashback: 0.06
+          oldCashback: 0.06
+          category_title: 'Обувь'
+          loc: [{0.34554564, 0.345656}, {0.34554564, 0.345656}]
+        type: array
+        items:
+          $ref: '#/definitions/MapsShop'
+    required:
+    - shops
+  MapsShop:
+    title: MapsShop
+    example:
+      shop: 
+        id: 5039
+        title: 'Али экспресс'
+        logo: '/url/file/logo.jpg'
+        have_actions: true
+        top10: true
+        favourite: true
+        vip: true
+        cashback: 0.06
+        oldCashback: 0.06
+        category_title: 'Обувь'
+        loc: [{0.34554564, 0.345656}, {0.34554564, 0.345656}]
+    type: object
+    properties:
+      id:
+        description: 'Идентификатор, назначается автоматически'
+        example: 5039
+        type: integer
+        format: int32
+      title:
+        description: 'Название партнера/магазина'
+        example: 'Али экспресс'
+        type: string
+      logo:
+        description: 'Изображение логотипа партнера (Логотип партнера)'
+        example: '/url/docs/image.jpg'
+        type: string
+      have_actions:
+        description: 'Магазин имеет акции'
+        example: true
+        type: boolean
+      top10:
+        description: 'Магазин имеет шильду Топ10'
+        example: true
+        type: boolean
+      favourite:
+        description: 'Магазин является избранным'
+        example: true
+        type: boolean
+      vip:
+        description: 'Магазин является VIP партнером'
+        example: true
+        type: boolean
+      cashback:
+        description: 'Текущая ставка кэшбэка партнера'
+        example: 0.2123
+        type: number
+        format: float
+      oldCashback:
+        description: 'Старая ставка кэшбэка партнера'
+        example: 0.2123
+        type: number
+        format: float
+      category_title:
+        description: 'Название категории (Группа товаров по которой у партнера актуально предложение)'
+        example: 'Обувь'
+        type: string
+      loc:
+        description: 'Массив с координатами магазинов'
+        example: [{0.34554564, 0.345656}, {0.34554564, 0.345656}]
+        type: string
+    required:
+    - id
+    - title
+    - logo
+    - have_actions
+    - top10
+    - favourite
+    - vip
+    - category_title
+    - cashback
+    - oldCashback
+    - loc
