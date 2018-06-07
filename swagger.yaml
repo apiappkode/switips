@@ -1623,7 +1623,7 @@ definitions:
         description: 'Изображение логотипа партнера (Логотип партнера)'
         example: '/url/docs/image.jpg'
         type: string
-      online:
+      is_online:
         description: 'Доступность покупки в интернет магазине'
         example: false
         type: boolean
@@ -1699,7 +1699,7 @@ definitions:
     - active
     - title
     - logo
-    - online
+    - is_online
     - status
     - category_title
     - cashback
