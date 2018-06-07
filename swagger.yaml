@@ -966,6 +966,11 @@ paths:
           required: true
           type: string
           description: 'Строка расшифрованного штрихкода чека' 
+        - in: formData
+          name: device_info
+          required: true
+          type: string
+          description: 'Информация о девайсе с которого была отправлена информация о чеке' 
       responses:
         200:
           description: 'Код чека успешно отправлен'
@@ -982,6 +987,16 @@ paths:
               key: sendQRParametersInvalid
               msgUser: Внутренняя ошибка приложения
               msgDev: Обязательный параметр dataqrcode не передан
+              domain: ''
+        401:
+          description: с одного устройства может сканироваться не более N штрихкодов с одного заведения в сутки
+          schema:
+            $ref: '#/definitions/Failure'
+          examples:
+            application/json:
+              key: limitExceeded 
+              msgUser: Превышен лимит сканирования штрихкодов этого заведения в сутки
+              msgDev: Превышен лимит сканирования штрихкодов этого заведения в сутки
               domain: ''
       security:
       - auth: []
