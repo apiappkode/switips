@@ -59,6 +59,11 @@ paths:
         type: boolean
         description: 'Согласие на получение рекламной рассылки'
         x-example: true
+      - in: formData
+        name: device_info
+        description: 'Информация о девайсе с которого была отправлена информация о чеке'
+        required: true
+        type: string
       responses:
         200:
           description: 'Пользователь успешно зарегистрирован'
@@ -362,6 +367,11 @@ paths:
         required: true
         type: string
         description: 'Пароль'
+      - in: formData
+        name: device_info
+        description: 'Информация о девайсе с которого была отправлена информация о чеке'
+        required: true
+        type: string        
       responses:
         200:
           description: 'Авторизация прошла успешно'
@@ -966,11 +976,6 @@ paths:
           required: true
           type: string
           description: 'Строка расшифрованного штрихкода чека' 
-        - in: formData
-          name: device_info
-          required: true
-          type: string
-          description: 'Информация о девайсе с которого была отправлена информация о чеке' 
       responses:
         200:
           description: 'Код чека успешно отправлен'
@@ -1403,6 +1408,62 @@ paths:
                 conditions: 'Особые словия по покупке'
       security:
       - auth: []
+  /getCategoty:
+    get:
+      description: "Получение списка категорий"
+      tags:
+      - getCategoty
+      operationId: getCategoty
+      produces:
+      - application/json
+      consumes:
+      - application/x-www-form-urlencoded
+      responses:
+        200:
+          description: 'Получение списка категорий'
+          schema:
+            $ref: '#/definitions/Category'
+          examples:
+            application/json:
+              shops:
+              - id: 37967
+                title: 'Обувь'
+                code: 'shoes'
+              - id: 37967
+                title: 'Обувь'
+                code: 'shoes'
+              - id: 37967
+                title: 'Обувь'
+                code: 'shoes'
+      security: []
+  /getCountry:
+    get:
+      description: "Получение списка стран"
+      tags:
+      - getCountry
+      operationId: getCountry
+      produces:
+      - application/json
+      consumes:
+      - application/x-www-form-urlencoded
+      responses:
+        200:
+          description: 'Получение списка стран'
+          schema:
+            $ref: '#/definitions/Country'
+          examples:
+            application/json:
+              shops:
+              - id: 37967
+                title: 'Россия'
+                code: 'russia'
+              - id: 37967
+                title: 'Россия'
+                code: 'russia'
+              - id: 37967
+                title: 'Россия'
+                code: 'russia'
+      security: []  
 definitions:
   Successfull:
     title: Successfull
@@ -2352,3 +2413,117 @@ definitions:
     - cashback
     - oldCashback
     - loc
+  DeviceInfo:
+    title: DeviceInfo
+    type: object
+    properties:
+      screenResolution:
+        description: 'Разрешение экрана'
+        example: '320x568-x2.0'
+        type: string
+      osVersion:
+        description: 'Версия операционной системы'
+        example: '11.2'
+        type: string
+      platform:
+        description: 'Платформа устройства'
+        example: 'ios'
+        type: string
+      udid:
+        description: 'ID идентификатора'
+        example: 'BD74BE55-A05B-4CE6-B8FC-C8AAA025EF9A'
+        type: string
+      lang:
+        description: 'Язык локализации устройства'
+        example: 'ru'
+        type: string
+      brandName:
+        description: 'Название бренда компании производителя'
+        example: 'Apple'
+        type: string
+      model:
+        description: 'Модель устройства'
+        example: 'iPhone7,1'
+        type: string
+      heightPx:
+        description: 'Высота экрана в пикселях'
+        example: 1136
+        type: number
+        format: integer
+      widthPx:
+        description: 'Ширина экрана в пикселях'
+        example: 640
+        type: number
+        format: integer
+      appVersion:
+        description: 'Версия приложения'
+        example: '1.0.1'
+        type: string
+  Categories:
+    title: Categories
+    example:
+      shops:
+      - id: 37967
+        title: 'Обувь'
+        code: 'shoes'
+      - id: 37967
+        title: 'Обувь'
+        code: 'shoes'
+    type: object
+    properties:
+      countries:
+        description: 'Список стран'
+        example:
+        - id: 37967
+          title: 'Обувь'
+          code: 'russia'
+        - id: 37967
+          title: 'Россия'
+          code: 'russia'
+        type: array
+        items:
+          $ref: '#/definitions/Category'
+    required:
+    - countries
+  Country:
+    title: Countries
+    type: object
+    properties:
+      id:
+        description: 'Идентификатор'
+        example: 233
+        type: integer
+      title:
+        description: 'Название страны'
+        example: 'Россия'
+        type: string
+      code:
+        description: 'Код страны'
+        example: 'russia'
+        type: string
+  Countries:
+    title: Countries
+    example:
+      shops:
+      - id: 37967
+        title: 'Россия'
+        code: 'russia'
+      - id: 37967
+        title: 'Россия'
+        code: 'russia'
+    type: object
+    properties:
+      countries:
+        description: 'Список стран'
+        example:
+        - id: 37967
+          title: 'Россия'
+          code: 'russia'
+        - id: 37967
+          title: 'Россия'
+          code: 'russia'
+        type: array
+        items:
+          $ref: '#/definitions/Country'
+    required:
+    - countries
