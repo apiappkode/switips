@@ -835,7 +835,7 @@ paths:
                 cashback: 0.06
                 oldCashback: 0.06
                 category_title: 'Обувь'
-                loc: [{0.34554564, 0.345656}, {0.34554564, 0.345656}]
+                loc: [{x:0.34554564, y:0.345656}, {x:0.34554564, y:0.345656}]
               - id: 37967
                 title: 'Али экспресс'
                 logo: '/url/file/logo.jpg'
@@ -846,7 +846,7 @@ paths:
                 cashback: 0.06
                 oldCashback: 0.06
                 category_title: 'Обувь'
-                loc: [{0.34554564, 0.345656}, {0.34554564, 0.345656}]
+                loc: [{x:0.34554564, y:0.345656}, {x:0.34554564, y:0.345656}]
       security: [] 
   /getShop/{shop_id}:
     get:
