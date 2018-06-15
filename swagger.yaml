@@ -1685,7 +1685,10 @@ definitions:
         detail_text: 'Подробное описание партнеров'
         description: 'Условия начисления кэшбэка, условия продаж'
         conditions: 'Особые условия партнера'
-        loc: [{0.34554564, 0.345656}, {0.34554564, 0.345656}]
+        loc: [
+                {x: 0.34554564, y: 0.345656}, 
+                {x: 0.34554564, y: 0.345656}
+        ]
     type: object
     properties:
       id:
@@ -1774,7 +1777,7 @@ definitions:
         type: string
       loc:
         description: 'Координаты местонахождения магазинов'
-        example: [{0.34554564, 0.345656}, {0.34554564, 0.345656}]
+        example: [{x: 0.34554564, y: 0.345656}, {x: 0.34554564, y: 0.345656}]
         type: string
     required:
     - id
@@ -2301,7 +2304,10 @@ definitions:
         cashback: 0.06
         oldCashback: 0.06
         category_title: 'Обувь'
-        loc: [{0.34554564, 0.345656}, {0.34554564, 0.345656}]
+        loc: [
+          {x: 0.34554564, y: 0.345656}, 
+          {x: 0.34554564, y: 0.345656}
+        ]
       - id: 37967
         title: 'Али экспресс'
         logo: '/url/file/logo.jpg'
@@ -2312,7 +2318,10 @@ definitions:
         cashback: 0.06
         oldCashback: 0.06
         category_title: 'Обувь'
-        loc: [{0.34554564, 0.345656}, {0.34554564, 0.345656}]
+        loc: [
+          {x: 0.34554564, y: 0.345656}, 
+          {x: 0.34554564, y: 0.345656}
+        ]
     type: object
     properties:
       shops:
@@ -2337,7 +2346,10 @@ definitions:
           cashback: 0.06
           oldCashback: 0.06
           category_title: 'Обувь'
-          loc: [{0.34554564, 0.345656}, {0.34554564, 0.345656}]
+          loc: [
+            {x: 0.34554564, y: 0.345656}, 
+            {x: 0.34554564, y: 0.345656}
+          ]
         type: array
         items:
           $ref: '#/definitions/MapsShop'
@@ -2357,7 +2369,7 @@ definitions:
         cashback: 0.06
         oldCashback: 0.06
         category_title: 'Обувь'
-        loc: [{0.34554564, 0.345656}, {0.34554564, 0.345656}]
+        loc: [{x: 0.34554564, y: 0.345656}, {x: 0.34554564, y: 0.345656}]
     type: object
     properties:
       id:
@@ -2405,7 +2417,7 @@ definitions:
         type: string
       loc:
         description: 'Массив с координатами магазинов'
-        example: [{0.34554564, 0.345656}, {0.34554564, 0.345656}]
+        example: [{x: 0.34554564, y: 0.345656}, {x: 0.34554564, y: 0.345656}]
         type: string
     required:
     - id
