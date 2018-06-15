@@ -786,7 +786,7 @@ paths:
                 description: 'Условия по покупке'
                 conditions: 'Особые словия по покупке'
       security: [] 
-  /getShopsForMap:
+  /getShopListForMap:
     get:
       description: "Получение списка магазинов для их отображния на карте"
       tags:
