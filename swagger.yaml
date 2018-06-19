@@ -954,6 +954,8 @@ paths:
             application/json:
               available_balance: 181320.14999999999
               awaiting_balance: 9.8800000000000008
+              rejected_balance: 2.12
+              approved_balance: 2.213
         401:
           description: Unauthorized
           schema:
@@ -1875,7 +1877,8 @@ definitions:
     example:
       available_balance: 181320.14999999999
       awaiting_balance: 9.8800000000000008
-      rejected_balance: 1.14999999999
+      rejected_balance: 2.12
+      approved_balance: 2.213
     type: object
     properties:
       available_balance:
@@ -1893,10 +1896,16 @@ definitions:
         example: 9.8800000000000008
         type: number
         format: double
+      approved_balance:
+        description: 'Подтвержденный баланс'
+        example: 9.8800000000000008
+        type: number
+        format: double
     required:
     - available_balance
     - awaiting_balance
     - rejected_balance
+    - approved_balance
   Orders:
     title: Orders
     example:
