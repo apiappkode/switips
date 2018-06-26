@@ -1416,12 +1416,12 @@ paths:
                 conditions: 'Особые словия по покупке'
       security:
       - auth: []
-  /getCategoty:
+  /getCategories:
     get:
       description: "Получение списка категорий"
       tags:
-      - getCategoty
-      operationId: getCategoty
+      - getCategories
+      operationId: getCategories
       produces:
       - application/json
       consumes:
@@ -1433,23 +1433,21 @@ paths:
             $ref: '#/definitions/Category'
           examples:
             application/json:
-              shops:
+              categories:
               - id: 37967
                 title: 'Обувь'
-                code: 'shoes'
+              - id: 37963
+                title: 'Мебель'
+                categories: [{id: 42, title: 'Шкафы'}, {id: 44, title: 'Полки'}]
               - id: 37967
                 title: 'Обувь'
-                code: 'shoes'
-              - id: 37967
-                title: 'Обувь'
-                code: 'shoes'
       security: []
-  /getCountry:
+  /getCountries:
     get:
       description: "Получение списка стран"
       tags:
-      - getCountry
-      operationId: getCountry
+      - getCountries
+      operationId: getCountries
       produces:
       - application/json
       consumes:
@@ -1461,16 +1459,13 @@ paths:
             $ref: '#/definitions/Country'
           examples:
             application/json:
-              shops:
+              countries:
               - id: 37967
                 title: 'Россия'
-                code: 'russia'
               - id: 37967
                 title: 'Россия'
-                code: 'russia'
               - id: 37967
                 title: 'Россия'
-                code: 'russia'
       security: []  
 definitions:
   Successfull:
