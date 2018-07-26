@@ -786,6 +786,71 @@ paths:
                 description: 'Условия по покупке'
                 conditions: 'Особые словия по покупке'
       security: [] 
+  /getShopListCount:
+    get:
+      description: "Получение количества магазинов."
+      tags:
+      - getShopListCount
+      operationId: getShopListCount
+      produces:
+      - application/json
+      parameters:
+        - in: query
+          name: sort_type
+          required: false
+          type: string
+          enum: [created_at, aggregator_rating, name]
+          description: 'Тип сортировки'
+        - in: query
+          name: sort_order
+          required: false
+          type: string
+          enum: [asc, desc]
+          description: 'Порядок сортировки'
+        - in: query
+          name: filter_name
+          required: false
+          type: string
+          description: 'Фильтр по названию партнера'
+        - in: query
+          name: filter_country
+          required: false
+          type: string
+          description: 'Фильтр по стране'
+        - in: query
+          name: filter_vip
+          required: false
+          type: boolean
+          description: 'Фильтр по признаку VIP предложение'
+        - in: query
+          name: filter_category
+          required: false
+          type: string
+          description: 'Фильтр по категории, подкатегории'
+        - in: query
+          name: filter_favourite
+          required: false
+          type: boolean
+          description: 'Фильтр по избранным партнерам этого пользователя'
+        - in: query
+          name: is_online
+          required: false
+          type: boolean
+          description: 'Фильтр по признаку возможности совершения покупки через интернет магазин'
+      responses:
+        200:
+          description: 'Количество магазинов получено'
+          schema:
+            title: ShopsCount
+            properties:
+              shopsCount:
+                description: 'Кол-во магазинов'
+                example: 123
+                type: integer
+                format: int32
+            example:
+              shopsCount: 123
+      security: [] 
   /getShopListForMap:
     get:
       description: "Получение списка магазинов для их отображния на карте"
