@@ -772,8 +772,8 @@ paths:
               - id: 37967
                 title: 'Али экспресс'
                 logo: '/url/file/logo.jpg'
-                is_online: false
-                is_offline: false
+                is_online: true
+                is_offline: true
                 have_actions: true
                 is_top10: true
                 active_ref: 'https://aliexpress.com/ref/65462S/?ref=dsfsfscvfs'
@@ -1521,8 +1521,8 @@ paths:
               - id: 37967
                 title: 'Али экспресс'
                 logo: '/url/file/logo.jpg'
-                is_online: false
-                is_offline: false
+                is_online: true
+                is_offline: true
                 have_actions: true
                 is_top10: true
                 active_ref: 'https://aliexpress.com/ref/65462S/?ref=dsfsfscvfs'
