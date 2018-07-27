@@ -682,56 +682,53 @@ paths:
       consumes:
       - application/x-www-form-urlencoded
       parameters:
-        - in: formData
+        - in: query
           name: sort_type
           required: false
           type: string
+          enum: [created_at, aggregator_rating, name, rating] # Сначала новые / По рейтингу / По алфавиту / По популярности
           description: 'Тип сортировки'
-        - in: formData
+        - in: query
           name: sort_order
           required: false
           type: string
+          enum: [asc, desc]
           description: 'Порядок сортировки'
-        - in: formData
+        - in: query
           name: filter_name
           required: false
           type: string
           description: 'Фильтр по названию партнера'
-        - in: formData
-          name: filter_country
+        - in: query
+          name: filter_country_id
           required: false
-          type: string
+          type: integer
           description: 'Фильтр по стране'
-        - in: formData
+        - in: query
           name: filter_vip
           required: false
-          type: string
+          type: boolean
           description: 'Фильтр по признаку VIP предложение'
-        - in: formData
-          name: filter_category
+        - in: query
+          name: filter_category_id
           required: false
           type: string
           description: 'Фильтр по категории, подкатегории'
-        - in: formData
+        - in: query
           name: filter_favourite
           required: false
-          type: string
+          type: boolean
           description: 'Фильтр по избранным партнерам этого пользователя'
-        - in: formData
+        - in: query
           name: is_online
           required: false
-          type: string
-          description: 'Фильтр по признаку возможности совершения покупки через интернет магазин'
-        - in: formData
-          name: page_number
+          type: boolean
+          description: 'Фильтр по признаку возможности совершения покупки через интернет магазин' 
+        - in: query
+          name: is_offline
           required: false
-          type: integer
-          description: 'Номер страницы (для постраничной навигации)'   
-        - in: formData
-          name: count
-          required: false
-          type: integer
-          description: 'Колличество записей на странице (для постраничной навигации)' 
+          type: boolean
+          description: 'Фильтр по признаку офлайн магазин' 
       responses:
         200:
           description: 'Получение списка магазинов'
@@ -744,6 +741,7 @@ paths:
                 title: 'Али экспресс'
                 logo: '/url/file/logo.jpg'
                 is_online: true
+                is_offline: false
                 have_actions: true
                 is_top10: true
                 active_ref: 'https://aliexpress.com/ref/65462S/?ref=dsfsfscvfs'
@@ -758,7 +756,8 @@ paths:
               - id: 37967
                 title: 'Али экспресс'
                 logo: '/url/file/logo.jpg'
-                is_online: true
+                is_online: false
+                is_offline: true
                 have_actions: true
                 is_top10: true
                 active_ref: 'https://aliexpress.com/ref/65462S/?ref=dsfsfscvfs'
@@ -773,7 +772,8 @@ paths:
               - id: 37967
                 title: 'Али экспресс'
                 logo: '/url/file/logo.jpg'
-                is_online: true
+                is_online: false
+                is_offline: false
                 have_actions: true
                 is_top10: true
                 active_ref: 'https://aliexpress.com/ref/65462S/?ref=dsfsfscvfs'
@@ -799,7 +799,7 @@ paths:
           name: sort_type
           required: false
           type: string
-          enum: [created_at, aggregator_rating, name]
+          enum: [created_at, aggregator_rating, name, rating] # Сначала новые / По рейтингу / По алфавиту / По популярности
           description: 'Тип сортировки'
         - in: query
           name: sort_order
@@ -813,9 +813,9 @@ paths:
           type: string
           description: 'Фильтр по названию партнера'
         - in: query
-          name: filter_country
+          name: filter_country_id
           required: false
-          type: string
+          type: integer
           description: 'Фильтр по стране'
         - in: query
           name: filter_vip
@@ -823,7 +823,7 @@ paths:
           type: boolean
           description: 'Фильтр по признаку VIP предложение'
         - in: query
-          name: filter_category
+          name: filter_category_id
           required: false
           type: string
           description: 'Фильтр по категории, подкатегории'
@@ -837,6 +837,11 @@ paths:
           required: false
           type: boolean
           description: 'Фильтр по признаку возможности совершения покупки через интернет магазин'
+        - in: query
+          name: is_offline
+          required: false
+          type: boolean
+          description: 'Фильтр по признаку офлайн магазин'
       responses:
         200:
           description: 'Количество магазинов получено'
@@ -948,6 +953,7 @@ paths:
                   list_image: '/url/file/image.jpg'
                   logo: '/url/file/logo.jpg'
                   is_online: true
+                  is_offline: false
                   have_actions: true
                   is_top10: true
                   active_ref: 'https://aliexpress.com/ref/65462S/?ref=dsfsfscvfs'
@@ -1184,35 +1190,35 @@ paths:
       operationId: getActions
       produces:
       - application/json
-      consumes:
-      - application/x-www-form-urlencoded
       parameters:
-        - in: formData
+        - in: query
           name: sort_type
           required: false
           type: string
+          enum: [created_at, aggregator_rating, name, rating] # Сначала новые / По рейтингу / По алфавиту / По популярности
           description: 'Тип сортировки'
-        - in: formData
+        - in: query
           name: sort_order
           required: false
           type: string
+          enum: [asc, desc]
           description: 'Порядок сортировки'
-        - in: formData
+        - in: query
           name: filter_name
           required: false
           type: string
           description: 'Фильтр по названию акции'
-        - in: formData
+        - in: query
           name: filter_category
           required: false
-          type: string
+          type: integer
           description: 'Фильтр по категории акции'
-        - in: formData
+        - in: query
           name: page_number
           required: false
           type: integer
           description: 'Номер страницы (для постраничной навигации)'   
-        - in: formData
+        - in: query
           name: count
           required: false
           type: integer
@@ -1244,6 +1250,51 @@ paths:
                 expiry_date: '2018-04-17 00:00:00'
                 detail_text: 'Подробные условия акции'
       security: []      
+  /getActionsCount:
+    get:
+      description: 'Кол-во акций после фильтрации'
+      tags:
+      - getActionsCount
+      operationId: getActionsCount
+      produces:
+      - application/json
+      parameters:
+        - in: query
+          name: sort_type
+          required: false
+          type: string
+          enum: [created_at, aggregator_rating, name, rating] # Сначала новые / По рейтингу / По алфавиту / По популярности
+          description: 'Тип сортировки'
+        - in: query
+          name: sort_order
+          required: false
+          type: string
+          enum: [asc, desc]
+          description: 'Порядок сортировки'
+        - in: query
+          name: filter_name
+          required: false
+          type: string
+          description: 'Фильтр по названию партнера'
+        - in: query
+          name: filter_category_id
+          required: false
+          type: integer
+          description: 'Фильтр по категории, подкатегории'
+      responses:
+        200:
+          description: 'Получение кол-ва акций'
+          schema:
+            title: ActionsCount
+            properties:
+              actionCount:
+                description: 'Кол-во акций'
+                example: 182
+                type: integer
+                format: integer
+            example:
+              actionCount: 182
+      security: [] 
   /sendFeedback:
     post:
       description: "Отправка сообщения"
@@ -1406,25 +1457,25 @@ paths:
       operationId: getFavourites
       produces:
       - application/json
-      consumes:
-      - application/x-www-form-urlencoded
       parameters: 
-        - in: formData
+        - in: query
           name: sort_type
           required: false
           type: string
+          enum: [created_at, aggregator_rating, name, rating] # Сначала новые / По рейтингу / По алфавиту / По популярности
           description: 'Тип сортировки'
-        - in: formData
+        - in: query
           name: sort_order
           required: false
           type: string
+          enum: [asc, desc]
           description: 'Порядок сортировки'
-        - in: formData
+        - in: query
           name: page_number
           required: false
           type: integer
           description: 'Номер страницы (для постраничной навигации)'   
-        - in: formData
+        - in: query
           name: count
           required: false
           type: integer
@@ -1441,6 +1492,7 @@ paths:
                 title: 'Али экспресс'
                 logo: '/url/file/logo.jpg'
                 is_online: true
+                is_offline: false
                 have_actions: true
                 is_top10: true
                 active_ref: 'https://aliexpress.com/ref/65462S/?ref=dsfsfscvfs'
@@ -1454,7 +1506,8 @@ paths:
               - id: 37967
                 title: 'Али экспресс'
                 logo: '/url/file/logo.jpg'
-                is_online: true
+                is_online: false
+                is_offline: true
                 have_actions: true
                 is_top10: true
                 active_ref: 'https://aliexpress.com/ref/65462S/?ref=dsfsfscvfs'
@@ -1468,7 +1521,8 @@ paths:
               - id: 37967
                 title: 'Али экспресс'
                 logo: '/url/file/logo.jpg'
-                is_online: true
+                is_online: false
+                is_offline: false
                 have_actions: true
                 is_top10: true
                 active_ref: 'https://aliexpress.com/ref/65462S/?ref=dsfsfscvfs'
@@ -1658,6 +1712,7 @@ definitions:
         title: 'Али экспресс'
         logo: '/url/file/logo.jpg'
         is_online: true
+        is_offline: false
         have_actions: true
         is_top10: true
         active_ref: 'https://aliexpress.com/ref/65462S/?ref=dsfsfscvfs'
@@ -1672,7 +1727,8 @@ definitions:
       - id: 37967
         title: 'Али экспресс'
         logo: '/url/file/logo.jpg'
-        is_online: true
+        is_online: false
+        is_offline: true
         have_actions: true
         is_top10: true
         active_ref: 'https://aliexpress.com/ref/65462S/?ref=dsfsfscvfs'
@@ -1693,6 +1749,7 @@ definitions:
           title: 'Али экспресс'
           logo: '/url/file/logo.jpg'
           is_online: true
+          is_offline: false
           have_actions: true
           is_top10: true
           active_ref: 'https://aliexpress.com/ref/65462S/?ref=dsfsfscvfs'
@@ -1709,6 +1766,7 @@ definitions:
           title: 'Али экспресс'
           logo: '/url/file/logo.jpg'
           is_online: true
+          is_offline: false
           have_actions: true
           is_top10: true
           active_ref: 'https://aliexpress.com/ref/65462S/?ref=dsfsfscvfs'
@@ -1735,6 +1793,7 @@ definitions:
         title: 'Ali express russia'
         logo: '/url/docs/image.jpg'
         is_online: true
+        is_offline: false
         have_actions: true
         is_top10: false
         active_ref: 'https://aliexpress.com/?ref=sdfsdfsdfsd'
@@ -1772,6 +1831,10 @@ definitions:
         type: string
       is_online:
         description: 'Доступность покупки в интернет магазине'
+        example: false
+        type: boolean
+      is_offline:
+        description: 'Доступность покупки в офлайн магазине'
         example: false
         type: boolean
       have_actions:
@@ -1847,6 +1910,7 @@ definitions:
     - title
     - logo
     - is_online
+    - is_offline
     - status
     - category_title
     - cashback
@@ -2271,6 +2335,7 @@ definitions:
         list_image: '/url/file/image.jpg'
         logo: '/url/file/logo.jpg'
         is_online: true
+        is_offline: false
         have_actions: true
         is_top10: true
         active_ref: 'https://aliexpress.com/ref/65462S/?ref=dsfsfscvfs'
@@ -2287,6 +2352,7 @@ definitions:
         list_image: '/url/file/image.jpg'
         logo: '/url/file/logo.jpg'
         is_online: true
+        is_offline: false
         have_actions: true
         is_top10: true
         active_ref: 'https://aliexpress.com/ref/65462S/?ref=dsfsfscvfs'
@@ -2308,6 +2374,7 @@ definitions:
           list_image: '/url/file/image.jpg'
           logo: '/url/file/logo.jpg'
           is_online: true
+          is_offline: false
           have_actions: true
           is_top10: true
           active_ref: 'https://aliexpress.com/ref/65462S/?ref=dsfsfscvfs'
@@ -2324,6 +2391,7 @@ definitions:
           list_image: '/url/file/image.jpg'
           logo: '/url/file/logo.jpg'
           is_online: true
+          is_offline: false
           have_actions: true
           is_top10: true
           active_ref: 'https://aliexpress.com/ref/65462S/?ref=dsfsfscvfs'
@@ -2573,7 +2641,7 @@ definitions:
     required:
     - countries
   Country:
-    title: Countries
+    title: Country
     type: object
     properties:
       id:
@@ -2591,7 +2659,7 @@ definitions:
   Countries:
     title: Countries
     example:
-      shops:
+      countries:
       - id: 37967
         title: 'Россия'
         code: 'russia'
