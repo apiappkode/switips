@@ -1240,6 +1240,7 @@ paths:
                 active_ref: 'https://aliexpress.com/?ref=sdfsdfsdfsd'
                 expiry_date: '2018-04-17 00:00:00'
                 detail_text: 'Подробные условия акции'
+                promocode: 02VV2
               - id: 5039
                 active: true
                 title: 'Ali express russia'
@@ -1249,6 +1250,7 @@ paths:
                 active_ref: 'https://aliexpress.com/?ref=sdfsdfsdfsd'
                 expiry_date: '2018-04-17 00:00:00'
                 detail_text: 'Подробные условия акции'
+                promocode: 02VV2
       security: []      
   /getActionsCount:
     get:
@@ -2232,6 +2234,7 @@ definitions:
       active_ref: 'https://aliexpress.com/?ref=sdfsdfsdfsd'
       expiry_date: '2018-04-17 00:00:00'
       detail_text: 'Подробные условия акции'
+      promocode: 02VV2
     type: object
     properties:
       id:
@@ -2269,7 +2272,11 @@ definitions:
         type: string
       detail_text:
         description: 'Подробные условия акции'
-        example: 'одробные условия акции'
+        example: 'Подробные условия акции'
+        type: string
+      promocode:
+        description: 'Промокод'
+        example: '02VV2'
         type: string
     required:
     - id
