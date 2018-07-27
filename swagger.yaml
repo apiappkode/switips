@@ -956,6 +956,8 @@ paths:
                   is_offline: false
                   have_actions: true
                   is_top10: true
+                  exclusive: true
+                  cashback_period: 30
                   active_ref: 'https://aliexpress.com/ref/65462S/?ref=dsfsfscvfs'
                   cashback: 0.06
                   status: 'Новый'
@@ -965,6 +967,7 @@ paths:
                   detail_text: 'Детальное описание по магазину'
                   description: 'Условия по покупке'
                   conditions: 'Особые словия по покупке'
+                  address: 'г. Москва, пер. Лесной, д.12'
       security: []
   /getShop/{shop_id}/actions:
     get:
@@ -1798,6 +1801,8 @@ definitions:
         is_offline: false
         have_actions: true
         is_top10: false
+        exclusive: true
+        cashback_period: 30
         active_ref: 'https://aliexpress.com/?ref=sdfsdfsdfsd'
         cashback: 0.05
         oldCashback: 0.05
@@ -1808,6 +1813,7 @@ definitions:
         detail_text: 'Подробное описание партнеров'
         description: 'Условия начисления кэшбэка, условия продаж'
         conditions: 'Особые условия партнера'
+        address: 'г. Москва, пер. Лесной, д.12'
         loc: [
                 {x: 0.34554564, y: 0.345656}, 
                 {x: 0.34554564, y: 0.345656}
@@ -1855,6 +1861,14 @@ definitions:
         description: 'Магазин является VIP партнером'
         example: true
         type: boolean
+      exclusive:
+        description: 'Магазин является эксклюзивным партнером'
+        example: true
+        type: boolean
+      cashback_period:
+        description: 'Период начисления кэшбэка'
+        example: 30
+        type: integer
       mobile_trafic:
         description: 'Признак выставляется у магазинов, которые поддерживают работы с мобильными устройствами'
         example: true
@@ -1902,10 +1916,16 @@ definitions:
         description: 'Особые условия'
         example: 'В настоящий момент партнер не предоставляет эксклюзивных условий для участников.'
         type: string
+      address:
+        description: 'Адрес офлайн магазина'
+        example: 'г. Москва, пер. Лесной, д.12'
+        type: string
       loc:
         description: 'Координаты местонахождения магазинов'
         example: [{x: 0.34554564, y: 0.345656}, {x: 0.34554564, y: 0.345656}]
         type: string
+      
+        
     required:
     - id
     - active
@@ -2510,6 +2530,7 @@ definitions:
         top10: true
         favourite: true
         vip: true
+        exclusive: true
         cashback: 0.06
         oldCashback: 0.06
         category_title: 'Обувь'
