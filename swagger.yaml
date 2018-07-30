@@ -967,7 +967,6 @@ paths:
                   detail_text: 'Детальное описание по магазину'
                   description: 'Условия по покупке'
                   conditions: 'Особые словия по покупке'
-                  address: 'г. Москва, пер. Лесной, д.12'
       security: []
   /getShop/{shop_id}/actions:
     get:
@@ -1095,15 +1094,13 @@ paths:
       operationId: GetOrders
       produces:
       - application/json
-      consumes:
-      - application/x-www-form-urlencoded
       parameters: 
-        - in: formData
+        - in: query
           name: page_number
           required: false
           type: integer
           description: 'Номер страницы (для постраничной навигации)'   
-        - in: formData
+        - in: query
           name: count
           required: false
           type: integer
@@ -1813,7 +1810,6 @@ definitions:
         detail_text: 'Подробное описание партнеров'
         description: 'Условия начисления кэшбэка, условия продаж'
         conditions: 'Особые условия партнера'
-        address: 'г. Москва, пер. Лесной, д.12'
         loc: [
                 {x: 0.34554564, y: 0.345656}, 
                 {x: 0.34554564, y: 0.345656}
@@ -1915,10 +1911,6 @@ definitions:
       conditions:
         description: 'Особые условия'
         example: 'В настоящий момент партнер не предоставляет эксклюзивных условий для участников.'
-        type: string
-      address:
-        description: 'Адрес офлайн магазина'
-        example: 'г. Москва, пер. Лесной, д.12'
         type: string
       loc:
         description: 'Координаты местонахождения магазинов'
