@@ -1135,15 +1135,13 @@ paths:
       operationId: GetCashVouchers
       produces:
       - application/json
-      consumes:
-      - application/x-www-form-urlencoded
       parameters: 
-        - in: formData
+        - in: query
           name: page_number
           required: false
           type: integer
           description: 'Номер страницы (для постраничной навигации)'   
-        - in: formData
+        - in: query
           name: count
           required: false
           type: integer
