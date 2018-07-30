@@ -1000,6 +1000,7 @@ paths:
                 active_ref: 'https://aliexpress.com/?ref=sdfsdfsdfsd'
                 expiry_date: '2018-04-17 00:00:00'
                 detail_text: 'Подробные условия акции'
+                partner_id: 3442
               - id: 5039
                 active: true
                 title: 'Ali express russia'
@@ -1008,6 +1009,7 @@ paths:
                 active_ref: 'https://aliexpress.com/?ref=sdfsdfsdfsd'
                 expiry_date: '2018-04-17 00:00:00'
                 detail_text: 'Подробные условия акции'
+                partner_id: 3442
       security: [] 
   /getBalance:
     get:
@@ -1239,6 +1241,7 @@ paths:
                 expiry_date: '2018-04-17 00:00:00'
                 detail_text: 'Подробные условия акции'
                 promocode: 02VV2
+                partner_id: 3442
               - id: 5039
                 active: true
                 title: 'Ali express russia'
@@ -1249,6 +1252,7 @@ paths:
                 expiry_date: '2018-04-17 00:00:00'
                 detail_text: 'Подробные условия акции'
                 promocode: 02VV2
+                partner_id: 3442
       security: []      
   /getActionsCount:
     get:
@@ -2245,6 +2249,7 @@ definitions:
       expiry_date: '2018-04-17 00:00:00'
       detail_text: 'Подробные условия акции'
       promocode: 02VV2
+      partner_id: 3442
     type: object
     properties:
       id:
@@ -2288,6 +2293,10 @@ definitions:
         description: 'Промокод'
         example: '02VV2'
         type: string
+      partner_id: 
+        description: 'Идентификатор магазина, которому принадлежит акция'
+        example: 3442
+        type: integer
     required:
     - id
     - active
@@ -2309,6 +2318,7 @@ definitions:
         active_ref: 'https://aliexpress.com/?ref=sdfsdfsdfsd'
         expiry_date: '2018-04-17 00:00:00'
         detail_text: 'Подробные условия акции'
+        partner_id: 3442
       - id: 5039
         active: true
         title: 'Ali express russia'
@@ -2317,6 +2327,7 @@ definitions:
         active_ref: 'https://aliexpress.com/?ref=sdfsdfsdfsd'
         expiry_date: '2018-04-17 00:00:00'
         detail_text: 'Подробные условия акции'
+        partner_id: 3442
     type: object
     properties:
       actions:
@@ -2330,6 +2341,7 @@ definitions:
           active_ref: 'https://aliexpress.com/?ref=sdfsdfsdfsd'
           expiry_date: '2018-04-17 00:00:00'
           detail_text: 'Подробные условия акции'
+          partner_id: 3442
         - id: 5039
           active: true
           title: 'Ali express russia'
@@ -2338,6 +2350,7 @@ definitions:
           active_ref: 'https://aliexpress.com/?ref=sdfsdfsdfsd'
           expiry_date: '2018-04-17 00:00:00'
           detail_text: 'Подробные условия акции'
+          partner_id: 3442
         type: array
         items:
           $ref: '#/definitions/Action'
