@@ -860,29 +860,27 @@ paths:
     get:
       description: "Получение списка магазинов для их отображния на карте"
       tags:
-      - getShopListForMap
+      - fixed 
       operationId: getShopListForMap8
       produces:
       - application/json
-      consumes:
-      - application/x-www-form-urlencoded
       parameters:
-        - in: formData
+        - in: query
           name: min_latitude
           required: false
           type: number
           description: 'Минимальная широта'
-        - in: formData
+        - in: query
           name: min_longitude
           required: false
           type: number
           description: 'Минимальная долгота'
-        - in: formData
+        - in: query
           name: max_latitude
           required: false
           type: number
           description: 'Максимальная широта'
-        - in: formData
+        - in: query
           name: max_longitude
           required: false
           type: number
