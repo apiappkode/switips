@@ -679,8 +679,6 @@ paths:
       operationId: getShopList8
       produces:
       - application/json
-      consumes:
-      - application/x-www-form-urlencoded
       parameters:
         - in: query
           name: sort_type
@@ -744,6 +742,9 @@ paths:
                 is_offline: false
                 have_actions: true
                 is_top10: true
+                exclusive: true
+                created_at: '2018-04-17 00:00:00'
+                views: 30
                 active_ref: 'https://aliexpress.com/ref/65462S/?ref=dsfsfscvfs'
                 cashback: 0.06
                 status: 'Новый'
@@ -760,6 +761,9 @@ paths:
                 is_offline: true
                 have_actions: true
                 is_top10: true
+                exclusive: true
+                created_at: '2018-04-17 00:00:00'
+                views: 30
                 active_ref: 'https://aliexpress.com/ref/65462S/?ref=dsfsfscvfs'
                 cashback: 0.06
                 status: 'Новый'
@@ -776,6 +780,9 @@ paths:
                 is_offline: true
                 have_actions: true
                 is_top10: true
+                exclusive: true
+                created_at: '2018-04-17 00:00:00'
+                views: 30
                 active_ref: 'https://aliexpress.com/ref/65462S/?ref=dsfsfscvfs'
                 cashback: 0.06
                 status: 'Новый'
@@ -869,21 +876,25 @@ paths:
           name: min_latitude
           required: false
           type: number
+          format: float
           description: 'Минимальная широта'
         - in: query
           name: min_longitude
           required: false
           type: number
+          format: float
           description: 'Минимальная долгота'
         - in: query
           name: max_latitude
           required: false
           type: number
+          format: float
           description: 'Максимальная широта'
         - in: query
           name: max_longitude
           required: false
           type: number
+          format: float
           description: 'Максимальная долгота'
       responses:
         200:
@@ -900,6 +911,9 @@ paths:
                 top10: true
                 favourite: true
                 vip: true
+                exclusive: true
+                created_at: '2018-04-17 00:00:00'
+                views: 30
                 cashback: 0.06
                 oldCashback: 0.06
                 category_title: 'Обувь'
@@ -914,6 +928,9 @@ paths:
                 top10: true
                 favourite: true
                 vip: true
+                exclusive: true
+                created_at: '2018-04-17 00:00:00'
+                views: 30
                 cashback: 0.06
                 oldCashback: 0.06
                 category_title: 'Обувь'
@@ -955,6 +972,8 @@ paths:
                   have_actions: true
                   is_top10: true
                   exclusive: true
+                  created_at: '2018-04-17 00:00:00'
+                  views: 30
                   cashback_period: 30
                   active_ref: 'https://aliexpress.com/ref/65462S/?ref=dsfsfscvfs'
                   cashback: 0.06
@@ -1717,6 +1736,9 @@ definitions:
         is_offline: false
         have_actions: true
         is_top10: true
+        exclusive: true
+        created_at: '2018-04-17 00:00:00'
+        views: 30
         active_ref: 'https://aliexpress.com/ref/65462S/?ref=dsfsfscvfs'
         cashback: 0.06
         oldCashback: 0.06
@@ -1733,6 +1755,9 @@ definitions:
         is_offline: true
         have_actions: true
         is_top10: true
+        exclusive: true
+        created_at: '2018-04-17 00:00:00'
+        views: 30
         active_ref: 'https://aliexpress.com/ref/65462S/?ref=dsfsfscvfs'
         cashback: 0.06
         oldCashback: 0.06
@@ -1754,6 +1779,9 @@ definitions:
           is_offline: false
           have_actions: true
           is_top10: true
+          exclusive: true
+          created_at: '2018-04-17 00:00:00'
+          views: 30
           active_ref: 'https://aliexpress.com/ref/65462S/?ref=dsfsfscvfs'
           cashback: 0.06
           oldCashback: 0.06
@@ -1771,6 +1799,9 @@ definitions:
           is_offline: false
           have_actions: true
           is_top10: true
+          exclusive: true
+          created_at: '2018-04-17 00:00:00'
+          views: 30
           active_ref: 'https://aliexpress.com/ref/65462S/?ref=dsfsfscvfs'
           cashback: 0.06
           oldCashback: 0.06
@@ -1799,6 +1830,8 @@ definitions:
         have_actions: true
         is_top10: false
         exclusive: true
+        created_at: '2018-04-17 00:00:00'
+        views: 30
         cashback_period: 30
         active_ref: 'https://aliexpress.com/?ref=sdfsdfsdfsd'
         cashback: 0.05
@@ -1861,6 +1894,14 @@ definitions:
         description: 'Магазин является эксклюзивным партнером'
         example: true
         type: boolean
+      created_at:
+        description: 'Дата создания'
+        example: '2018-04-17 00:00:00'
+        type: string
+      views:
+        description: 'Кол-во просмотров. На основе кол-ва просмотров можно строить рейтинг популярности'
+        example: 30
+        type: integer
       cashback_period:
         description: 'Период начисления кэшбэка'
         example: 30
@@ -1967,7 +2008,7 @@ definitions:
         description: 'Доступный внутренний баланс пользователя'
         example: 181320.14999999999
         type: number
-        format: float
+        format: double
       awaiting_balance:
         description: 'Баланс ожидающий поступления на счет пользователя, не доступный для зачисления'
         example: 0
@@ -2115,7 +2156,7 @@ definitions:
         description: 'Сумма кешбэка'
         example: 136.00999999999999
         type: number
-        format: float
+        format: double
       status:
         description: 'Статус (pending — В ожидании; approved — Подтверждён; declined — Отменен)'
         example: approved
@@ -2222,7 +2263,7 @@ definitions:
         description: 'Сумма кешбэка'
         example: 9.8800000000000008
         type: number
-        format: float
+        format: double
       status:
         description: 'Статус чека (pending — В ожидании; approved — Подтверждён; declined — Отменен).'
         example: declined
