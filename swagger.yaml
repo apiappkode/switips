@@ -1224,7 +1224,7 @@ paths:
           name: filter_name
           required: false
           type: string
-          description: 'Фильтр по названию акции'
+          description: 'Фильтр по названию компании'
         - in: query
           name: filter_category
           required: false
