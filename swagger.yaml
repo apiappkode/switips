@@ -1878,7 +1878,7 @@ definitions:
         description: 'Магазин имеет акции'
         example: true
         type: boolean
-      top10:
+      is_top10:
         description: 'Магазин имеет шильду Топ10'
         example: true
         type: boolean
