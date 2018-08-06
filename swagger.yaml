@@ -1986,9 +1986,9 @@ definitions:
       loc:
         description: 'Координаты местонахождения магазинов'
         example: [{x: 0.34554564, y: 0.345656}, {x: 0.34554564, y: 0.345656}]
-        type: string
-      
-        
+        type: array
+        items: 
+          $ref: '#/definitions/Coordinate'
     required:
     - id
     - active
@@ -1999,6 +1999,7 @@ definitions:
     - status
     - category_title
     - cashback
+  
   User:
     title: User
     example:
@@ -2396,7 +2397,6 @@ definitions:
     - active
     - title
     - logo
-    - extra_benefits
     - active_ref
     - expiry_date 
     - detail_text
@@ -2708,7 +2708,9 @@ definitions:
       loc:
         description: 'Массив с координатами магазинов'
         example: [{x: 0.34554564, y: 0.345656}, {x: 0.34554564, y: 0.345656}]
-        type: string
+        type: array
+        items: 
+          $ref: '#/definitions/Coordinate'
     required:
     - id
     - title
@@ -2835,3 +2837,23 @@ definitions:
           $ref: '#/definitions/Country'
     required:
     - countries
+  Coordinate:
+    title: coordinate
+    example:
+      lat: 0.34554564
+      long: 0.345656
+    type: object
+    properties:
+      lat:
+        description: 'Широта'
+        example: 0.34554564
+        type: number
+        format: long
+      long:
+        description: 'Долгота'
+        example: 0.345656
+        type: number
+        format: long
+    required:
+    - lat
+    - long
