@@ -1014,19 +1014,33 @@ paths:
                 title: 'Ali express russia'
                 logo: '/url/docs/image.jpg'
                 extra_benefits: 'Дополнительные преимущества'      
+                all_shop_actions_link: '/actionlist/ali_express/'
                 active_ref: 'https://aliexpress.com/?ref=sdfsdfsdfsd'
+                created_date: '2018-02-17 00:00:00'
+                updated_date: '2018-03-17 00:00:00'
                 expiry_date: '2018-04-17 00:00:00'
                 detail_text: 'Подробные условия акции'
+                promocode: 02VV2
                 partner_id: 3442
+                partner_name: 'Aliexpress'
+                is_new: true
+                is_favourite: true
               - id: 5039
                 active: true
                 title: 'Ali express russia'
                 logo: '/url/docs/image.jpg'
-                extra_benefitsVersion Auth fix: 'Дополнительные преимущества'      
+                extra_benefits: 'Дополнительные преимущества'      
+                all_shop_actions_link: '/actionlist/ali_express/'
                 active_ref: 'https://aliexpress.com/?ref=sdfsdfsdfsd'
+                created_date: '2018-02-17 00:00:00'
+                updated_date: '2018-03-17 00:00:00'
                 expiry_date: '2018-04-17 00:00:00'
                 detail_text: 'Подробные условия акции'
+                promocode: 02VV2
                 partner_id: 3442
+                partner_name: 'Aliexpress'
+                is_new: true
+                is_favourite: true
       security: [] 
   /getBalance:
     get:
@@ -1255,21 +1269,31 @@ paths:
                 extra_benefits: 'Дополнительные преимущества'      
                 all_shop_actions_link: '/actionlist/ali_express/'
                 active_ref: 'https://aliexpress.com/?ref=sdfsdfsdfsd'
+                created_date: '2018-02-17 00:00:00'
+                updated_date: '2018-03-17 00:00:00'
                 expiry_date: '2018-04-17 00:00:00'
                 detail_text: 'Подробные условия акции'
                 promocode: 02VV2
                 partner_id: 3442
+                partner_name: 'Aliexpress'
+                is_new: true
+                is_favourite: true
               - id: 5039
                 active: true
                 title: 'Ali express russia'
                 logo: '/url/docs/image.jpg'
-                extra_benefitsVersion Auth fix: 'Дополнительные преимущества'      
+                extra_benefits: 'Дополнительные преимущества'      
                 all_shop_actions_link: '/actionlist/ali_express/'
                 active_ref: 'https://aliexpress.com/?ref=sdfsdfsdfsd'
+                created_date: '2018-02-17 00:00:00'
+                updated_date: '2018-03-17 00:00:00'
                 expiry_date: '2018-04-17 00:00:00'
                 detail_text: 'Подробные условия акции'
                 promocode: 02VV2
                 partner_id: 3442
+                partner_name: 'Aliexpress'
+                is_new: true
+                is_favourite: true
       security: []      
   /getActionsCount:
     get:
@@ -2285,10 +2309,15 @@ definitions:
       extra_benefits: 'Дополнительные преимущества'      
       all_shop_actions_link: '/actionlist/ali_express/'
       active_ref: 'https://aliexpress.com/?ref=sdfsdfsdfsd'
+      created_date: '2018-02-17 00:00:00'
+      updated_date: '2018-03-17 00:00:00'
       expiry_date: '2018-04-17 00:00:00'
       detail_text: 'Подробные условия акции'
       promocode: 02VV2
       partner_id: 3442
+      partner_name: 'Aliexpress'
+      is_new: true
+      is_favourite: true
     type: object
     properties:
       id:
@@ -2320,6 +2349,14 @@ definitions:
         description: 'Ссылка на магазин партнера с реферальными метками для возврата кэшбека (Кнопка перехода за покупками)'
         example: 'https://aliexpress.com/?ref=dfdffdfd'
         type: string
+      created_date:
+        description: 'Дата создания акции'
+        example: '2018-02-17 00:00:00'
+        type: string
+      updated_date:
+        description: 'Дата обновления акции'
+        example: '2018-03-17 00:00:00'
+        type: string
       expiry_date:
         description: 'Дата окончания акции'
         example: '2018-04-17 00:00:00'
@@ -2336,6 +2373,18 @@ definitions:
         description: 'Идентификатор магазина, которому принадлежит акция'
         example: 3442
         type: integer
+      partner_name: 
+        description: 'Название магазина, которому принадлежит акция'
+        example: 'Aliexpress'
+        type: string
+      is_new:
+        description: 'Признак новой акции'
+        example: true
+        type: boolean
+      is_favourite:
+        description: 'Признак избранности акции'
+        example: true
+        type: boolean
     required:
     - id
     - active
@@ -2354,19 +2403,33 @@ definitions:
         title: 'Ali express russia'
         logo: '/url/docs/image.jpg'
         extra_benefits: 'Дополнительные преимущества'      
+        all_shop_actions_link: '/actionlist/ali_express/'
         active_ref: 'https://aliexpress.com/?ref=sdfsdfsdfsd'
+        created_date: '2018-02-17 00:00:00'
+        updated_date: '2018-03-17 00:00:00'
         expiry_date: '2018-04-17 00:00:00'
         detail_text: 'Подробные условия акции'
+        promocode: 02VV2
         partner_id: 3442
+        partner_name: 'Aliexpress'
+        is_new: true
+        is_favourite: true
       - id: 5039
         active: true
         title: 'Ali express russia'
         logo: '/url/docs/image.jpg'
         extra_benefits: 'Дополнительные преимущества'      
+        all_shop_actions_link: '/actionlist/ali_express/'
         active_ref: 'https://aliexpress.com/?ref=sdfsdfsdfsd'
+        created_date: '2018-02-17 00:00:00'
+        updated_date: '2018-03-17 00:00:00'
         expiry_date: '2018-04-17 00:00:00'
         detail_text: 'Подробные условия акции'
+        promocode: 02VV2
         partner_id: 3442
+        partner_name: 'Aliexpress'
+        is_new: true
+        is_favourite: true
     type: object
     properties:
       actions:
@@ -2377,19 +2440,33 @@ definitions:
           title: 'Ali express russia'
           logo: '/url/docs/image.jpg'
           extra_benefits: 'Дополнительные преимущества'      
+          all_shop_actions_link: '/actionlist/ali_express/'
           active_ref: 'https://aliexpress.com/?ref=sdfsdfsdfsd'
+          created_date: '2018-02-17 00:00:00'
+          updated_date: '2018-03-17 00:00:00'
           expiry_date: '2018-04-17 00:00:00'
           detail_text: 'Подробные условия акции'
+          promocode: 02VV2
           partner_id: 3442
+          partner_name: 'Aliexpress'
+          is_new: true
+          is_favourite: true
         - id: 5039
           active: true
           title: 'Ali express russia'
           logo: '/url/docs/image.jpg'
           extra_benefits: 'Дополнительные преимущества'      
+          all_shop_actions_link: '/actionlist/ali_express/'
           active_ref: 'https://aliexpress.com/?ref=sdfsdfsdfsd'
+          created_date: '2018-02-17 00:00:00'
+          updated_date: '2018-03-17 00:00:00'
           expiry_date: '2018-04-17 00:00:00'
           detail_text: 'Подробные условия акции'
+          promocode: 02VV2
           partner_id: 3442
+          partner_name: 'Aliexpress'
+          is_new: true
+          is_favourite: true
         type: array
         items:
           $ref: '#/definitions/Action'
