@@ -1226,7 +1226,7 @@ paths:
           name: sort_type
           required: false
           type: string
-          enum: [created_at, aggregator_rating, name, views] # Сначала новые / По рейтингу / По алфавиту / По популярности
+          enum: [views, expiry_date, aggregator_rating, updated_date] # По популярности / По дате окончания / По рейтингу / По дате обновления
           description: 'Тип сортировки'
         - in: query
           name: sort_order
@@ -1234,6 +1234,12 @@ paths:
           type: string
           enum: [asc, desc]
           description: 'Порядок сортировки'
+        - in: query
+          name: type_actions
+          required: false
+          type: string
+          enum: [all, new, favourite]
+          description: 'Вид акций'  
         - in: query
           name: filter_name
           required: false
