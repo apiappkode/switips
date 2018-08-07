@@ -908,7 +908,7 @@ paths:
                 title: 'Али экспресс'
                 logo: '/url/file/logo.jpg'
                 have_actions: true
-                top10: true
+                is_top10: true
                 favourite: true
                 vip: true
                 exclusive: true
@@ -925,7 +925,7 @@ paths:
                 title: 'Али экспресс'
                 logo: '/url/file/logo.jpg'
                 have_actions: true
-                top10: true
+                is_top10: true
                 favourite: true
                 vip: true
                 exclusive: true
@@ -2589,7 +2589,7 @@ definitions:
         title: 'Али экспресс'
         logo: '/url/file/logo.jpg'
         have_actions: true
-        top10: true
+        is_top10: true
         favourite: true
         vip: true
         cashback: 0.06
@@ -2603,7 +2603,7 @@ definitions:
         title: 'Али экспресс'
         logo: '/url/file/logo.jpg'
         have_actions: true
-        top10: true
+        is_top10: true
         favourite: true
         vip: true
         cashback: 0.06
@@ -2631,7 +2631,7 @@ definitions:
           title: 'Али экспресс'
           logo: '/url/file/logo.jpg'
           have_actions: true
-          top10: true
+          is_top10: true
           favourite: true
           vip: true
           cashback: 0.06
@@ -2654,7 +2654,7 @@ definitions:
         title: 'Али экспресс'
         logo: '/url/file/logo.jpg'
         have_actions: true
-        top10: true
+        is_top10: true
         favourite: true
         vip: true
         exclusive: true
@@ -2683,7 +2683,7 @@ definitions:
         description: 'Магазин имеет акции'
         example: true
         type: boolean
-      top10:
+      is_top10:
         description: 'Магазин имеет шильду Топ10'
         example: true
         type: boolean
@@ -2721,7 +2721,7 @@ definitions:
     - title
     - logo
     - have_actions
-    - top10
+    - is_top10
     - favourite
     - vip
     - category_title
