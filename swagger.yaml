@@ -918,8 +918,8 @@ paths:
                 oldCashback: 0.06
                 category_title: 'Обувь'
                 loc: [
-                  {x: 0.34554564, y: 0.345656}, 
-                  {x: 0.34554564, y: 0.345656}
+                  {lat: 0.34554564, long: 0.345656}, 
+                  {lat: 0.34554564, long: 0.345656}
                   ]
               - id: 37967
                 title: 'Али экспресс'
@@ -935,8 +935,8 @@ paths:
                 oldCashback: 0.06
                 category_title: 'Обувь'
                 loc: [
-                  {x: 0.34554564, y: 0.345656}, 
-                  {x: 0.34554564, y: 0.345656}
+                  {lat: 0."34554564", long: 0.345656}, 
+                  {lat: 0.34554564, long: 0.345656}
                   ]
       security: [] 
   /getShop/{shop_id}:
@@ -1874,8 +1874,8 @@ definitions:
         description: 'Условия начисления кэшбэка, условия продаж'
         conditions: 'Особые условия партнера'
         loc: [
-                {x: 0.34554564, y: 0.345656}, 
-                {x: 0.34554564, y: 0.345656}
+                {lat: 0.34554564, long: 0.345656}, 
+                {lat: 0.34554564, long: 0.345656}
         ]
     type: object
     properties:
@@ -1985,7 +1985,9 @@ definitions:
         type: string
       loc:
         description: 'Координаты местонахождения магазинов'
-        example: [{x: 0.34554564, y: 0.345656}, {x: 0.34554564, y: 0.345656}]
+        example: [
+          {lat: 0.34554564, long: 0.345656}, 
+          {lat: 0.34554564, long: 0.345656}]
         type: array
         items: 
           $ref: '#/definitions/Coordinate'
@@ -2594,8 +2596,8 @@ definitions:
         oldCashback: 0.06
         category_title: 'Обувь'
         loc: [
-          {x: 0.34554564, y: 0.345656}, 
-          {x: 0.34554564, y: 0.345656}
+          {lat: 0.34554564, long: 0.345656}, 
+          {lat: 0.34554564, long: 0.345656}
         ]
       - id: 37967
         title: 'Али экспресс'
@@ -2608,8 +2610,8 @@ definitions:
         oldCashback: 0.06
         category_title: 'Обувь'
         loc: [
-          {x: 0.34554564, y: 0.345656}, 
-          {x: 0.34554564, y: 0.345656}
+          {lat: 0.34554564, long: 0.345656}, 
+          {lat: 0.34554564, long: 0.345656}
         ]
     type: object
     properties:
@@ -2636,8 +2638,8 @@ definitions:
           oldCashback: 0.06
           category_title: 'Обувь'
           loc: [
-            {x: 0.34554564, y: 0.345656}, 
-            {x: 0.34554564, y: 0.345656}
+            {lat: 0.34554564, long: 0.345656}, 
+            {lat: 0.34554564, long: 0.345656}
           ]
         type: array
         items:
@@ -2659,7 +2661,9 @@ definitions:
         cashback: 0.06
         oldCashback: 0.06
         category_title: 'Обувь'
-        loc: [{x: 0.34554564, y: 0.345656}, {x: 0.34554564, y: 0.345656}]
+        loc: [
+          {lat: 0.34554564, long: 0.345656}, 
+          {lat: 0.34554564, long: 0.345656}]
     type: object
     properties:
       id:
@@ -2707,7 +2711,8 @@ definitions:
         type: string
       loc:
         description: 'Массив с координатами магазинов'
-        example: [{x: 0.34554564, y: 0.345656}, {x: 0.34554564, y: 0.345656}]
+        example: [{lat: 0.34554564, long: 0.345656}, 
+                  {lat: 0.34554564, long: 0.345656}]
         type: array
         items: 
           $ref: '#/definitions/Coordinate'
@@ -2848,12 +2853,12 @@ definitions:
         description: 'Широта'
         example: 0.34554564
         type: number
-        format: long
+        format: double
       long:
         description: 'Долгота'
         example: 0.345656
         type: number
-        format: long
+        format: double
     required:
     - lat
     - long
