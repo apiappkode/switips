@@ -1873,6 +1873,7 @@ definitions:
         detail_text: 'Подробное описание партнеров'
         description: 'Условия начисления кэшбэка, условия продаж'
         conditions: 'Особые условия партнера'
+        address: 'Москва, ул. Уличная, дом 22'
         loc: [
                 {lat: 0.34554564, long: 0.345656}, 
                 {lat: 0.34554564, long: 0.345656}
@@ -1983,6 +1984,17 @@ definitions:
         description: 'Особые условия'
         example: 'В настоящий момент партнер не предоставляет эксклюзивных условий для участников.'
         type: string
+      address:
+        description: 'Адрес офлайн магазина'
+        example:
+          Addresses:
+          - id: 11111223
+            address: 'г.Москва, пер. Лесной, д.12' 
+          - id: 11111223
+            address: 'г.Москва, пер. Лесной, д.12' 
+        type: array
+        items:
+          $ref: '#/definitions/Addresses'
       loc:
         description: 'Координаты местонахождения магазинов'
         example: [
@@ -2001,7 +2013,6 @@ definitions:
     - status
     - category_title
     - cashback
-  
   User:
     title: User
     example:
@@ -2637,10 +2648,11 @@ definitions:
           cashback: 0.06
           oldCashback: 0.06
           category_title: 'Обувь'
-          loc: [
-            {lat: 0.34554564, long: 0.345656}, 
-            {lat: 0.34554564, long: 0.345656}
-          ]
+          loc: 
+          - lat: 0.34554564
+            long: 0.345656
+          - lat: 0.34554564
+            long: 0.345656
         type: array
         items:
           $ref: '#/definitions/MapsShop'
@@ -2843,7 +2855,7 @@ definitions:
     required:
     - countries
   Coordinate:
-    title: coordinate
+    title: Coordinate
     example:
       lat: 0.34554564
       long: 0.345656
@@ -2862,3 +2874,22 @@ definitions:
     required:
     - lat
     - long
+  Addresses:
+    title: Addresses
+    example:
+      id: 1111223
+      adress: 'г.Москва, пер. Лесной, д.12'
+    type: object
+    properties:
+      id:
+        description: 'ID адреса'
+        example: 1111223
+        type: integer
+        format: int32
+      address:
+        description: 'Адрес'
+        example: 'г.Москва, пер. Лесной, д.12'
+        type: string
+    required:
+    - id
+    - title
