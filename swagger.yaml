@@ -912,7 +912,7 @@ paths:
     get:
       description: "Получение списка магазинов для их отображния на карте"
       tags:
-      - fixed 
+      - getShopListForMap 
       operationId: getShopListForMap8
       produces:
       - application/json
@@ -1403,7 +1403,7 @@ paths:
                 description: 'Кол-во акций'
                 example: 182
                 type: integer
-                format: integer
+                format: int32
             example:
               actionCount: 182
       security: [] 
@@ -1755,6 +1755,24 @@ paths:
               - id: 37967
                 title: 'Россия'
       security: []  
+  /getShopsForWebExtensions:
+    get:
+      description: "Получение ифнормации по кэшбэку и акциям для сайтов в веб-расширении"
+      tags:
+      - getShopsForWebExtensions
+      operationId: getShopsForWebExtensions
+      produces:
+      - application/json
+      parameters: [] 
+      responses:
+        200:
+          description: 'Получение ифнормации по кэшбэку и акциям для сайтов в веб-расширении'
+          schema:
+            $ref: '#/definitions/ShopsForWebExtensions'
+            example:
+              partner_id: 3442
+              actionCount: 182
+      security: [] 
 definitions:
   Successfull:
     title: Successfull
@@ -3154,3 +3172,96 @@ definitions:
     required:
     - id
     - adress
+  ShopsForWebExtensions:
+    title: ShopsForWebExtensions
+    example:
+      - partner_id: 'Идентификатор магазина'
+        partner_name: 'Aliexpress'
+        website: 'https://www.nike.com/ru'
+        is_top10: true
+        logo: '/url/docs/image.jpg'
+        show_url: 'https://app.io/test/show_url'
+        goto_url: 'https://app.io/test/goto_url'
+        agg_url: 'https://app.io/test/agg_url'
+        category_id: 423
+        percent: null
+        amount: 500.20
+        currency: 'RUB'
+        main_action: 'Скидка на летнюю коллекцию женской обуви до 70%!'
+      - partner_id: 'Идентификатор магазина'
+        partner_name: 'Aliexpress'
+        website: 'https://www.nike.com/ru'
+        is_top10: true
+        logo: '/url/docs/image.jpg'
+        show_url: 'https://app.io/test/show_url'
+        goto_url: 'https://app.io/test/goto_url'
+        agg_url: 'https://app.io/test/agg_url'
+        category_id: 423
+        percent: 5.22
+        amount: null
+        currency: null
+        main_action: 'Скидка на летнюю коллекцию женской обуви до 70%!'
+    type: array
+    properties:
+      partner_id:
+        description: 'Идентификатор магазина'
+        example: 3442
+        type: integer
+      partner_name: 
+        description: 'Название магазина'
+        example: 'Aliexpress'
+        type: string
+      website:
+        description: 'Сайт магазина'
+        example: 'https://www.nike.com/ru'
+        type: string
+      is_top10:
+        description: 'Магазин относится к Топ10'
+        example: true
+        type: boolean
+      logo:
+        description: 'Изображение логотипа партнера (Логотип партнера)'
+        example: '/url/docs/image.jpg'
+        type: string 
+      show_url:
+        description: 'URL страницы магазина на сайте SWITIPS'
+        example: 'https://app.io/test/show_url'
+        type: string
+      goto_url:
+        description: 'URL, по которому происходит активация кэшбэка с сайта SWITIPS (там, где показано "Кэшбэк будет активирован через 5... 4... 3... 2... 1...")'
+        example: 'https://app.io/test/goto_url'
+        type: string
+      agg_url:
+        description: 'URL, направляющий на активацию кэшбэка, минуя сайт SWITIPS'
+        example: 'https://app.io/test/agg_url'
+        type: string
+      category_id:
+        description: 'Идентификатор категории (Группа товаров по которой у партнера актуально предложение)'
+        example: 423
+        type: integer
+      percent: #может прийти либо percent, либо amount
+        description: 'Процент кэшбэка'
+        example: 5.20
+        type: number
+        format: float
+      amount: #может прийти либо percent, либо amount
+        description: 'Сумма кэшбэка в валюте'
+        example: 500.20
+        type: number
+        format: float
+      currency:
+        description: 'Валюта'
+        example: 'RUB'
+        type: string
+      main_action:
+        description: 'Заголовок главной акции партнера, которая будет отображаться возле ссылки сайта в поисковой выдаче'
+        example: 'Скидка на летнюю коллекцию женской обуви до 70%!'
+        type: string       
+    required:
+     - partner_id
+     - partner_name
+     - website
+     - show_url
+     - goto_url
+     - agg_url
+     - category_id
