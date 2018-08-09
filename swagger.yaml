@@ -1738,8 +1738,6 @@ paths:
       operationId: getCountries
       produces:
       - application/json
-      consumes:
-      - application/x-www-form-urlencoded
       responses:
         200:
           description: 'Получение списка стран'
@@ -1763,13 +1761,13 @@ paths:
       operationId: getShopsForWebExtensions
       produces:
       - application/json
-      parameters: [] 
       responses:
         200:
           description: 'Получение ифнормации по кэшбэку и акциям для сайтов в веб-расширении'
           schema:
-            $ref: '#/definitions/ShopsForWE'
-            example:
+            $ref: '#/definitions/ShopForWE'
+          examples:
+            application/json:
               - partner_id: 'Идентификатор магазина'
                 partner_name: 'Aliexpress'
                 website: 'https://www.nike.com/ru'
