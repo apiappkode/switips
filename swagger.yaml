@@ -735,63 +735,108 @@ paths:
           examples:
             application/json:
               shops:
-              - id: 37967
-                title: 'Али экспресс'
-                logo: '/url/file/logo.jpg'
+              - id: 5039
+                active: true
+                title: 'Ali express russia'
+                logo: '/url/docs/image.jpg'
                 is_online: true
                 is_offline: false
                 have_actions: true
-                is_top10: true
+                is_top10: false
                 exclusive: true
                 created_at: '2018-04-17 00:00:00'
                 views: 30
-                active_ref: 'https://aliexpress.com/ref/65462S/?ref=dsfsfscvfs'
-                cashback: 0.06
+                cashback_period: 30
+                active_ref: 'https://aliexpress.com/?ref=sdfsdfsdfsd'
+                cashback: 0.05
+                oldCashback: 0.05
                 status: 'Новый'
                 category_id: 12
-                category_title: 'Обувь'
+                category_title: 'Обувь'  
                 country_title: 'Россия'
-                detail_text: 'Детальное описание по магазину'
-                description: 'Условия по покупке'
-                conditions: 'Особые словия по покупке'
-              - id: 37967
-                title: 'Али экспресс'
-                logo: '/url/file/logo.jpg'
-                is_online: false
-                is_offline: true
-                have_actions: true
-                is_top10: true
-                exclusive: true
-                created_at: '2018-04-17 00:00:00'
-                views: 30
-                active_ref: 'https://aliexpress.com/ref/65462S/?ref=dsfsfscvfs'
-                cashback: 0.06
-                status: 'Новый'
-                category_id: 12
-                category_title: 'Обувь'
-                country_title: 'Россия'
-                detail_text: 'Детальное описание по магазину'
-                description: 'Условия по покупке'
-                conditions: 'Особые словия по покупке'
-              - id: 37967
-                title: 'Али экспресс'
-                logo: '/url/file/logo.jpg'
+                detail_text: 'Подробное описание партнеров'
+                description: 'Условия начисления кэшбэка, условия продаж'
+                conditions: 'Особые условия партнера'
+                addresses:
+                - id: 11111223
+                  address: 'г.Москва, пер. Лесной, д.12' 
+                - id: 11111223
+                  address: 'г.Москва, пер. Лесной, д.12' 
+                loc:
+                - id: 12221
+                  lat: 0.34554564
+                  long: 0.345656
+                - id: 12221
+                  lat: 0.34554564
+                  long: 0.345656
+              - id: 5039
+                active: true
+                title: 'Ali express russia'
+                logo: '/url/docs/image.jpg'
                 is_online: true
-                is_offline: true
+                is_offline: false
                 have_actions: true
-                is_top10: true
+                is_top10: false
                 exclusive: true
                 created_at: '2018-04-17 00:00:00'
                 views: 30
-                active_ref: 'https://aliexpress.com/ref/65462S/?ref=dsfsfscvfs'
-                cashback: 0.06
+                cashback_period: 30
+                active_ref: 'https://aliexpress.com/?ref=sdfsdfsdfsd'
+                cashback: 0.05
+                oldCashback: 0.05
                 status: 'Новый'
                 category_id: 12
-                category_title: 'Обувь'
+                category_title: 'Обувь'  
                 country_title: 'Россия'
-                detail_text: 'Детальное описание по магазину'
-                description: 'Условия по покупке'
-                conditions: 'Особые словия по покупке'
+                detail_text: 'Подробное описание партнеров'
+                description: 'Условия начисления кэшбэка, условия продаж'
+                conditions: 'Особые условия партнера'
+                addresses:
+                - id: 11111223
+                  address: 'г.Москва, пер. Лесной, д.12' 
+                - id: 11111223
+                  address: 'г.Москва, пер. Лесной, д.12' 
+                loc:
+                - id: 12221
+                  lat: 0.34554564
+                  long: 0.345656
+                - id: 12221
+                  lat: 0.34554564
+                  long: 0.345656
+              - id: 5039
+                active: true
+                title: 'Ali express russia'
+                logo: '/url/docs/image.jpg'
+                is_online: true
+                is_offline: false
+                have_actions: true
+                is_top10: false
+                exclusive: true
+                created_at: '2018-04-17 00:00:00'
+                views: 30
+                cashback_period: 30
+                active_ref: 'https://aliexpress.com/?ref=sdfsdfsdfsd'
+                cashback: 0.05
+                oldCashback: 0.05
+                status: 'Новый'
+                category_id: 12
+                category_title: 'Обувь'  
+                country_title: 'Россия'
+                detail_text: 'Подробное описание партнеров'
+                description: 'Условия начисления кэшбэка, условия продаж'
+                conditions: 'Особые условия партнера'
+                addresses:
+                - id: 11111223
+                  address: 'г.Москва, пер. Лесной, д.12' 
+                - id: 11111223
+                  address: 'г.Москва, пер. Лесной, д.12' 
+                loc:
+                - id: 12221
+                  lat: 0.34554564
+                  long: 0.345656
+                - id: 12221
+                  lat: 0.34554564
+                  long: 0.345656
       security: [] 
   /getShopListCount:
     get:
@@ -917,10 +962,13 @@ paths:
                 cashback: 0.06
                 oldCashback: 0.06
                 category_title: 'Обувь'
-                loc: [
-                  {lat: 0.34554564, long: 0.345656}, 
-                  {lat: 0.34554564, long: 0.345656}
-                  ]
+                loc: 
+                - id: 12221
+                  lat: 0.34554564
+                  long: 0.345656
+                - id: 12221
+                  lat: 0.34554564
+                  long: 0.345656
               - id: 37967
                 title: 'Али экспресс'
                 logo: '/url/file/logo.jpg'
@@ -963,27 +1011,40 @@ paths:
           examples:
             application/json:
               shop:
-                  id: 37967
-                  title: 'Али экспресс'
-                  list_image: '/url/file/image.jpg'
-                  logo: '/url/file/logo.jpg'
+                  id: 5039
+                  active: true
+                  title: 'Ali express russia'
+                  logo: '/url/docs/image.jpg'
                   is_online: true
                   is_offline: false
                   have_actions: true
-                  is_top10: true
+                  is_top10: false
                   exclusive: true
                   created_at: '2018-04-17 00:00:00'
                   views: 30
                   cashback_period: 30
-                  active_ref: 'https://aliexpress.com/ref/65462S/?ref=dsfsfscvfs'
-                  cashback: 0.06
+                  active_ref: 'https://aliexpress.com/?ref=sdfsdfsdfsd'
+                  cashback: 0.05
+                  oldCashback: 0.05
                   status: 'Новый'
                   category_id: 12
-                  category_title: 'Обувь'
+                  category_title: 'Обувь'  
                   country_title: 'Россия'
-                  detail_text: 'Детальное описание по магазину'
-                  description: 'Условия по покупке'
-                  conditions: 'Особые словия по покупке'
+                  detail_text: 'Подробное описание партнеров'
+                  description: 'Условия начисления кэшбэка, условия продаж'
+                  conditions: 'Особые условия партнера'
+                  addresses:
+                  - id: 11111223
+                    address: 'г.Москва, пер. Лесной, д.12' 
+                  - id: 11111223
+                    address: 'г.Москва, пер. Лесной, д.12' 
+                  loc:
+                  - id: 12221
+                    lat: 0.34554564
+                    long: 0.345656
+                  - id: 12221
+                    lat: 0.34554564
+                    long: 0.345656
       security: []
   /getShop/{shop_id}/actions:
     get:
@@ -1539,51 +1600,108 @@ paths:
           examples:
             application/json:
               shops:
-              - id: 37967
-                title: 'Али экспресс'
-                logo: '/url/file/logo.jpg'
+              - id: 5039
+                active: true
+                title: 'Ali express russia'
+                logo: '/url/docs/image.jpg'
                 is_online: true
                 is_offline: false
                 have_actions: true
-                is_top10: true
-                active_ref: 'https://aliexpress.com/ref/65462S/?ref=dsfsfscvfs'
-                cashback: 0.06
+                is_top10: false
+                exclusive: true
+                created_at: '2018-04-17 00:00:00'
+                views: 30
+                cashback_period: 30
+                active_ref: 'https://aliexpress.com/?ref=sdfsdfsdfsd'
+                cashback: 0.05
+                oldCashback: 0.05
                 status: 'Новый'
                 category_id: 12
+                category_title: 'Обувь'  
                 country_title: 'Россия'
-                detail_text: 'Детальное описание по магазину'
-                description: 'Условия по покупке'
-                conditions: 'Особые словия по покупке'
-              - id: 37967
-                title: 'Али экспресс'
-                logo: '/url/file/logo.jpg'
-                is_online: false
-                is_offline: true
-                have_actions: true
-                is_top10: true
-                active_ref: 'https://aliexpress.com/ref/65462S/?ref=dsfsfscvfs'
-                cashback: 0.06
-                status: 'Новый'
-                category_id: 12
-                country_title: 'Россия'
-                detail_text: 'Детальное описание по магазину'
-                description: 'Условия по покупке'
-                conditions: 'Особые словия по покупке'
-              - id: 37967
-                title: 'Али экспресс'
-                logo: '/url/file/logo.jpg'
+                detail_text: 'Подробное описание партнеров'
+                description: 'Условия начисления кэшбэка, условия продаж'
+                conditions: 'Особые условия партнера'
+                addresses:
+                - id: 11111223
+                  address: 'г.Москва, пер. Лесной, д.12' 
+                - id: 11111223
+                  address: 'г.Москва, пер. Лесной, д.12' 
+                loc:
+                - id: 12221
+                  lat: 0.34554564
+                  long: 0.345656
+                - id: 12221
+                  lat: 0.34554564
+                  long: 0.345656
+              - id: 5039
+                active: true
+                title: 'Ali express russia'
+                logo: '/url/docs/image.jpg'
                 is_online: true
-                is_offline: true
+                is_offline: false
                 have_actions: true
-                is_top10: true
-                active_ref: 'https://aliexpress.com/ref/65462S/?ref=dsfsfscvfs'
-                cashback: 0.06
+                is_top10: false
+                exclusive: true
+                created_at: '2018-04-17 00:00:00'
+                views: 30
+                cashback_period: 30
+                active_ref: 'https://aliexpress.com/?ref=sdfsdfsdfsd'
+                cashback: 0.05
+                oldCashback: 0.05
                 status: 'Новый'
                 category_id: 12
+                category_title: 'Обувь'  
                 country_title: 'Россия'
-                detail_text: 'Детальное описание по магазину'
-                description: 'Условия по покупке'
-                conditions: 'Особые словия по покупке'
+                detail_text: 'Подробное описание партнеров'
+                description: 'Условия начисления кэшбэка, условия продаж'
+                conditions: 'Особые условия партнера'
+                addresses:
+                - id: 11111223
+                  address: 'г.Москва, пер. Лесной, д.12' 
+                - id: 11111223
+                  address: 'г.Москва, пер. Лесной, д.12' 
+                loc:
+                - id: 12221
+                  lat: 0.34554564
+                  long: 0.345656
+                - id: 12221
+                  lat: 0.34554564
+                  long: 0.345656
+              - id: 5039
+                active: true
+                title: 'Ali express russia'
+                logo: '/url/docs/image.jpg'
+                is_online: true
+                is_offline: false
+                have_actions: true
+                is_top10: false
+                exclusive: true
+                created_at: '2018-04-17 00:00:00'
+                views: 30
+                cashback_period: 30
+                active_ref: 'https://aliexpress.com/?ref=sdfsdfsdfsd'
+                cashback: 0.05
+                oldCashback: 0.05
+                status: 'Новый'
+                category_id: 12
+                category_title: 'Обувь'  
+              country_title: 'Россия'
+              detail_text: 'Подробное описание партнеров'
+              description: 'Условия начисления кэшбэка, условия продаж'
+              conditions: 'Особые условия партнера'
+              addresses:
+              - id: 11111223
+                address: 'г.Москва, пер. Лесной, д.12' 
+              - id: 11111223
+                address: 'г.Москва, пер. Лесной, д.12' 
+              loc:
+              - id: 12221
+                lat: 0.34554564
+                long: 0.345656
+              - id: 12221
+                lat: 0.34554564
+                long: 0.345656
       security:
       - auth: []
   /getCategories:
@@ -1759,89 +1877,147 @@ definitions:
     title: Shops
     example:
       shops:
-      - id: 37967
-        title: 'Али экспресс'
-        logo: '/url/file/logo.jpg'
+      - id: 5039
+        active: true
+        title: 'Ali express russia'
+        logo: '/url/docs/image.jpg'
         is_online: true
         is_offline: false
         have_actions: true
-        is_top10: true
+        is_top10: false
         exclusive: true
         created_at: '2018-04-17 00:00:00'
         views: 30
-        active_ref: 'https://aliexpress.com/ref/65462S/?ref=dsfsfscvfs'
-        cashback: 0.06
-        oldCashback: 0.06
+        cashback_period: 30
+        active_ref: 'https://aliexpress.com/?ref=sdfsdfsdfsd'
+        cashback: 0.05
+        oldCashback: 0.05
         status: 'Новый'
         category_id: 12
+        category_title: 'Обувь'  
         country_title: 'Россия'
-        detail_text: 'Детальное описание по магазину'
-        description: 'Условия по покупке'
-        conditions: 'Особые словия по покупке'
-      - id: 37967
-        title: 'Али экспресс'
-        logo: '/url/file/logo.jpg'
-        is_online: false
-        is_offline: true
+        detail_text: 'Подробное описание партнеров'
+        description: 'Условия начисления кэшбэка, условия продаж'
+        conditions: 'Особые условия партнера'
+        addresses:
+        - id: 11111223
+          address: 'г.Москва, пер. Лесной, д.12' 
+        - id: 11111223
+          address: 'г.Москва, пер. Лесной, д.12' 
+        loc:
+        - id: 12221
+          lat: 0.34554564
+          long: 0.345656
+        - id: 12221
+          lat: 0.34554564
+          long: 0.345656
+      - id: 5039
+        active: true
+        title: 'Ali express russia'
+        logo: '/url/docs/image.jpg'
+        is_online: true
+        is_offline: false
         have_actions: true
-        is_top10: true
+        is_top10: false
         exclusive: true
         created_at: '2018-04-17 00:00:00'
         views: 30
-        active_ref: 'https://aliexpress.com/ref/65462S/?ref=dsfsfscvfs'
-        cashback: 0.06
-        oldCashback: 0.06
+        cashback_period: 30
+        active_ref: 'https://aliexpress.com/?ref=sdfsdfsdfsd'
+        cashback: 0.05
+        oldCashback: 0.05
         status: 'Новый'
         category_id: 12
+        category_title: 'Обувь'  
         country_title: 'Россия'
-        detail_text: 'Детальное описание по магазину'
-        description: 'Условия по покупке'
-        conditions: 'Особые словия по покупке'
+        detail_text: 'Подробное описание партнеров'
+        description: 'Условия начисления кэшбэка, условия продаж'
+        conditions: 'Особые условия партнера'
+        addresses:
+        - id: 11111223
+          address: 'г.Москва, пер. Лесной, д.12' 
+        - id: 11111223
+          address: 'г.Москва, пер. Лесной, д.12' 
+        loc:
+        - id: 12221
+          lat: 0.34554564
+          long: 0.345656
+        - id: 12221
+          lat: 0.34554564
+          long: 0.345656
     type: object
     properties:
       shops:
         description: 'Список магазинов'
         example:
-        - id: 37967
-          title: 'Али экспресс'
-          logo: '/url/file/logo.jpg'
+        - id: 5039
+          active: true
+          title: 'Ali express russia'
+          logo: '/url/docs/image.jpg'
           is_online: true
           is_offline: false
           have_actions: true
-          is_top10: true
+          is_top10: false
           exclusive: true
           created_at: '2018-04-17 00:00:00'
           views: 30
-          active_ref: 'https://aliexpress.com/ref/65462S/?ref=dsfsfscvfs'
-          cashback: 0.06
-          oldCashback: 0.06
+          cashback_period: 30
+          active_ref: 'https://aliexpress.com/?ref=sdfsdfsdfsd'
+          cashback: 0.05
+          oldCashback: 0.05
           status: 'Новый'
           category_id: 12
           category_title: 'Обувь'  
           country_title: 'Россия'
-          detail_text: 'Детальное описание по магазину'
-          description: 'Условия по покупке'
-          conditions: 'Особые словия по покупке'
-        - id: 37967
-          title: 'Али экспресс'
-          logo: '/url/file/logo.jpg'
+          detail_text: 'Подробное описание партнеров'
+          description: 'Условия начисления кэшбэка, условия продаж'
+          conditions: 'Особые условия партнера'
+          addresses:
+          - id: 11111223
+            address: 'г.Москва, пер. Лесной, д.12' 
+          - id: 11111223
+            address: 'г.Москва, пер. Лесной, д.12' 
+          loc:
+          - id: 12221
+            lat: 0.34554564
+            long: 0.345656
+          - id: 12221
+            lat: 0.34554564
+            long: 0.345656
+        - id: 5039
+          active: true
+          title: 'Ali express russia'
+          logo: '/url/docs/image.jpg'
           is_online: true
           is_offline: false
           have_actions: true
-          is_top10: true
+          is_top10: false
           exclusive: true
           created_at: '2018-04-17 00:00:00'
           views: 30
-          active_ref: 'https://aliexpress.com/ref/65462S/?ref=dsfsfscvfs'
-          cashback: 0.06
-          oldCashback: 0.06
+          cashback_period: 30
+          active_ref: 'https://aliexpress.com/?ref=sdfsdfsdfsd'
+          cashback: 0.05
+          oldCashback: 0.05
           status: 'Новый'
           category_id: 12
           category_title: 'Обувь'  
           country_title: 'Россия'
-          detail_text: 'Детальное описание по магазину'
-          description: 'Условия по покупке'
-          conditions: 'Особые словия по покупке'
+          detail_text: 'Подробное описание партнеров'
+          description: 'Условия начисления кэшбэка, условия продаж'
+          conditions: 'Особые условия партнера'
+          addresses:
+          - id: 11111223
+            address: 'г.Москва, пер. Лесной, д.12' 
+          - id: 11111223
+            address: 'г.Москва, пер. Лесной, д.12' 
+          loc:
+          - id: 12221
+            lat: 0.34554564
+            long: 0.345656
+          - id: 12221
+            lat: 0.34554564
+            long: 0.345656
         type: array
         items:
           $ref: '#/definitions/Shop'
@@ -1873,11 +2049,18 @@ definitions:
         detail_text: 'Подробное описание партнеров'
         description: 'Условия начисления кэшбэка, условия продаж'
         conditions: 'Особые условия партнера'
-        address: 'Москва, ул. Уличная, дом 22'
-        loc: [
-                {lat: 0.34554564, long: 0.345656}, 
-                {lat: 0.34554564, long: 0.345656}
-        ]
+        addresses:
+        - id: 11111223
+          address: 'г.Москва, пер. Лесной, д.12' 
+        - id: 11111223
+          address: 'г.Москва, пер. Лесной, д.12' 
+        loc:
+        - id: 12221
+          lat: 0.34554564
+          long: 0.345656
+        - id: 12221
+          lat: 0.34554564
+          long: 0.345656
     type: object
     properties:
       id:
@@ -1984,22 +2167,25 @@ definitions:
         description: 'Особые условия'
         example: 'В настоящий момент партнер не предоставляет эксклюзивных условий для участников.'
         type: string
-      address:
-        description: 'Адрес офлайн магазина'
+      addresses:
+        description: 'Адреса офлайн магазина'
         example:
-          Addresses:
-          - id: 11111223
-            address: 'г.Москва, пер. Лесной, д.12' 
-          - id: 11111223
-            address: 'г.Москва, пер. Лесной, д.12' 
+        - id: 11111223
+          address: 'г.Москва, пер. Лесной, д.12' 
+        - id: 11111223
+          address: 'г.Москва, пер. Лесной, д.12' 
         type: array
         items:
           $ref: '#/definitions/Addresses'
       loc:
         description: 'Координаты местонахождения магазинов'
-        example: [
-          {lat: 0.34554564, long: 0.345656}, 
-          {lat: 0.34554564, long: 0.345656}]
+        example:
+        - id: 122334
+          lat: 0.34554564
+          long: 0.345656
+        - id: 122334
+          lat: 0.34554564
+          long: 0.345656
         type: array
         items: 
           $ref: '#/definitions/Coordinate'
@@ -2495,79 +2681,147 @@ definitions:
     title: Favourites
     example:
       favourites:
-      - id: 37967
-        title: 'Али экспресс'
-        list_image: '/url/file/image.jpg'
-        logo: '/url/file/logo.jpg'
+      - id: 5039
+        active: true
+        title: 'Ali express russia'
+        logo: '/url/docs/image.jpg'
         is_online: true
         is_offline: false
         have_actions: true
-        is_top10: true
-        active_ref: 'https://aliexpress.com/ref/65462S/?ref=dsfsfscvfs'
-        cashback: 0.06
-        oldCashback: 0.01
+        is_top10: false
+        exclusive: true
+        created_at: '2018-04-17 00:00:00'
+        views: 30
+        cashback_period: 30
+        active_ref: 'https://aliexpress.com/?ref=sdfsdfsdfsd'
+        cashback: 0.05
+        oldCashback: 0.05
         status: 'Новый'
         category_id: 12
+        category_title: 'Обувь'  
         country_title: 'Россия'
-        detail_text: 'Детальное описание по магазину'
-        description: 'Условия по покупке'
-        conditions: 'Особые словия по покупке'
-      - id: 37967
-        title: 'Али экспресс'
-        list_image: '/url/file/image.jpg'
-        logo: '/url/file/logo.jpg'
+        detail_text: 'Подробное описание партнеров'
+        description: 'Условия начисления кэшбэка, условия продаж'
+        conditions: 'Особые условия партнера'
+        addresses:
+        - id: 11111223
+          address: 'г.Москва, пер. Лесной, д.12' 
+        - id: 11111223
+          address: 'г.Москва, пер. Лесной, д.12' 
+        loc:
+        - id: 12221
+          lat: 0.34554564
+          long: 0.345656
+        - id: 12221
+          lat: 0.34554564
+          long: 0.345656
+      - id: 5039
+        active: true
+        title: 'Ali express russia'
+        logo: '/url/docs/image.jpg'
         is_online: true
         is_offline: false
         have_actions: true
-        is_top10: true
-        active_ref: 'https://aliexpress.com/ref/65462S/?ref=dsfsfscvfs'
-        cashback: 0.06
-        oldCashback: 0.01
+        is_top10: false
+        exclusive: true
+        created_at: '2018-04-17 00:00:00'
+        views: 30
+        cashback_period: 30
+        active_ref: 'https://aliexpress.com/?ref=sdfsdfsdfsd'
+        cashback: 0.05
+        oldCashback: 0.05
         status: 'Новый'
         category_id: 12
+        category_title: 'Обувь'  
         country_title: 'Россия'
-        detail_text: 'Детальное описание по магазину'
-        description: 'Условия по покупке'
-        conditions: 'Особые словия по покупке'
+        detail_text: 'Подробное описание партнеров'
+        description: 'Условия начисления кэшбэка, условия продаж'
+        conditions: 'Особые условия партнера'
+        addresses:
+        - id: 11111223
+          address: 'г.Москва, пер. Лесной, д.12' 
+        - id: 11111223
+          address: 'г.Москва, пер. Лесной, д.12' 
+        loc:
+        - id: 12221
+          lat: 0.34554564
+          long: 0.345656
+        - id: 12221
+          lat: 0.34554564
+          long: 0.345656
     type: object
     properties:
       favourites:
         description: 'Список магазинов'
         example:
-        - id: 37967
-          title: 'Али экспресс'
-          list_image: '/url/file/image.jpg'
-          logo: '/url/file/logo.jpg'
+        - id: 5039
+          active: true
+          title: 'Ali express russia'
+          logo: '/url/docs/image.jpg'
           is_online: true
           is_offline: false
           have_actions: true
-          is_top10: true
-          active_ref: 'https://aliexpress.com/ref/65462S/?ref=dsfsfscvfs'
-          cashback: 0.06
-          oldCashback: 0.01
+          is_top10: false
+          exclusive: true
+          created_at: '2018-04-17 00:00:00'
+          views: 30
+          cashback_period: 30
+          active_ref: 'https://aliexpress.com/?ref=sdfsdfsdfsd'
+          cashback: 0.05
+          oldCashback: 0.05
           status: 'Новый'
           category_id: 12
+          category_title: 'Обувь'  
           country_title: 'Россия'
-          detail_text: 'Детальное описание по магазину'
-          description: 'Условия по покупке'
-          conditions: 'Особые словия по покупке'
-        - id: 37967
-          title: 'Али экспресс'
-          list_image: '/url/file/image.jpg'
-          logo: '/url/file/logo.jpg'
+          detail_text: 'Подробное описание партнеров'
+          description: 'Условия начисления кэшбэка, условия продаж'
+          conditions: 'Особые условия партнера'
+          addresses:
+          - id: 11111223
+            address: 'г.Москва, пер. Лесной, д.12' 
+          - id: 11111223
+            address: 'г.Москва, пер. Лесной, д.12' 
+          loc:
+          - id: 12221
+            lat: 0.34554564
+            long: 0.345656
+          - id: 12221
+            lat: 0.34554564
+            long: 0.345656
+        - id: 5039
+          active: true
+          title: 'Ali express russia'
+          logo: '/url/docs/image.jpg'
           is_online: true
           is_offline: false
           have_actions: true
-          is_top10: true
-          active_ref: 'https://aliexpress.com/ref/65462S/?ref=dsfsfscvfs'
-          cashback: 0.06
-          oldCashback: 0.01
+          is_top10: false
+          exclusive: true
+          created_at: '2018-04-17 00:00:00'
+          views: 30
+          cashback_period: 30
+          active_ref: 'https://aliexpress.com/?ref=sdfsdfsdfsd'
+          cashback: 0.05
+          oldCashback: 0.05
           status: 'Новый'
           category_id: 12
+          category_title: 'Обувь'  
           country_title: 'Россия'
-          detail_text: 'Детальное описание по магазину'
-          description: 'Условия по покупке'
-          conditions: 'Особые словия по покупке'
+          detail_text: 'Подробное описание партнеров'
+          description: 'Условия начисления кэшбэка, условия продаж'
+          conditions: 'Особые условия партнера'
+          addresses:
+          - id: 11111223
+            address: 'г.Москва, пер. Лесной, д.12' 
+          - id: 11111223
+            address: 'г.Москва, пер. Лесной, д.12' 
+          loc:
+          - id: 12221
+            lat: 0.34554564
+            long: 0.345656
+          - id: 12221
+            lat: 0.34554564
+            long: 0.345656
         type: array
         items:
           $ref: '#/definitions/Shop'
@@ -2857,10 +3111,16 @@ definitions:
   Coordinate:
     title: Coordinate
     example:
+      id: 122334
       lat: 0.34554564
       long: 0.345656
     type: object
     properties:
+      id: 
+        description: 'id координаты'
+        example: 122334
+        type: integer
+        format: int32
       lat:
         description: 'Широта'
         example: 0.34554564
@@ -2872,6 +3132,7 @@ definitions:
         type: number
         format: double
     required:
+    - id 
     - lat
     - long
   Addresses:
@@ -2892,4 +3153,4 @@ definitions:
         type: string
     required:
     - id
-    - title
+    - adress
