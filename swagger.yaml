@@ -693,6 +693,17 @@ paths:
           enum: [asc, desc]
           description: 'Порядок сортировки'
         - in: query
+          name: type_shop
+          required: false
+          type: string
+          enum: [all, online, offline]
+          description: 'Тип магазина' 
+        - in: query
+          name: country_id
+          required: false
+          type: integer
+          description: 'id страны' 
+        - in: query
           name: filter_name
           required: false
           type: string
