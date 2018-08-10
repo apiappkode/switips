@@ -684,7 +684,7 @@ paths:
           name: sort_type
           required: false
           type: string
-          enum: [created_at, aggregator_rating, name, rating] # Сначала новые / По рейтингу / По алфавиту / По популярности
+          enum: [created_at, aggregator_rating, name, views] # Сначала новые / По рейтингу / По алфавиту / По популярности
           description: 'Тип сортировки'
         - in: query
           name: sort_order
