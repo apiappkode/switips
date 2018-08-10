@@ -757,18 +757,15 @@ paths:
                 detail_text: 'Подробное описание партнеров'
                 description: 'Условия начисления кэшбэка, условия продаж'
                 conditions: 'Особые условия партнера'
-                addresses:
-                - id: 11111223
-                  address: 'г.Москва, пер. Лесной, д.12' 
-                - id: 11111223
-                  address: 'г.Москва, пер. Лесной, д.12' 
                 loc:
-                - id: 12221
+                - id: 122334
                   lat: 0.34554564
                   long: 0.345656
-                - id: 12221
+                  address: 'г.Москва, пер. Лесной, д.12'
+                - id: 122334
                   lat: 0.34554564
                   long: 0.345656
+                  address: 'г.Москва, пер. Лесной, д.12'
               - id: 5039
                 active: true
                 title: 'Ali express russia'
@@ -791,18 +788,15 @@ paths:
                 detail_text: 'Подробное описание партнеров'
                 description: 'Условия начисления кэшбэка, условия продаж'
                 conditions: 'Особые условия партнера'
-                addresses:
-                - id: 11111223
-                  address: 'г.Москва, пер. Лесной, д.12' 
-                - id: 11111223
-                  address: 'г.Москва, пер. Лесной, д.12' 
                 loc:
-                - id: 12221
+                - id: 122334
                   lat: 0.34554564
                   long: 0.345656
-                - id: 12221
+                  address: 'г.Москва, пер. Лесной, д.12'
+                - id: 122334
                   lat: 0.34554564
                   long: 0.345656
+                  address: 'г.Москва, пер. Лесной, д.12'
               - id: 5039
                 active: true
                 title: 'Ali express russia'
@@ -825,18 +819,15 @@ paths:
                 detail_text: 'Подробное описание партнеров'
                 description: 'Условия начисления кэшбэка, условия продаж'
                 conditions: 'Особые условия партнера'
-                addresses:
-                - id: 11111223
-                  address: 'г.Москва, пер. Лесной, д.12' 
-                - id: 11111223
-                  address: 'г.Москва, пер. Лесной, д.12' 
                 loc:
-                - id: 12221
+                - id: 122334
                   lat: 0.34554564
                   long: 0.345656
-                - id: 12221
+                  address: 'г.Москва, пер. Лесной, д.12'
+                - id: 122334
                   lat: 0.34554564
                   long: 0.345656
+                  address: 'г.Москва, пер. Лесной, д.12'
       security: [] 
   /getShopListCount:
     get:
@@ -963,12 +954,14 @@ paths:
                 oldCashback: 0.06
                 category_title: 'Обувь'
                 loc: 
-                - id: 12221
+                - id: 122334
                   lat: 0.34554564
                   long: 0.345656
-                - id: 12221
+                  address: 'г.Москва, пер. Лесной, д.12'
+                - id: 122334
                   lat: 0.34554564
                   long: 0.345656
+                  address: 'г.Москва, пер. Лесной, д.12'
               - id: 37967
                 title: 'Али экспресс'
                 logo: '/url/file/logo.jpg'
@@ -982,10 +975,15 @@ paths:
                 cashback: 0.06
                 oldCashback: 0.06
                 category_title: 'Обувь'
-                loc: [
-                  {lat: 0."34554564", long: 0.345656}, 
-                  {lat: 0.34554564, long: 0.345656}
-                  ]
+                loc: 
+                - id: 122334
+                  lat: 0.34554564
+                  long: 0.345656
+                  address: 'г.Москва, пер. Лесной, д.12'
+                - id: 122334
+                  lat: 0.34554564
+                  long: 0.345656
+                  address: 'г.Москва, пер. Лесной, д.12'
       security: [] 
   /getShop/{shop_id}:
     get:
@@ -1033,18 +1031,15 @@ paths:
                   detail_text: 'Подробное описание партнеров'
                   description: 'Условия начисления кэшбэка, условия продаж'
                   conditions: 'Особые условия партнера'
-                  addresses:
-                  - id: 11111223
-                    address: 'г.Москва, пер. Лесной, д.12' 
-                  - id: 11111223
-                    address: 'г.Москва, пер. Лесной, д.12' 
-                  loc:
-                  - id: 12221
+                  loc: 
+                  - id: 122334
                     lat: 0.34554564
                     long: 0.345656
-                  - id: 12221
+                    address: 'г.Москва, пер. Лесной, д.12'
+                  - id: 122334
                     lat: 0.34554564
                     long: 0.345656
+                    address: 'г.Москва, пер. Лесной, д.12'
       security: []
   /getShop/{shop_id}/actions:
     get:
@@ -1622,18 +1617,15 @@ paths:
                 detail_text: 'Подробное описание партнеров'
                 description: 'Условия начисления кэшбэка, условия продаж'
                 conditions: 'Особые условия партнера'
-                addresses:
-                - id: 11111223
-                  address: 'г.Москва, пер. Лесной, д.12' 
-                - id: 11111223
-                  address: 'г.Москва, пер. Лесной, д.12' 
-                loc:
-                - id: 12221
+                loc: 
+                - id: 122334
                   lat: 0.34554564
                   long: 0.345656
-                - id: 12221
+                  address: 'г.Москва, пер. Лесной, д.12'
+                - id: 122334
                   lat: 0.34554564
                   long: 0.345656
+                  address: 'г.Москва, пер. Лесной, д.12'
               - id: 5039
                 active: true
                 title: 'Ali express russia'
@@ -1656,18 +1648,15 @@ paths:
                 detail_text: 'Подробное описание партнеров'
                 description: 'Условия начисления кэшбэка, условия продаж'
                 conditions: 'Особые условия партнера'
-                addresses:
-                - id: 11111223
-                  address: 'г.Москва, пер. Лесной, д.12' 
-                - id: 11111223
-                  address: 'г.Москва, пер. Лесной, д.12' 
-                loc:
-                - id: 12221
+                loc: 
+                - id: 122334
                   lat: 0.34554564
                   long: 0.345656
-                - id: 12221
+                  address: 'г.Москва, пер. Лесной, д.12'
+                - id: 122334
                   lat: 0.34554564
                   long: 0.345656
+                  address: 'г.Москва, пер. Лесной, д.12'
               - id: 5039
                 active: true
                 title: 'Ali express russia'
@@ -1690,18 +1679,15 @@ paths:
               detail_text: 'Подробное описание партнеров'
               description: 'Условия начисления кэшбэка, условия продаж'
               conditions: 'Особые условия партнера'
-              addresses:
-              - id: 11111223
-                address: 'г.Москва, пер. Лесной, д.12' 
-              - id: 11111223
-                address: 'г.Москва, пер. Лесной, д.12' 
-              loc:
-              - id: 12221
-                lat: 0.34554564
-                long: 0.345656
-              - id: 12221
-                lat: 0.34554564
-                long: 0.345656
+              loc: 
+                - id: 122334
+                  lat: 0.34554564
+                  long: 0.345656
+                  address: 'г.Москва, пер. Лесной, д.12'
+                - id: 122334
+                  lat: 0.34554564
+                  long: 0.345656
+                  address: 'г.Москва, пер. Лесной, д.12'
       security:
       - auth: []
   /getCategories:
@@ -1939,18 +1925,15 @@ definitions:
         detail_text: 'Подробное описание партнеров'
         description: 'Условия начисления кэшбэка, условия продаж'
         conditions: 'Особые условия партнера'
-        addresses:
-        - id: 11111223
-          address: 'г.Москва, пер. Лесной, д.12' 
-        - id: 11111223
-          address: 'г.Москва, пер. Лесной, д.12' 
-        loc:
-        - id: 12221
+        loc: 
+        - id: 122334
           lat: 0.34554564
           long: 0.345656
-        - id: 12221
+          address: 'г.Москва, пер. Лесной, д.12'
+        - id: 122334
           lat: 0.34554564
           long: 0.345656
+          address: 'г.Москва, пер. Лесной, д.12'
       - id: 5039
         active: true
         title: 'Ali express russia'
@@ -1973,18 +1956,15 @@ definitions:
         detail_text: 'Подробное описание партнеров'
         description: 'Условия начисления кэшбэка, условия продаж'
         conditions: 'Особые условия партнера'
-        addresses:
-        - id: 11111223
-          address: 'г.Москва, пер. Лесной, д.12' 
-        - id: 11111223
-          address: 'г.Москва, пер. Лесной, д.12' 
-        loc:
-        - id: 12221
+        loc: 
+        - id: 122334
           lat: 0.34554564
           long: 0.345656
-        - id: 12221
+          address: 'г.Москва, пер. Лесной, д.12'
+        - id: 122334
           lat: 0.34554564
           long: 0.345656
+          address: 'г.Москва, пер. Лесной, д.12'
     type: object
     properties:
       shops:
@@ -2012,18 +1992,15 @@ definitions:
           detail_text: 'Подробное описание партнеров'
           description: 'Условия начисления кэшбэка, условия продаж'
           conditions: 'Особые условия партнера'
-          addresses:
-          - id: 11111223
-            address: 'г.Москва, пер. Лесной, д.12' 
-          - id: 11111223
-            address: 'г.Москва, пер. Лесной, д.12' 
-          loc:
-          - id: 12221
+          loc: 
+          - id: 122334
             lat: 0.34554564
             long: 0.345656
-          - id: 12221
+            address: 'г.Москва, пер. Лесной, д.12'
+          - id: 122334
             lat: 0.34554564
             long: 0.345656
+            address: 'г.Москва, пер. Лесной, д.12'
         - id: 5039
           active: true
           title: 'Ali express russia'
@@ -2046,18 +2023,15 @@ definitions:
           detail_text: 'Подробное описание партнеров'
           description: 'Условия начисления кэшбэка, условия продаж'
           conditions: 'Особые условия партнера'
-          addresses:
-          - id: 11111223
-            address: 'г.Москва, пер. Лесной, д.12' 
-          - id: 11111223
-            address: 'г.Москва, пер. Лесной, д.12' 
-          loc:
-          - id: 12221
+          loc: 
+          - id: 122334
             lat: 0.34554564
             long: 0.345656
-          - id: 12221
+            address: 'г.Москва, пер. Лесной, д.12'
+          - id: 122334
             lat: 0.34554564
             long: 0.345656
+            address: 'г.Москва, пер. Лесной, д.12'
         type: array
         items:
           $ref: '#/definitions/Shop'
@@ -2089,18 +2063,15 @@ definitions:
         detail_text: 'Подробное описание партнеров'
         description: 'Условия начисления кэшбэка, условия продаж'
         conditions: 'Особые условия партнера'
-        addresses:
-        - id: 11111223
-          address: 'г.Москва, пер. Лесной, д.12' 
-        - id: 11111223
-          address: 'г.Москва, пер. Лесной, д.12' 
-        loc:
-        - id: 12221
+        loc: 
+        - id: 122334
           lat: 0.34554564
           long: 0.345656
-        - id: 12221
+          address: 'г.Москва, пер. Лесной, д.12'
+        - id: 122334
           lat: 0.34554564
           long: 0.345656
+          address: 'г.Москва, пер. Лесной, д.12'
     type: object
     properties:
       id:
@@ -2207,28 +2178,20 @@ definitions:
         description: 'Особые условия'
         example: 'В настоящий момент партнер не предоставляет эксклюзивных условий для участников.'
         type: string
-      addresses:
-        description: 'Адреса офлайн магазина'
-        example:
-        - id: 11111223
-          address: 'г.Москва, пер. Лесной, д.12' 
-        - id: 11111223
-          address: 'г.Москва, пер. Лесной, д.12' 
-        type: array
-        items:
-          $ref: '#/definitions/Addresses'
       loc:
         description: 'Координаты местонахождения магазинов'
         example:
         - id: 122334
           lat: 0.34554564
           long: 0.345656
+          address: 'г.Москва, пер. Лесной, д.12'
         - id: 122334
           lat: 0.34554564
           long: 0.345656
+          address: 'г.Москва, пер. Лесной, д.12'
         type: array
         items: 
-          $ref: '#/definitions/Coordinate'
+          $ref: '#/definitions/Address'
     required:
     - id
     - active
@@ -2743,18 +2706,15 @@ definitions:
         detail_text: 'Подробное описание партнеров'
         description: 'Условия начисления кэшбэка, условия продаж'
         conditions: 'Особые условия партнера'
-        addresses:
-        - id: 11111223
-          address: 'г.Москва, пер. Лесной, д.12' 
-        - id: 11111223
-          address: 'г.Москва, пер. Лесной, д.12' 
-        loc:
-        - id: 12221
+        loc: 
+        - id: 122334
           lat: 0.34554564
           long: 0.345656
-        - id: 12221
+          address: 'г.Москва, пер. Лесной, д.12'
+        - id: 122334
           lat: 0.34554564
           long: 0.345656
+          address: 'г.Москва, пер. Лесной, д.12'
       - id: 5039
         active: true
         title: 'Ali express russia'
@@ -2777,18 +2737,15 @@ definitions:
         detail_text: 'Подробное описание партнеров'
         description: 'Условия начисления кэшбэка, условия продаж'
         conditions: 'Особые условия партнера'
-        addresses:
-        - id: 11111223
-          address: 'г.Москва, пер. Лесной, д.12' 
-        - id: 11111223
-          address: 'г.Москва, пер. Лесной, д.12' 
-        loc:
-        - id: 12221
+        loc: 
+        - id: 122334
           lat: 0.34554564
           long: 0.345656
-        - id: 12221
+          address: 'г.Москва, пер. Лесной, д.12'
+        - id: 122334
           lat: 0.34554564
           long: 0.345656
+          address: 'г.Москва, пер. Лесной, д.12'
     type: object
     properties:
       favourites:
@@ -2816,18 +2773,15 @@ definitions:
           detail_text: 'Подробное описание партнеров'
           description: 'Условия начисления кэшбэка, условия продаж'
           conditions: 'Особые условия партнера'
-          addresses:
-          - id: 11111223
-            address: 'г.Москва, пер. Лесной, д.12' 
-          - id: 11111223
-            address: 'г.Москва, пер. Лесной, д.12' 
-          loc:
-          - id: 12221
+          loc: 
+          - id: 122334
             lat: 0.34554564
             long: 0.345656
-          - id: 12221
+            address: 'г.Москва, пер. Лесной, д.12'
+          - id: 122334
             lat: 0.34554564
             long: 0.345656
+            address: 'г.Москва, пер. Лесной, д.12'
         - id: 5039
           active: true
           title: 'Ali express russia'
@@ -2850,18 +2804,15 @@ definitions:
           detail_text: 'Подробное описание партнеров'
           description: 'Условия начисления кэшбэка, условия продаж'
           conditions: 'Особые условия партнера'
-          addresses:
-          - id: 11111223
-            address: 'г.Москва, пер. Лесной, д.12' 
-          - id: 11111223
-            address: 'г.Москва, пер. Лесной, д.12' 
-          loc:
-          - id: 12221
+          loc: 
+          - id: 122334
             lat: 0.34554564
             long: 0.345656
-          - id: 12221
+            address: 'г.Москва, пер. Лесной, д.12'
+          - id: 122334
             lat: 0.34554564
             long: 0.345656
+            address: 'г.Москва, пер. Лесной, д.12'
         type: array
         items:
           $ref: '#/definitions/Shop'
@@ -2900,10 +2851,15 @@ definitions:
         cashback: 0.06
         oldCashback: 0.06
         category_title: 'Обувь'
-        loc: [
-          {lat: 0.34554564, long: 0.345656}, 
-          {lat: 0.34554564, long: 0.345656}
-        ]
+        loc: 
+        - id: 122334
+          lat: 0.34554564
+          long: 0.345656
+          address: 'г.Москва, пер. Лесной, д.12'
+        - id: 122334
+          lat: 0.34554564
+          long: 0.345656
+          address: 'г.Москва, пер. Лесной, д.12'
       - id: 37967
         title: 'Али экспресс'
         logo: '/url/file/logo.jpg'
@@ -2914,10 +2870,15 @@ definitions:
         cashback: 0.06
         oldCashback: 0.06
         category_title: 'Обувь'
-        loc: [
-          {lat: 0.34554564, long: 0.345656}, 
-          {lat: 0.34554564, long: 0.345656}
-        ]
+        loc: 
+        - id: 122334
+          lat: 0.34554564
+          long: 0.345656
+          address: 'г.Москва, пер. Лесной, д.12'
+        - id: 122334
+          lat: 0.34554564
+          long: 0.345656
+          address: 'г.Москва, пер. Лесной, д.12'
     type: object
     properties:
       shops:
@@ -2943,10 +2904,14 @@ definitions:
           oldCashback: 0.06
           category_title: 'Обувь'
           loc: 
-          - lat: 0.34554564
+          - id: 122334
+            lat: 0.34554564
             long: 0.345656
-          - lat: 0.34554564
+            address: 'г.Москва, пер. Лесной, д.12'
+          - id: 122334
+            lat: 0.34554564
             long: 0.345656
+            address: 'г.Москва, пер. Лесной, д.12'
         type: array
         items:
           $ref: '#/definitions/MapsShop'
@@ -2967,9 +2932,15 @@ definitions:
         cashback: 0.06
         oldCashback: 0.06
         category_title: 'Обувь'
-        loc: [
-          {lat: 0.34554564, long: 0.345656}, 
-          {lat: 0.34554564, long: 0.345656}]
+        loc: 
+        - id: 122334
+          lat: 0.34554564
+          long: 0.345656
+          address: 'г.Москва, пер. Лесной, д.12'
+        - id: 122334
+          lat: 0.34554564
+          long: 0.345656
+          address: 'г.Москва, пер. Лесной, д.12'
     type: object
     properties:
       id:
@@ -3017,11 +2988,18 @@ definitions:
         type: string
       loc:
         description: 'Массив с координатами магазинов'
-        example: [{lat: 0.34554564, long: 0.345656}, 
-                  {lat: 0.34554564, long: 0.345656}]
+        example: 
+        - id: 122334
+          lat: 0.34554564
+          long: 0.345656
+          address: 'г.Москва, пер. Лесной, д.12'
+        - id: 122334
+          lat: 0.34554564
+          long: 0.345656
+          address: 'г.Москва, пер. Лесной, д.12'
         type: array
         items: 
-          $ref: '#/definitions/Coordinate'
+          $ref: '#/definitions/Address'
     required:
     - id
     - title
@@ -3148,12 +3126,13 @@ definitions:
           $ref: '#/definitions/Country'
     required:
     - countries
-  Coordinate:
-    title: Coordinate
+  Address:
+    title: Address
     example:
       id: 122334
       lat: 0.34554564
       long: 0.345656
+      address: 'г.Москва, пер. Лесной, д.12'
     type: object
     properties:
       id: 
@@ -3171,29 +3150,15 @@ definitions:
         example: 0.345656
         type: number
         format: double
-    required:
-    - id 
-    - lat
-    - long
-  Addresses:
-    title: Addresses
-    example:
-      id: 1111223
-      adress: 'г.Москва, пер. Лесной, д.12'
-    type: object
-    properties:
-      id:
-        description: 'ID адреса'
-        example: 1111223
-        type: integer
-        format: int32
       address:
         description: 'Адрес'
         example: 'г.Москва, пер. Лесной, д.12'
         type: string
     required:
-    - id
-    - adress
+    - id 
+    - lat
+    - long
+    - address
   ShopForWE:
     title: ShopForWE
     example:
