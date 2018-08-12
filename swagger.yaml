@@ -1188,7 +1188,7 @@ paths:
       - auth: []
   /getOrders:
     get:
-      description: 'Запрос всех покупок с чеками'
+      description: 'Получение списка всех заказов'
       tags:
       - getOrders
       operationId: GetOrders
@@ -1216,20 +1216,20 @@ paths:
               - id: 37967
                 shop_name: Aviasales.ru и cash back от WWP Capital
                 date_time_order: '2018-01-27 00:00:00'
-                amount: 9341
+                amount: 9341.22
                 cash_back: 136.00999999999999
                 status: approved
               - id: 28795
                 shop_name: Aviasales.ru и cash back от WWP Capital
                 date_time_order: '2018-01-05 00:00:00'
-                amount: 19426
+                amount: 19426.33
                 cash_back: 282.83999999999997
                 status: approved
       security:
       - auth: []
   /getCashVouchers:
     get:
-      description: 'Запрос всех чеков'
+      description: 'Получение списка всех чеков'
       tags:
       - getCashVouchers
       operationId: GetCashVouchers
@@ -2336,13 +2336,13 @@ definitions:
       - id: 37967
         shop_name: Aviasales.ru и cash back от WWP Capital
         date_time_order: '2018-01-27 00:00:00'
-        amount: 9341
+        amount: 9341.22
         cash_back: 136.00999999999999
         status: approved
       - id: 28795
         shop_name: Aviasales.ru и cash back от WWP Capital
         date_time_order: '2018-01-05 00:00:00'
-        amount: 19426
+        amount: 19426.33
         cash_back: 282.83999999999997
         status: approved
     type: object
@@ -2373,7 +2373,7 @@ definitions:
       id: 37967
       shop_name: Aviasales.ru и cash back от WWP Capital
       date_time_order: '2018-01-27 00:00:00'
-      amount: 9341
+      amount: 9341.22
       cash_back: 136.00999999999999
       status: approved
     type: object
@@ -2393,7 +2393,7 @@ definitions:
         type: string
       amount:
         description: 'Сумма заказа'
-        example: 9341
+        example: 9341.22
         type: number
         format: float
       cash_back:
@@ -2405,6 +2405,7 @@ definitions:
         description: 'Статус (pending — В ожидании; approved — Подтверждён; declined — Отменен)'
         example: approved
         type: string
+        enum: [pending, approved, declined]
     required:
     - id
     - shop_name
@@ -2512,6 +2513,7 @@ definitions:
         description: 'Статус чека (pending — В ожидании; approved — Подтверждён; declined — Отменен).'
         example: declined
         type: string
+        enum: [pending, approved, declined]
     required:
     - id
     - shop_name
