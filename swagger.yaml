@@ -853,7 +853,7 @@ paths:
           name: sort_type
           required: false
           type: string
-          enum: [created_at, aggregator_rating, name, rating] # Сначала новые / По рейтингу / По алфавиту / По популярности
+          enum: [created_at, aggregator_rating, name, views] # Сначала новые / По рейтингу / По алфавиту / По популярности
           description: 'Тип сортировки'
         - in: query
           name: sort_order
@@ -861,6 +861,17 @@ paths:
           type: string
           enum: [asc, desc]
           description: 'Порядок сортировки'
+        - in: query
+          name: type_shop
+          required: false
+          type: string
+          enum: [all, online, offline]
+          description: 'Тип магазина' 
+        - in: query
+          name: country_id
+          required: false
+          type: integer
+          description: 'id страны' 
         - in: query
           name: filter_name
           required: false
@@ -886,16 +897,6 @@ paths:
           required: false
           type: boolean
           description: 'Фильтр по избранным партнерам этого пользователя'
-        - in: query
-          name: is_online
-          required: false
-          type: boolean
-          description: 'Фильтр по признаку возможности совершения покупки через интернет магазин'
-        - in: query
-          name: is_offline
-          required: false
-          type: boolean
-          description: 'Фильтр по признаку офлайн магазин'
       responses:
         200:
           description: 'Количество магазинов получено'
@@ -1381,7 +1382,7 @@ paths:
           name: sort_type
           required: false
           type: string
-          enum: [created_at, aggregator_rating, name, rating] # Сначала новые / По рейтингу / По алфавиту / По популярности
+          enum: [views, expiry_date, aggregator_rating, updated_date] # По популярности / По дате окончания / По рейтингу / По дате обновления
           description: 'Тип сортировки'
         - in: query
           name: sort_order
@@ -1390,15 +1391,21 @@ paths:
           enum: [asc, desc]
           description: 'Порядок сортировки'
         - in: query
+          name: type_actions
+          required: false
+          type: string
+          enum: [all, new, favourite]
+          description: 'Вид акций'  
+        - in: query
           name: filter_name
           required: false
           type: string
-          description: 'Фильтр по названию партнера'
+          description: 'Фильтр по названию компании'
         - in: query
-          name: filter_category_id
+          name: filter_category
           required: false
           type: integer
-          description: 'Фильтр по категории, подкатегории'
+          description: 'Фильтр по категории акции'
       responses:
         200:
           description: 'Получение кол-ва акций'
