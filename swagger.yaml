@@ -729,15 +729,15 @@ paths:
           type: boolean
           description: 'Фильтр по избранным партнерам этого пользователя'
         - in: query
-          name: is_online
+          name: page_number
           required: false
-          type: boolean
-          description: 'Фильтр по признаку возможности совершения покупки через интернет магазин' 
+          type: integer
+          description: 'Номер страницы (для постраничной навигации)'   
         - in: query
-          name: is_offline
+          name: count
           required: false
-          type: boolean
-          description: 'Фильтр по признаку офлайн магазин' 
+          type: integer
+          description: 'Колличество записей на странице (для постраничной навигации)' 
       responses:
         200:
           description: 'Получение списка магазинов'
