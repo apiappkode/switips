@@ -944,6 +944,16 @@ paths:
           type: number
           format: float
           description: 'Максимальная долгота'
+        - in: query
+          name: filter_category_id
+          required: false
+          type: string
+          description: 'Фильтр по категории, подкатегории'
+        - in: query
+          name: filter_favourite
+          required: false
+          type: boolean
+          description: 'Фильтр по избранным партнерам этого пользователя'
       responses:
         200:
           description: 'Получение списка магазинов для карты'
