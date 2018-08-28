@@ -2431,7 +2431,7 @@ definitions:
         type: number
         format: double
       status:
-        description: 'Статус (pending — В ожидании; approved — Подтверждён; declined — Отменен)'
+        description: 'Статус (pending — В ожидании; approved — Подтверждён; declined — Отклонен)'
         example: approved
         type: string
         enum: [pending, approved, declined]
@@ -2539,7 +2539,7 @@ definitions:
         type: number
         format: double
       status:
-        description: 'Статус чека (pending — В ожидании; approved — Подтверждён; declined — Отменен).'
+        description: 'Статус чека (pending — В ожидании; approved — Подтверждён; declined — Отклонен).'
         example: declined
         type: string
         enum: [pending, approved, declined]
