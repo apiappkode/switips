@@ -2865,6 +2865,7 @@ definitions:
     example:
       id: 37967
       title: 'Обувь'
+      code: 'shoes'
     type: object
     properties:
       id:
@@ -2875,6 +2876,10 @@ definitions:
       title:
         description: 'Заголовок категории'
         example: 'Обувь'
+        type: string
+      code: 
+        description: 'Код категории'
+        example: 'shoes'
         type: string
     required:
     - id
@@ -3112,7 +3117,7 @@ definitions:
         code: 'shoes'
     type: object
     properties:
-      countries:
+      categories:
         description: 'Список стран'
         example:
         - id: 37967
@@ -3125,7 +3130,9 @@ definitions:
         items:
           $ref: '#/definitions/Category'
     required:
-    - countries
+    - id
+    - title
+    - code
   Country:
     title: Country
     type: object
