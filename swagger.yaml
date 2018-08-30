@@ -1750,11 +1750,14 @@ paths:
               categories:
               - id: 37967
                 title: 'Обувь'
+                code: 'shoes'
               - id: 37963
                 title: 'Мебель'
+                code: 'shoes'
                 categories: [{id: 42, title: 'Шкафы'}, {id: 44, title: 'Полки'}]
               - id: 37967
                 title: 'Обувь'
+                code: 'shoes'
       security: []
   /getCountries:
     get:
@@ -3119,14 +3122,14 @@ definitions:
     type: object
     properties:
       categories:
-        description: 'Список стран'
+        description: 'Список категорий'
         example:
         - id: 37967
           title: 'Обувь'
-          code: 'russia'
+          code: 'shoes'
         - id: 37967
-          title: 'Россия'
-          code: 'russia'
+          title: 'Обувь'
+          code: 'shoes'
         type: array
         items:
           $ref: '#/definitions/Category'
