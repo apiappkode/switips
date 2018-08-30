@@ -2884,6 +2884,7 @@ definitions:
     required:
     - id
     - title
+    - code
   MapsShops:
     title: MapsShops
     example:
