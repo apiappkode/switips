@@ -1888,6 +1888,33 @@ paths:
                   status_card: 'NewNotPerson'
                   
       security: []     
+  /urlForRequest:
+    get:
+      description: "Получение ссылки для кнопки заявки карты"
+      tags:
+      - Bank Card
+      operationId: urlForRequest
+      produces:
+      - application/json
+      responses:
+        200:
+          description: 'Получение ссылки для кнопки заявки карты'
+          schema:
+            title: urlForRequest
+            properties:
+              requestid:
+                description: 'Идентификатор запроса'
+                example: 182
+                type: integer
+                format: int32
+              claimurl:
+                description: 'Уникальная ссылка на форму заявки карты'
+                example: 'https://app.apiary.io/switips1/editor'
+                type: string
+            example:
+              requestid: 182
+              claimurl: 'https://app.apiary.io/switips1/editor'
+      security: [] 
 definitions:
   Successfull:
     title: Successfull
@@ -3500,6 +3527,60 @@ definitions:
     - date_request_created
     - status_request
   Card:
+    title: Card
+    example:
+      card: 
+        requestid: '12345678-1234-1234-1234-123456789abc'
+        cardid: 10020334
+        bank_partnerid: 2
+        pan: 12344
+        date_expire: '2010-08'
+        currency: 'RUR'
+        status_card: 'NewNotPerson'
+    type: object
+    properties:
+      requestid:
+        description: 'Уникальный идентификатор заявки'
+        example: '12345678-1234-1234-1234-123456789abc'
+        type: string
+      cardid:
+        description: 'Уникальный идентификатор карты в банке'
+        example: 10020334
+        type: integer
+        format: int32
+      bank_partnerid:
+        description: 'Идентификатор банка-партнера'
+        example: 2
+        type: integer
+        format: int32
+      pan:
+        description: 'Маскированный номер карты, пример: **** 1234'
+        example: 1234
+        type: integer
+        format: int16
+      date_expire:
+        description: 'Дата срока годности карты (ISODate)'
+        example: '2010-08'
+        type: string
+      currency:
+        description: 'Валюта банковской карты'
+        example: 'RUR'
+        type: string
+        enum: [RUR, USD, EUR]  
+      status_card:
+        description: 'Статус карты в учетных системах'
+        example: 'NewNotPerson'
+        type: string
+        enum: [NewNotPerson, NewAtPerson, Active, Annuled, Closed]
+    required:
+    - requestid
+    - cardid
+    - bank_partnerid
+    - pan
+    - date_expire
+    - currency
+    - status_card
+  URL:
     title: Card
     example:
       card: 
