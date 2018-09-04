@@ -1857,27 +1857,36 @@ paths:
         200:
           description: 'Получения спика банковских карт'
           schema:
-            $ref: '#/definitions/BankCards'
+            $ref: '#/definitions/CardsInfo'
           examples:
             application/json:
-              - cardid: 10020334
-                date_request_created: '2010-08-18 08:15:30'
-                requestid: '12345678-1234-1234-1234-123456789abc'
-                status_request: 'Complete'
-                bank_partnerid: 123451
-                pan: 12344
-                date_expire: '2010-08'
-                currency: 'RUR'
-                status_card: 'NewNotPerson'
-              - cardid: 10020334
-                date_request_created: '2010-08-18 08:15:30'
-                requestid: '12345678-1234-1234-1234-123456789abc'
-                status_request: 'Complete'
-                bank_partnerid: 123451
-                pan: 12344
-                date_expire: '2010-08'
-                currency: 'RUR'
-                status_card: 'NewNotPerson'
+              - cardrequest:
+                  requestid: '12345678-1234-1234-1234-123456789abc'
+                  bank_partnerid: 2
+                  date_request_created: '2010-08-18 08:15:30'
+                  status_request: 'Complete'
+                card:
+                  requestid: '12345678-1234-1234-1234-123456789abc'
+                  cardid: 10020334
+                  bank_partnerid: 2
+                  pan: 12344
+                  date_expire: '2010-08'
+                  currency: 'RUR'
+                  status_card: 'NewNotPerson'
+              - cardrequest:
+                  requestid: '12345678-1234-1234-1234-123456789abc'
+                  bank_partnerid: 2
+                  date_request_created: '2010-08-18 08:15:30'
+                  status_request: 'Complete'
+                card:
+                  requestid: '12345678-1234-1234-1234-123456789abc'
+                  cardid: 10020334
+                  bank_partnerid: 2
+                  pan: 12344
+                  date_expire: '2010-08'
+                  currency: 'RUR'
+                  status_card: 'NewNotPerson'
+                  
       security: []     
 definitions:
   Successfull:
@@ -3413,42 +3422,108 @@ definitions:
           $ref: '#/definitions/ShopForWE'
     required:
     - ShopForWE
-  BankCard:
-    title: BankCard
+  CardsInfo:
+    title: CardsInfo
     example:
-      bankCard: 
-        cardid: 10020334
-        date_request_created: '2010-08-18 08:15:30'
-        requestid: '12345678-1234-1234-1234-123456789abc'
-        status_request: 'Complete'
-        bank_partnerid: 123451
-        pan: 12344
-        date_expire: '2010-08'
-        currency: 'RUR'
-        status_card: 'NewNotPerson'
+      cardsinfo:
+        cardrequest:
+          requestid: '12345678-1234-1234-1234-123456789abc'
+          bank_partnerid: 2
+          date_request_created: '2010-08-18 08:15:30'
+          status_request: 'Complete'
+        card:
+          requestid: '12345678-1234-1234-1234-123456789abc'
+          cardid: 10020334
+          bank_partnerid: 2
+          pan: 12344
+          date_expire: '2010-08'
+          currency: 'RUR'
+          status_card: 'NewNotPerson'
     type: object
     properties:
-      cardid:
-        description: 'Уникальный идентификатор карты в банке'
-        example: 10020334
+      cardrequest:
+        description: 'Информация по заявке на выпуск'
+        example:
+          requestid: '12345678-1234-1234-1234-123456789abc'
+          bank_partnerid: 2
+          date_request_created: '2010-08-18 08:15:30'
+          status_request: 'Complete'
+        type: array
+        items:
+          $ref: '#/definitions/CardRequest'
+      card:
+        description: 'Информация о банковской карте'
+        example:
+          requestid: '12345678-1234-1234-1234-123456789abc'
+          cardid: 10020334
+          bank_partnerid: 2
+          pan: 12344
+          date_expire: '2010-08'
+          currency: 'RUR'
+          status_card: 'NewNotPerson'
+        type: array
+        items:
+          $ref: '#/definitions/Card'
+    required:
+    - bankcards
+  CardRequest:
+    title: CardRequest
+    example:
+      cardRequest: 
+        requestid: '12345678-1234-1234-1234-123456789abc'
+        bank_partnerid: 2
+        date_request_created: '2010-08-18 08:15:30'
+        status_request: 'Complete'
+    type: object
+    properties:
+      requestid:
+        description: 'Уникальный идентификатор заявки'
+        example: '12345678-1234-1234-1234-123456789abc'
+        type: string
+      bank_partnerid:
+        description: 'Идентификатор банка-партнера'
+        example: 2
         type: integer
         format: int32
       date_request_created:
         description: 'Дата регистрации заявки в банке (ISODateTime)'
         example: '2010-08-18 08:15:30'
         type: string
-      requestid:
-        description: 'Уникальный идентификатор заявки'
-        example: '12345678-1234-1234-1234-123456789abc'
-        type: string
       status_request:
         description: 'Статус заявки клиента'
         example: 'Complete'
         type: string
         enum: [New, InProgress, Decline, Failed, Complete]
+    required:
+    - requestid
+    - bank_partnerid
+    - date_request_created
+    - status_request
+  Card:
+    title: Card
+    example:
+      card: 
+        requestid: '12345678-1234-1234-1234-123456789abc'
+        cardid: 10020334
+        bank_partnerid: 2
+        pan: 12344
+        date_expire: '2010-08'
+        currency: 'RUR'
+        status_card: 'NewNotPerson'
+    type: object
+    properties:
+      requestid:
+        description: 'Уникальный идентификатор заявки'
+        example: '12345678-1234-1234-1234-123456789abc'
+        type: string
+      cardid:
+        description: 'Уникальный идентификатор карты в банке'
+        example: 10020334
+        type: integer
+        format: int32
       bank_partnerid:
         description: 'Идентификатор банка-партнера'
-        example: 123451
+        example: 2
         type: integer
         format: int32
       pan:
@@ -3471,54 +3546,10 @@ definitions:
         type: string
         enum: [NewNotPerson, NewAtPerson, Active, Annuled, Closed]
     required:
+    - requestid
     - cardid
-  BankCards:
-    title: BankCards
-    example:
-      bankcards:
-      - cardid: 10020334
-        date_request_created: '2010-08-18 08:15:30'
-        requestid: '12345678-1234-1234-1234-123456789abc'
-        status_request: 'Complete'
-        bank_partnerid: 123451
-        pan: 12344
-        date_expire: '2010-08'
-        currency: 'RUR'
-        status_card: 'NewNotPerson'
-      - cardid: 10020334
-        date_request_created: '2010-08-18 08:15:30'
-        requestid: '12345678-1234-1234-1234-123456789abc'
-        status_request: 'Complete'
-        bank_partnerid: 123451
-        pan: 12344
-        date_expire: '2010-08'
-        currency: 'RUR'
-        status_card: 'NewNotPerson'
-    type: object
-    properties:
-      bankcards:
-        description: 'Список банковских карт'
-        example:
-        - cardid: 10020334
-          date_request_created: '2010-08-18 08:15:30'
-          requestid: '12345678-1234-1234-1234-123456789abc'
-          status_request: 'Complete'
-          bank_partnerid: 123451
-          pan: 12344
-          date_expire: '2010-08'
-          currency: 'RUR'
-          status_card: 'NewNotPerson'
-        - cardid: 10020334
-          date_request_created: '2010-08-18 08:15:30'
-          requestid: '12345678-1234-1234-1234-123456789abc'
-          status_request: 'Complete'
-          bank_partnerid: 123451
-          pan: 12344
-          date_expire: '2010-08'
-          currency: 'RUR'
-          status_card: 'NewNotPerson'
-        type: array
-        items:
-          $ref: '#/definitions/BankCard'
-    required:
-    - bankcards
+    - bank_partnerid
+    - pan
+    - date_expire
+    - currency
+    - status_card
