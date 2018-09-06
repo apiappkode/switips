@@ -3424,50 +3424,6 @@ definitions:
           $ref: '#/definitions/ShopForWE'
     required:
     - ShopForWE
-  CardsInfo:
-    title: CardsInfo
-    example:
-      cardsinfo:
-        cardrequest:
-          requestid: '12345678-1234-1234-1234-123456789abc'
-          bank_partnerid: 2
-          date_request_created: '2010-08-18 08:15:30'
-          status_request: 'Complete'
-        card:
-          requestid: '12345678-1234-1234-1234-123456789abc'
-          cardid: 10020334
-          bank_partnerid: 2
-          pan: 12344
-          date_expire: '2010-08'
-          currency: 'RUR'
-          status_card: 'NewNotPerson'
-    type: object
-    properties:
-      cardrequest:
-        description: 'Информация по заявке на выпуск'
-        example:
-          requestid: '12345678-1234-1234-1234-123456789abc'
-          bank_partnerid: 2
-          date_request_created: '2010-08-18 08:15:30'
-          status_request: 'Complete'
-        type: array
-        items:
-          $ref: '#/definitions/CardRequest'
-      card:
-        description: 'Информация о банковской карте'
-        example:
-          requestid: '12345678-1234-1234-1234-123456789abc'
-          cardid: 10020334
-          bank_partnerid: 2
-          pan: 12344
-          date_expire: '2010-08'
-          currency: 'RUR'
-          status_card: 'NewNotPerson'
-        type: array
-        items:
-          $ref: '#/definitions/Card'
-    required:
-    - bankcards
   CardRequest:
     title: CardRequest
     example:
@@ -3527,6 +3483,10 @@ definitions:
         example: 'Complete'
         type: string
         enum: [New, InProgress, Decline, Failed, Complete]
+      formUrl:
+        description: 'Ссылка для дозаполнения заявки'
+        example: 'https://app.apiary.io'
+        type: string 
     required:
     - requestid
     - date_request_created
@@ -3590,57 +3550,3 @@ definitions:
           $ref: '#/definitions/CardRequest'
     required:
     - card_requests
-  Card:
-    title: Card
-    example:
-      card: 
-        requestid: '12345678-1234-1234-1234-123456789abc'
-        cardid: 10020334
-        bank_partnerid: 2
-        pan: 12344
-        date_expire: '2010-08'
-        currency: 'RUR'
-        status_card: 'NewNotPerson'
-    type: object
-    properties:
-      requestid:
-        description: 'Уникальный идентификатор заявки'
-        example: '12345678-1234-1234-1234-123456789abc'
-        type: string
-      cardid:
-        description: 'Уникальный идентификатор карты в банке'
-        example: 10020334
-        type: integer
-        format: int32
-      bank_partnerid:
-        description: 'Идентификатор банка-партнера'
-        example: 2
-        type: integer
-        format: int32
-      pan:
-        description: 'Маскированный номер карты, пример: **** 1234'
-        example: 1234
-        type: integer
-        format: int16
-      date_expire:
-        description: 'Дата срока годности карты (ISODate)'
-        example: '2010-08'
-        type: string
-      currency:
-        description: 'Валюта банковской карты'
-        example: 'RUR'
-        type: string
-        enum: [RUR, USD, EUR]  
-      status_card:
-        description: 'Статус карты в учетных системах'
-        example: 'NewNotPerson'
-        type: string
-        enum: [NewNotPerson, NewAtPerson, Active, Annuled, Closed]
-    required:
-    - requestid
-    - cardid
-    - bank_partnerid
-    - pan
-    - date_expire
-    - currency
-    - status_card
