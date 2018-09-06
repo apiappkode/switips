@@ -1824,27 +1824,6 @@ paths:
                 currency: 'RUB'
                 main_action: 'Скидка на летнюю коллекцию женской обуви до 70%!'
       security: [] 
-  /haveAnyCards:
-    get:
-      description: "Получением информации о наличии банковской карты. Метод необходим для того, чтобы понять какой экран следует отобразить - Лендинг заказа карты или Список банковских карт"
-      tags:
-      - Bank Card
-      operationId: haveAnyCards
-      produces:
-      - application/json
-      responses:
-        200:
-          description: 'Ответ о наличии банковских карт'
-          schema:
-            title: have_any_cards
-            properties:
-              haveAnyCards:
-                description: 'Кол-во магазинов'
-                example: true
-                type: boolean
-            example:
-              haveAnyCards: true
-      security: [] 
   /bankCards:
     get:
       description: "Получения спика банковских карт"
@@ -1855,38 +1834,34 @@ paths:
       - application/json
       responses:
         200:
-          description: 'Получения спика банковских карт'
+          description: 'Получения спика заявок и банковских карт'
           schema:
-            $ref: '#/definitions/CardsInfo'
+            $ref: '#/definitions/CardRequests'
           examples:
             application/json:
-              - cardrequest:
-                  requestid: '12345678-1234-1234-1234-123456789abc'
-                  bank_partnerid: 2
-                  date_request_created: '2010-08-18 08:15:30'
-                  status_request: 'Complete'
-                card:
-                  requestid: '12345678-1234-1234-1234-123456789abc'
+              card_requests: 
+                - requestid: '12345678-1234-1234-1234-123456789abc'
                   cardid: 10020334
-                  bank_partnerid: 2
-                  pan: 12344
-                  date_expire: '2010-08'
-                  currency: 'RUR'
-                  status_card: 'NewNotPerson'
-              - cardrequest:
-                  requestid: '12345678-1234-1234-1234-123456789abc'
-                  bank_partnerid: 2
+                  card:
+                    bank_partnerid: 2
+                    pan: 12344
+                    date_expire: '2010-08'
+                    currency: 'RUR'
+                    card_status: 'NewNotPerson'
                   date_request_created: '2010-08-18 08:15:30'
-                  status_request: 'Complete'
-                card:
-                  requestid: '12345678-1234-1234-1234-123456789abc'
+                  request_status: 'Complete'
+                  formUrl: 'https://app.apiary.io/'
+                - requestid: '12345678-1234-1234-1234-123456789abc'
                   cardid: 10020334
-                  bank_partnerid: 2
-                  pan: 12344
-                  date_expire: '2010-08'
-                  currency: 'RUR'
-                  status_card: 'NewNotPerson'
-                  
+                  card:
+                    bank_partnerid: 2
+                    pan: 12344
+                    date_expire: '2010-08'
+                    currency: 'RUR'
+                    card_status: 'NewNotPerson'
+                  date_request_created: '2010-08-18 08:15:30'
+                  request_status: 'Complete'
+                  formUrl: 'https://app.apiary.io/'  
       security: []     
   /urlForRequest:
     get:
@@ -3498,45 +3473,16 @@ definitions:
     example:
       cardRequest: 
         requestid: '12345678-1234-1234-1234-123456789abc'
-        bank_partnerid: 2
-        date_request_created: '2010-08-18 08:15:30'
-        status_request: 'Complete'
-    type: object
-    properties:
-      requestid:
-        description: 'Уникальный идентификатор заявки'
-        example: '12345678-1234-1234-1234-123456789abc'
-        type: string
-      bank_partnerid:
-        description: 'Идентификатор банка-партнера'
-        example: 2
-        type: integer
-        format: int32
-      date_request_created:
-        description: 'Дата регистрации заявки в банке (ISODateTime)'
-        example: '2010-08-18 08:15:30'
-        type: string
-      status_request:
-        description: 'Статус заявки клиента'
-        example: 'Complete'
-        type: string
-        enum: [New, InProgress, Decline, Failed, Complete]
-    required:
-    - requestid
-    - bank_partnerid
-    - date_request_created
-    - status_request
-  Card:
-    title: Card
-    example:
-      card: 
-        requestid: '12345678-1234-1234-1234-123456789abc'
         cardid: 10020334
-        bank_partnerid: 2
-        pan: 12344
-        date_expire: '2010-08'
-        currency: 'RUR'
-        status_card: 'NewNotPerson'
+        card:
+          bank_partnerid: 2
+          pan: 12344
+          date_expire: '2010-08'
+          currency: 'RUR'
+          card_status: 'NewNotPerson'
+        date_request_created: '2010-08-18 08:15:30'
+        request_status: 'Complete'
+        formUrl: 'https://app.apiary.io/'
     type: object
     properties:
       requestid:
@@ -3552,7 +3498,7 @@ definitions:
         description: 'Идентификатор банка-партнера'
         example: 2
         type: integer
-        format: int32
+        format: int32  
       pan:
         description: 'Маскированный номер карты, пример: **** 1234'
         example: 1234
@@ -3567,20 +3513,84 @@ definitions:
         example: 'RUR'
         type: string
         enum: [RUR, USD, EUR]  
-      status_card:
+      card_status:
         description: 'Статус карты в учетных системах'
         example: 'NewNotPerson'
         type: string
-        enum: [NewNotPerson, NewAtPerson, Active, Annuled, Closed]
+        enum: [NewNotPerson, NewAtPerson, Active, Annuled, Closed]  
+      date_request_created:
+        description: 'Дата регистрации заявки в банке (ISODateTime)'
+        example: '2010-08-18 08:15:30'
+        type: string
+      request_status:
+        description: 'Статус заявки клиента'
+        example: 'Complete'
+        type: string
+        enum: [New, InProgress, Decline, Failed, Complete]
     required:
     - requestid
-    - cardid
-    - bank_partnerid
-    - pan
-    - date_expire
-    - currency
-    - status_card
-  URL:
+    - date_request_created
+    - request_status
+    - formUrl
+  CardRequests:
+    title: CardRequests
+    example:
+      card_requests:
+      - requestid: '12345678-1234-1234-1234-123456789abc'
+        cardid: 10020334
+        card:
+          bank_partnerid: 2
+          pan: 12344
+          date_expire: '2010-08'
+          currency: 'RUR'
+          card_status: 'NewNotPerson'
+        date_request_created: '2010-08-18 08:15:30'
+        request_status: 'Complete'
+        formUrl: 'https://app.apiary.io/'
+      - requestid: '12345678-1234-1234-1234-123456789abc'
+        cardid: 10020334
+        card:
+          bank_partnerid: 2
+          pan: 12344
+          date_expire: '2010-08'
+          currency: 'RUR'
+          card_status: 'NewNotPerson'
+        date_request_created: '2010-08-18 08:15:30'
+        request_status: 'Complete'
+        formUrl: 'https://app.apiary.io/'
+    type: object
+    properties:
+      card_requests:
+        description: 'Список карт и заявок'
+        example:
+        - requestid: '12345678-1234-1234-1234-123456789abc'
+          cardid: 10020334
+          card:
+            bank_partnerid: 2
+            pan: 12344
+            date_expire: '2010-08'
+            currency: 'RUR'
+            card_status: 'NewNotPerson'
+          date_request_created: '2010-08-18 08:15:30'
+          request_status: 'Complete'
+          formUrl: 'https://app.apiary.io/'
+        - requestid: '12345678-1234-1234-1234-123456789abc'
+          cardid: 10020334
+          card:
+            bank_partnerid: 2
+            pan: 12344
+            date_expire: '2010-08'
+            currency: 'RUR'
+            card_status: 'NewNotPerson'
+          date_request_created: '2010-08-18 08:15:30'
+          request_status: 'Complete'
+          formUrl: 'https://app.apiary.io/'
+        type: array
+        items:
+          $ref: '#/definitions/CardRequest'
+    required:
+    - card_requests
+  Card:
     title: Card
     example:
       card: 
