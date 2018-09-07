@@ -1152,6 +1152,45 @@ paths:
               domain: ''
       security: 
       - auth: []      
+  /balance:
+    get:
+      description: 'Получение баланса профиля текущего авторизованного юзера.'
+      tags:
+      - getBalance
+      operationId: GetBalance8
+      produces:
+      - application/json
+      parameters: []
+      responses:
+        200:
+          description: 'Получения спика заявок и банковских карт'
+          schema:
+            $ref: '#/definitions/Balances2'
+          examples:
+            application/json:
+              balances2: 
+                - available_balance: 181320.14999999999
+                  awaiting_balance: 9.8800000000000008
+                  rejected_balance: 2.12
+                  approved_balance: 2.213
+                  currency: 'RUR'
+                - available_balance: 181320.14999999999
+                  awaiting_balance: 9.8800000000000008
+                  rejected_balance: 2.12
+                  approved_balance: 2.213
+                  currency: 'RUR'
+        401:
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/Failure'
+          examples:
+            application/json:
+              key: tokenInvalid
+              msgUser: Сессия не действительна или истекло время, авторизуйтесь
+              msgDev: Сессия не действительна, требуется выдача нового token
+              domain: ''
+      security: 
+      - auth: []      
   /sendQRCode:
     post:
       description: "Отправка кода чека"
@@ -2427,6 +2466,78 @@ definitions:
     - awaiting_balance
     - rejected_balance
     - approved_balance
+  Balance2:
+    title: Balance2
+    example:
+      available_balance: 181320.14999999999
+      awaiting_balance: 9.8800000000000008
+      rejected_balance: 2.12
+      approved_balance: 2.213
+      currency: 'RUR'
+    type: object
+    properties:
+      available_balance:
+        description: 'Доступный внутренний баланс пользователя'
+        example: 181320.14999999999
+        type: number
+        format: double
+      awaiting_balance:
+        description: 'Баланс ожидающий поступления на счет пользователя, не доступный для зачисления'
+        example: 9.8800000000000008
+        type: number
+        format: double
+      rejected_balance:
+        description: 'Баланс отклоненных средств'
+        example: 9.8800000000000008
+        type: number
+        format: double
+      approved_balance:
+        description: 'Подтвержденный баланс'
+        example: 9.8800000000000008
+        type: number
+        format: double
+      currency:
+        description: 'Валюта'
+        example: 'RUR'
+        type: string
+        enum: [RUR, USD, EUR, UAH, KZT, BYN] 
+    required:
+    - available_balance
+    - approved_balance
+  Balances2:
+    title: Balances2
+    example:
+      balances2:
+      - available_balance: 181320.14999999999
+        awaiting_balance: 9.8800000000000008
+        rejected_balance: 2.12
+        approved_balance: 2.213
+        currency: 'RUR'
+      - available_balance: 181320.14999999999
+        awaiting_balance: 9.8800000000000008
+        rejected_balance: 2.12
+        approved_balance: 2.213
+        currency: 'RUR'
+    type: object
+    properties:
+      balances2:
+        description: 'Балансы в разных валютах'
+        example:
+        - available_balance: 181320.14999999999
+          awaiting_balance: 9.8800000000000008
+          rejected_balance: 2.12
+          approved_balance: 2.213
+          currency: 'RUR'
+        - available_balance: 181320.14999999999
+          awaiting_balance: 9.8800000000000008
+          rejected_balance: 2.12
+          approved_balance: 2.213
+          currency: 'RUR'
+        type: array
+        items:
+          $ref: '#/definitions/Balance2'
+    required:
+    - balances2 
   Orders:
     title: Orders
     example:
