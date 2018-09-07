@@ -1173,12 +1173,12 @@ paths:
                   awaiting_balance: 9.8800000000000008
                   rejected_balance: 2.12
                   approved_balance: 2.213
-                  currency: 'RUR'
+                  currency: 'RUB'
                 - available_balance: 181320.14999999999
                   awaiting_balance: 9.8800000000000008
                   rejected_balance: 2.12
                   approved_balance: 2.213
-                  currency: 'RUR'
+                  currency: 'RUB'
         401:
           description: Unauthorized
           schema:
@@ -1269,14 +1269,14 @@ paths:
                 amount: 9341.22
                 cash_back: 136.00999999999999
                 status: approved
-                currency: RUR
+                currency: RUB
               - id: 28795
                 shop_name: Aviasales.ru и cash back от WWP Capital
                 date_time_order: '2018-01-05 00:00:00'
                 amount: 19426.33
                 cash_back: 282.83999999999997
                 status: approved
-                currency: RUR
+                currency: RUB
       security:
       - auth: []
   /getCashVouchers:
@@ -1312,28 +1312,28 @@ paths:
                 amount: 123.5
                 cash_back: 9.8800000000000008
                 status: declined
-                currency: RUR
+                currency: RUB
               - id: 60
                 shop_name: Buyon и cash back от WWP Capital
                 date_time_order: '2018-04-17 00:00:00'
                 amount: 123.5
                 cash_back: 9.8800000000000008
                 status: declined
-                currency: RUR
+                currency: RUB
               - id: 61
                 shop_name: Buyon и cash back от WWP Capital
                 date_time_order: '2018-04-17 00:00:00'
                 amount: 123.5
                 cash_back: 9.8800000000000008
                 status: declined
-                currency: RUR
+                currency: RUB
               - id: 62
                 shop_name: Buyon и cash back от WWP Capital
                 date_time_order: '2018-04-17 00:00:00'
                 amount: 123.5
                 cash_back: 9.8800000000000008
                 status: declined
-                currency: RUR
+                currency: RUB
       security:
       - auth: []
   /getActions:
@@ -1891,7 +1891,7 @@ paths:
                     bank_partnerid: 2
                     pan: 12344
                     date_expire: '2010-08'
-                    currency: 'RUR'
+                    currency: 'RUB'
                     card_status: 'NewNotPerson'
                   date_request_created: '2010-08-18 08:15:30'
                   request_status: 'Complete'
@@ -1902,7 +1902,7 @@ paths:
                     bank_partnerid: 2
                     pan: 12344
                     date_expire: '2010-08'
-                    currency: 'RUR'
+                    currency: 'RUB'
                     card_status: 'NewNotPerson'
                   date_request_created: '2010-08-18 08:15:30'
                   request_status: 'Complete'
@@ -2479,7 +2479,7 @@ definitions:
       awaiting_balance: 9.8800000000000008
       rejected_balance: 2.12
       approved_balance: 2.213
-      currency: 'RUR'
+      currency: 'RUB'
     type: object
     properties:
       available_balance:
@@ -2504,9 +2504,9 @@ definitions:
         format: double
       currency:
         description: 'Валюта'
-        example: 'RUR'
+        example: 'RUB'
         type: string
-        enum: [RUR, USD, EUR, UAH, KZT, BYN] 
+        enum: [RUB, USD, EUR, UAH, KZT, BYN] 
     required:
     - available_balance
     - approved_balance
@@ -2518,12 +2518,12 @@ definitions:
         awaiting_balance: 9.8800000000000008
         rejected_balance: 2.12
         approved_balance: 2.213
-        currency: 'RUR'
+        currency: 'RUB'
       - available_balance: 181320.14999999999
         awaiting_balance: 9.8800000000000008
         rejected_balance: 2.12
         approved_balance: 2.213
-        currency: 'RUR'
+        currency: 'RUB'
     type: object
     properties:
       balances2:
@@ -2533,12 +2533,12 @@ definitions:
           awaiting_balance: 9.8800000000000008
           rejected_balance: 2.12
           approved_balance: 2.213
-          currency: 'RUR'
+          currency: 'RUB'
         - available_balance: 181320.14999999999
           awaiting_balance: 9.8800000000000008
           rejected_balance: 2.12
           approved_balance: 2.213
-          currency: 'RUR'
+          currency: 'RUB'
         type: array
         items:
           $ref: '#/definitions/Balance2'
@@ -2554,14 +2554,14 @@ definitions:
         amount: 9341.22
         cash_back: 136.00999999999999
         status: approved
-        currency: RUR
+        currency: RUB
       - id: 28795
         shop_name: Aviasales.ru и cash back от WWP Capital
         date_time_order: '2018-01-05 00:00:00'
         amount: 19426.33
         cash_back: 282.83999999999997
         status: approved
-        currency: RUR
+        currency: RUB
     type: object
     properties:
       orders:
@@ -2573,14 +2573,14 @@ definitions:
           amount: 9341
           cash_back: 136.00999999999999
           status: approved
-          currency: RUR
+          currency: RUB
         - id: 28795
           shop_name: Aviasales.ru и cash back от WWP Capital
           date_time_order: '2018-01-05 00:00:00'
           amount: 19426
           cash_back: 282.83999999999997
           status: approved
-          currency: RUR
+          currency: RUB
         type: array
         items:
           $ref: '#/definitions/Order'
@@ -2595,7 +2595,7 @@ definitions:
       amount: 9341.22
       cash_back: 136.00999999999999
       status: approved
-      currency: RUR
+      currency: RUB
     type: object
     properties:
       id:
@@ -2628,9 +2628,9 @@ definitions:
         enum: [pending, approved, declined]
       currency:
         description: 'Валюта'
-        example: 'RUR'
+        example: 'RUB'
         type: string
-        enum: [RUR, USD, EUR, UAH, KZT, BYN]   
+        enum: [RUB, USD, EUR, UAH, KZT, BYN]   
     required:
     - id
     - shop_name
@@ -2649,28 +2649,28 @@ definitions:
         amount: 123.5
         cash_back: 9.8800000000000008
         status: declined
-        currency: RUR
+        currency: RUB
       - id: 60
         shop_name: Buyon и cash back от WWP Capital
         date_time_order: '2018-04-17 00:00:00'
         amount: 123.5
         cash_back: 9.8800000000000008
         status: declined
-        currency: RUR
+        currency: RUB
       - id: 61
         shop_name: Buyon и cash back от WWP Capital
         date_time_order: '2018-04-17 00:00:00'
         amount: 123.5
         cash_back: 9.8800000000000008
         status: approved
-        currency: RUR
+        currency: RUB
       - id: 62
         shop_name: Buyon и cash back от WWP Capital
         date_time_order: '2018-04-17 00:00:00'
         amount: 123.5
         cash_back: 0
         status: pending
-        currency: RUR
+        currency: RUB
     type: object
     properties:
       vouchers:
@@ -2682,28 +2682,28 @@ definitions:
           amount: 123.5
           cash_back: 9.8800000000000008
           status: declined
-          currency: RUR
+          currency: RUB
         - id: 60
           shop_name: Buyon и cash back от WWP Capital
           date_time_order: '2018-04-17 00:00:00'
           amount: 123.5
           cash_back: 9.8800000000000008
           status: declined
-          currency: RUR
+          currency: RUB
         - id: 61
           shop_name: Buyon и cash back от WWP Capital
           date_time_order: '2018-04-17 00:00:00'
           amount: 123.5
           cash_back: 9.8800000000000008
           status: declined
-          currency: RUR
+          currency: RUB
         - id: 62
           shop_name: Buyon и cash back от WWP Capital
           date_time_order: '2018-04-17 00:00:00'
           amount: 123.5
           cash_back: 9.8800000000000008
           status: declined
-          currency: RUR
+          currency: RUB
         type: array
         items:
           $ref: '#/definitions/Voucher'
@@ -2718,7 +2718,7 @@ definitions:
       amount: 123.5
       cashBack: 9.8800000000000008
       status: declined
-      currency: RUR
+      currency: RUB
     type: object
     properties:
       id:
@@ -2751,9 +2751,9 @@ definitions:
         enum: [pending, approved, declined]
       currency:
         description: 'Валюта'
-        example: 'RUR'
+        example: 'RUB'
         type: string
-        enum: [RUR, USD, EUR, UAH, KZT, BYN]   
+        enum: [RUB, USD, EUR, UAH, KZT, BYN]   
     required:
     - id
     - shop_name
@@ -3577,7 +3577,7 @@ definitions:
           bank_partnerid: 2
           pan: 12344
           date_expire: '2010-08'
-          currency: 'RUR'
+          currency: 'RUB'
           card_status: 'NewNotPerson'
         date_request_created: '2010-08-18 08:15:30'
         request_status: 'Complete'
@@ -3609,9 +3609,9 @@ definitions:
         type: string
       currency:
         description: 'Валюта банковской карты'
-        example: 'RUR'
+        example: 'RUB'
         type: string
-        enum: [RUR, USD, EUR]  
+        enum: [RUB, USD, EUR]  
       card_status:
         description: 'Статус карты в учетных системах'
         example: 'NewNotPerson'
@@ -3645,7 +3645,7 @@ definitions:
           bank_partnerid: 2
           pan: 12344
           date_expire: '2010-08'
-          currency: 'RUR'
+          currency: 'RUB'
           card_status: 'NewNotPerson'
         date_request_created: '2010-08-18 08:15:30'
         request_status: 'Complete'
@@ -3656,7 +3656,7 @@ definitions:
           bank_partnerid: 2
           pan: 12344
           date_expire: '2010-08'
-          currency: 'RUR'
+          currency: 'RUB'
           card_status: 'NewNotPerson'
         date_request_created: '2010-08-18 08:15:30'
         request_status: 'Complete'
@@ -3672,7 +3672,7 @@ definitions:
             bank_partnerid: 2
             pan: 12344
             date_expire: '2010-08'
-            currency: 'RUR'
+            currency: 'RUB'
             card_status: 'NewNotPerson'
           date_request_created: '2010-08-18 08:15:30'
           request_status: 'Complete'
@@ -3683,7 +3683,7 @@ definitions:
             bank_partnerid: 2
             pan: 12344
             date_expire: '2010-08'
-            currency: 'RUR'
+            currency: 'RUB'
             card_status: 'NewNotPerson'
           date_request_created: '2010-08-18 08:15:30'
           request_status: 'Complete'
