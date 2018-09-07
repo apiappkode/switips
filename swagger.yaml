@@ -1269,12 +1269,14 @@ paths:
                 amount: 9341.22
                 cash_back: 136.00999999999999
                 status: approved
+                currency: RUR
               - id: 28795
                 shop_name: Aviasales.ru и cash back от WWP Capital
                 date_time_order: '2018-01-05 00:00:00'
                 amount: 19426.33
                 cash_back: 282.83999999999997
                 status: approved
+                currency: RUR
       security:
       - auth: []
   /getCashVouchers:
@@ -1310,24 +1312,28 @@ paths:
                 amount: 123.5
                 cash_back: 9.8800000000000008
                 status: declined
+                currency: RUR
               - id: 60
                 shop_name: Buyon и cash back от WWP Capital
                 date_time_order: '2018-04-17 00:00:00'
                 amount: 123.5
                 cash_back: 9.8800000000000008
                 status: declined
+                currency: RUR
               - id: 61
                 shop_name: Buyon и cash back от WWP Capital
                 date_time_order: '2018-04-17 00:00:00'
                 amount: 123.5
                 cash_back: 9.8800000000000008
                 status: declined
+                currency: RUR
               - id: 62
                 shop_name: Buyon и cash back от WWP Capital
                 date_time_order: '2018-04-17 00:00:00'
                 amount: 123.5
                 cash_back: 9.8800000000000008
                 status: declined
+                currency: RUR
       security:
       - auth: []
   /getActions:
@@ -2548,12 +2554,14 @@ definitions:
         amount: 9341.22
         cash_back: 136.00999999999999
         status: approved
+        currency: RUR
       - id: 28795
         shop_name: Aviasales.ru и cash back от WWP Capital
         date_time_order: '2018-01-05 00:00:00'
         amount: 19426.33
         cash_back: 282.83999999999997
         status: approved
+        currency: RUR
     type: object
     properties:
       orders:
@@ -2565,12 +2573,14 @@ definitions:
           amount: 9341
           cash_back: 136.00999999999999
           status: approved
+          currency: RUR
         - id: 28795
           shop_name: Aviasales.ru и cash back от WWP Capital
           date_time_order: '2018-01-05 00:00:00'
           amount: 19426
           cash_back: 282.83999999999997
           status: approved
+          currency: RUR
         type: array
         items:
           $ref: '#/definitions/Order'
@@ -2585,6 +2595,7 @@ definitions:
       amount: 9341.22
       cash_back: 136.00999999999999
       status: approved
+      currency: RUR
     type: object
     properties:
       id:
@@ -2615,6 +2626,11 @@ definitions:
         example: approved
         type: string
         enum: [pending, approved, declined]
+      currency:
+        description: 'Валюта'
+        example: 'RUR'
+        type: string
+        enum: [RUR, USD, EUR, UAH, KZT, BYN]   
     required:
     - id
     - shop_name
@@ -2622,6 +2638,7 @@ definitions:
     - amount
     - cash_back
     - status
+    - currency
   Vouchers:
     title: Vouchers
     example:
@@ -2632,24 +2649,28 @@ definitions:
         amount: 123.5
         cash_back: 9.8800000000000008
         status: declined
+        currency: RUR
       - id: 60
         shop_name: Buyon и cash back от WWP Capital
         date_time_order: '2018-04-17 00:00:00'
         amount: 123.5
         cash_back: 9.8800000000000008
         status: declined
+        currency: RUR
       - id: 61
         shop_name: Buyon и cash back от WWP Capital
         date_time_order: '2018-04-17 00:00:00'
         amount: 123.5
         cash_back: 9.8800000000000008
         status: approved
+        currency: RUR
       - id: 62
         shop_name: Buyon и cash back от WWP Capital
         date_time_order: '2018-04-17 00:00:00'
         amount: 123.5
         cash_back: 0
         status: pending
+        currency: RUR
     type: object
     properties:
       vouchers:
@@ -2661,24 +2682,28 @@ definitions:
           amount: 123.5
           cash_back: 9.8800000000000008
           status: declined
+          currency: RUR
         - id: 60
           shop_name: Buyon и cash back от WWP Capital
           date_time_order: '2018-04-17 00:00:00'
           amount: 123.5
           cash_back: 9.8800000000000008
           status: declined
+          currency: RUR
         - id: 61
           shop_name: Buyon и cash back от WWP Capital
           date_time_order: '2018-04-17 00:00:00'
           amount: 123.5
           cash_back: 9.8800000000000008
           status: declined
+          currency: RUR
         - id: 62
           shop_name: Buyon и cash back от WWP Capital
           date_time_order: '2018-04-17 00:00:00'
           amount: 123.5
           cash_back: 9.8800000000000008
           status: declined
+          currency: RUR
         type: array
         items:
           $ref: '#/definitions/Voucher'
@@ -2693,6 +2718,7 @@ definitions:
       amount: 123.5
       cashBack: 9.8800000000000008
       status: declined
+      currency: RUR
     type: object
     properties:
       id:
@@ -2723,6 +2749,11 @@ definitions:
         example: declined
         type: string
         enum: [pending, approved, declined]
+      currency:
+        description: 'Валюта'
+        example: 'RUR'
+        type: string
+        enum: [RUR, USD, EUR, UAH, KZT, BYN]   
     required:
     - id
     - shop_name
@@ -2730,6 +2761,7 @@ definitions:
     - amount
     - cash_back
     - status
+    - currency
   Action:
     title: Action
     example:
