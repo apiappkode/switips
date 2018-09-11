@@ -1796,13 +1796,16 @@ paths:
               - id: 37967
                 title: 'Обувь'
                 code: 'shoes'
+                icon: 'https://app.apiary.io/switips1/editor'
               - id: 37963
                 title: 'Мебель'
                 code: 'shoes'
                 categories: [{id: 42, title: 'Шкафы'}, {id: 44, title: 'Полки'}]
+                icon: 'https://app.apiary.io/switips1/editor'
               - id: 37967
                 title: 'Обувь'
                 code: 'shoes'
+                icon: 'https://app.apiary.io/switips1/editor'
       security: []
   /getCountries:
     get:
@@ -3078,6 +3081,7 @@ definitions:
       id: 37967
       title: 'Обувь'
       code: 'shoes'
+      icon: 'https://app.apiary.io/switips1/editor'
     type: object
     properties:
       id:
@@ -3093,10 +3097,15 @@ definitions:
         description: 'Код категории'
         example: 'shoes'
         type: string
+      icon:
+        description: 'Ссылка на иконку'
+        example: 'https://app.apiary.io/switips1/editor'
+        type: string
     required:
     - id
     - title
     - code
+    - icon
   MapsShops:
     title: MapsShops
     example:
