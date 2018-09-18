@@ -659,6 +659,7 @@ paths:
                 awaiting_balance: 0.122
                 rejected_balance: 0.522
                 ref_link: '/ref/6546243243'
+                cashback_status: 'silver'
         401:
           description: Unauthorized
           schema:
@@ -2371,6 +2372,7 @@ definitions:
       awaiting_balance: 0
       rejected_balance: 0.522
       ref_link: https://switips.com/?u=win17
+      cashback_status: 'silver'
     type: object
     properties:
       id:
@@ -2413,6 +2415,10 @@ definitions:
         description: 'Рефераальная ссылка пользователя'
         example: https://switips.com/?u=win17
         type: string
+      cashback_status:  
+        example: 'silver'
+        type: string
+        enum: [silver, gold] 
     required:
     - id
     - first_name
@@ -2422,6 +2428,7 @@ definitions:
     - available_balance
     - awaiting_balance
     - ref_link
+    - cashback_status
   UserShort:
     title: UserShort
     example:
