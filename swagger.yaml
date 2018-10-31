@@ -3632,7 +3632,7 @@ definitions:
         description: 'Статус карты в учетных системах'
         example: 'NewNotPerson'
         type: string
-        enum: [NewNotPerson, NewAtPerson, Active, Annuled, Closed]  
+        enum: [NewNotPerson, Wait, NewAtPerson, Active, Annuled, Closed]  
       date_request_created:
         description: 'Дата регистрации заявки в банке (ISODateTime)'
         example: '2010-08-18 08:15:30'
