@@ -1280,6 +1280,28 @@ paths:
                 currency: RUB
       security:
       - auth: []
+  /getPreCashBack:
+    get:
+      description: 'Получение предварительного кэшбэка'
+      tags:
+      - getPreCashBack
+      operationId: getPreCashBack
+      produces:
+      - application/json
+      responses:
+        200:
+          description: 'Получение предварительного кэшбэка'
+          schema:
+            $ref: '#/definitions/PreCashBack'
+          examples:
+            application/json:
+              PreCashB:
+              - id: 59
+                shop_name: Buyon и cash back от WWP Capital
+                cash_back: 9.8800000000000008
+                currency: RUB
+      security:
+      - auth: []
   /getCashVouchers:
     get:
       description: 'Получение списка всех чеков'
@@ -3709,3 +3731,36 @@ definitions:
           $ref: '#/definitions/CardRequest'
     required:
     - card_requests
+  PreCashBack:
+    title: PreCashBack
+    example:
+      id: 59
+      shopName: Buyon и cash back от WWP Capital
+      cash_back: 9.8800000000000008
+      currency: RUB
+    type: object
+    properties:
+      id:
+        description: 'ID чека из системы Switips'
+        example: 59
+        type: integer
+        format: int32
+      shop_name:
+        description: 'Название магазина'
+        example: Buyon и cash back от WWP Capital
+        type: string
+      cash_back:
+        description: 'Сумма кешбэка'
+        example: 9.8800000000000008
+        type: number
+        format: double
+      currency:
+        description: 'Валюта'
+        example: 'RUB'
+        type: string
+        enum: [RUB, USD, EUR, UAH, KZT, BYN]   
+    required:
+    - id
+    - shop_name
+    - cash_back
+    - currency
