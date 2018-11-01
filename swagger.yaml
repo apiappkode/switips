@@ -3739,7 +3739,6 @@ definitions:
   PreCashBack:
     title: PreCashBack
     example:
-      id: 59
       shopName: Buyon и cash back от WWP Capital
       cash_back: 9.8800000000000008
       currency: RUB
@@ -3760,7 +3759,6 @@ definitions:
         type: string
         enum: [RUB, USD, EUR, UAH, KZT, BYN]   
     required:
-    - id
     - shop_name
     - cash_back
     - currency
