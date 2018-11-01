@@ -1210,9 +1210,14 @@ paths:
           description: 'Строка расшифрованного штрихкода чека' 
       responses:
         200:
-          description: 'Код чека успешно отправлен'
+          description: 'Получение предварительного кэшбэка'
+          schema:
+           $ref: '#/definitions/PreCashBack'
           examples:
-            application/json: []
+            application/json:
+              shop_name: Buyon и cash back от WWP Capital
+              cash_back: 9.8800000000000008
+              currency: RUB
         500:
           description: 'Обязательный параметр dataqrcode не передан'
         default:
@@ -3740,11 +3745,6 @@ definitions:
       currency: RUB
     type: object
     properties:
-      id:
-        description: 'ID чека из системы Switips'
-        example: 59
-        type: integer
-        format: int32
       shop_name:
         description: 'Название магазина'
         example: Buyon и cash back от WWP Capital
