@@ -29,6 +29,12 @@ paths:
       consumes:
       - application/x-www-form-urlencoded
       parameters:
+      - name: Accept-language
+        in: header
+        type: string
+        required: true
+        description: 'Язык устройства'
+        x-example: 'RU'
       - name: login
         in: formData
         type: string
@@ -372,6 +378,12 @@ paths:
         description: 'Информация о девайсе с которого была отправлена информация о чеке'
         required: true
         type: string        
+      - name: Accept-language
+        in: header
+        type: string
+        required: true
+        description: 'Язык устройства'
+        x-example: 'RU'
       responses:
         200:
           description: 'Авторизация прошла успешно'
@@ -400,6 +412,7 @@ paths:
           examples:
             application/json:
               key: badCredentials
+              msgTitle: Ошибка
               msgUser: Неверно введен логин или пароль
               msgDev: Неверно введен логин или пароль
       security: []
@@ -411,7 +424,13 @@ paths:
       operationId: Logout2
       produces:
       - application/json
-      parameters: []
+      parameters: 
+      - name: Accept-language
+        in: header
+        type: string
+        required: true
+        description: 'Язык устройства'
+        x-example: 'RU'      
       responses:
         200:
           description: 'Разавторизация пользователя прошла успешно'
@@ -438,6 +457,12 @@ paths:
       consumes:
       - application/x-www-form-urlencoded
       parameters:
+      - name: Accept-language
+        in: header
+        type: string
+        required: true
+        description: 'Язык устройства'
+        x-example: 'RU'
       - name: platform
         in: formData
         description: 'Платформа мобильного устройства'
@@ -484,11 +509,17 @@ paths:
       consumes:
       - application/x-www-form-urlencoded
       parameters:
-        - in: formData
-          name: login_email
-          required: true
-          type: string
-          description: 'Логин или email пользователя'
+      - name: Accept-language
+        in: header
+        type: string
+        required: true
+        description: 'Язык устройства'
+        x-example: 'RU'
+      - in: formData
+        name: login_email
+        required: true
+        type: string
+        description: 'Логин или email пользователя'
       responses:
         200:
           description: 'Верификационный код для восстановления пароля отправлен на почту (или push уведомлением)'
@@ -535,6 +566,12 @@ paths:
       consumes:
       - application/x-www-form-urlencoded
       parameters:
+        - name: Accept-language
+          in: header
+          type: string
+          required: true
+          description: 'Язык устройства'
+          x-example: 'RU'
         - in: formData
           name: verification_code
           required: true
@@ -575,6 +612,12 @@ paths:
       consumes:
       - application/x-www-form-urlencoded
       parameters:
+        - name: Accept-language
+          in: header
+          type: string
+          required: true
+          description: 'Язык устройства'
+          x-example: 'RU'
         - in: formData
           name: password
           required: true
@@ -637,11 +680,17 @@ paths:
     get:
       description: "Получение профиля текущего авторизованного юзера."
       tags:
-      - getProfileDetails
-      operationId: GetProfileDetails7
+      - ProfileDetails
+      operationId: ProfileDetails7
       produces:
       - application/json
-      parameters: []
+      parameters:
+      - name: Accept-language
+        in: header
+        type: string
+        required: true
+        description: 'Язык устройства'
+        x-example: 'RU'      
       responses:
         200:
           description: 'Данные профиля'
@@ -653,8 +702,9 @@ paths:
               - id: 37967
                 first_name: 'Сергей'
                 last_name: 'Петров'
-                login: 'seroga'
+                login: 'serega'
                 email: 'seregaRulit@gmail.com'
+                language: 'RU'
                 available_balance: 0.5422
                 awaiting_balance: 0.122
                 rejected_balance: 0.522
@@ -667,11 +717,54 @@ paths:
           examples:
             application/json:
               key: tokenInvalid
+              msgTitle: Ошибка
               msgUser: Сессия не действительна или истекло время, авторизуйтесь
               msgDev: Сессия не действительна, требуется выдача нового token
               domain: ''
       security:
-      - auth: []    
+      - auth: []
+    post:
+      description: "Обновление профиля"
+      tags:
+      - ProfileDetails
+      operationId: UpdateProfile
+      produces:
+      - application/json
+      consumes:
+      - application/x-www-form-urlencoded
+      parameters:
+      - name: Accept-language
+        in: header
+        type: string
+        required: true
+        description: 'Язык устройства'
+        x-example: 'RU'
+      - name: Accept-language
+        in: formData
+        type: string
+        required: true
+        description: 'Язык устройства'
+        x-example: 'RU'
+      responses:
+        200:
+          description: 'Язык системы успешно изменён'
+          examples:
+             application/json: []
+        500:
+          description: 'Обязательный параметр dataqrcode не передан'
+        default:
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/Failure'
+          examples:
+            application/json:
+              key: languagenotchanged
+              msgTitle: Язык не был изменён! К сожалению, произошла ошибка
+              msgUser: Мы уже решаем возникшую проблему. Пожалуйста, повторите попытку немного позже  
+              msgDev: Отсутствует связь с сервером
+              domain: ''
+      security:
+      - auth: []
   /getShopList:
     get:
       description: "Получение списка магазинов."
@@ -681,6 +774,12 @@ paths:
       produces:
       - application/json
       parameters:
+        - name: Accept-language
+          in: header
+          type: string
+          required: true
+          description: 'Язык устройства'
+          x-example: 'RU'      
         - in: query
           name: sort_type
           required: false
@@ -698,7 +797,17 @@ paths:
           required: false
           type: string
           enum: [all, online, offline]
-          description: 'Тип магазина' 
+          description: 'Тип магазина'
+        - in: query
+          name: accept_switips_card
+          required: false
+          type: boolean
+          description: 'Принимает ли магазин карты Switips'
+        - in: query
+          name: verified_switips
+          required: false
+          type: boolean
+          description: 'Чеки проверены командой Switips, кэшбэк по ним приходит'
         - in: query
           name: country_id
           required: false
@@ -753,6 +862,8 @@ paths:
                 logo: '/url/docs/image.jpg'
                 is_online: true
                 is_offline: false
+                accept_switips_card: true
+                verified_switips: true
                 have_actions: true
                 is_top10: false
                 exclusive: true
@@ -784,6 +895,8 @@ paths:
                 logo: '/url/docs/image.jpg'
                 is_online: true
                 is_offline: false
+                accept_switips_card: true
+                verified_switips: true
                 have_actions: true
                 is_top10: false
                 exclusive: true
@@ -815,6 +928,8 @@ paths:
                 logo: '/url/docs/image.jpg'
                 is_online: true
                 is_offline: false
+                accept_switips_card: true
+                verified_switips: true
                 have_actions: true
                 is_top10: false
                 exclusive: true
@@ -850,6 +965,12 @@ paths:
       produces:
       - application/json
       parameters:
+        - name: Accept-language
+          in: header
+          type: string
+          required: true
+          description: 'Язык устройства'
+          x-example: 'RU'      
         - in: query
           name: sort_type
           required: false
@@ -868,6 +989,16 @@ paths:
           type: string
           enum: [all, online, offline]
           description: 'Тип магазина' 
+        - in: query
+          name: accept_switips_card
+          required: false
+          type: boolean
+          description: 'Принимает ли магазин карты Switips'
+        - in: query
+          name: verified_switips
+          required: false
+          type: boolean
+          description: 'Чеки проверены командой Switips, кэшбэк по ним приходит'
         - in: query
           name: country_id
           required: false
@@ -921,6 +1052,12 @@ paths:
       produces:
       - application/json
       parameters:
+        - name: Accept-language
+          in: header
+          type: string
+          required: true
+          description: 'Язык устройства'
+          x-example: 'RU'      
         - in: query
           name: min_latitude
           required: false
@@ -1019,6 +1156,12 @@ paths:
       consumes:
       - application/x-www-form-urlencoded
       parameters:
+        - name: Accept-language
+          in: header
+          type: string
+          required: true
+          description: 'Язык устройства'
+          x-example: 'RU'      
         - in: path
           name: shop_id
           type: integer
@@ -1038,6 +1181,8 @@ paths:
                   logo: '/url/docs/image.jpg'
                   is_online: true
                   is_offline: false
+                  accept_switips_card: true
+                  verified_switips: true
                   have_actions: true
                   is_top10: false
                   exclusive: true
@@ -1075,6 +1220,12 @@ paths:
       consumes:
       - application/x-www-form-urlencoded
       parameters:
+        - name: Accept-language
+          in: header
+          type: string
+          required: true
+          description: 'Язык устройства'
+          x-example: 'RU'      
         - in: path
           name: shop_id
           type: integer
@@ -1129,7 +1280,13 @@ paths:
       operationId: GetBalance8
       produces:
       - application/json
-      parameters: []
+      parameters:
+      - name: Accept-language
+        in: header
+        type: string
+        required: true
+        description: 'Язык устройства'
+        x-example: 'RU'      
       responses:
         200:
           description: 'Отображение баланса профиля текущего авторизованного юзера'
@@ -1148,6 +1305,7 @@ paths:
           examples:
             application/json:
               key: tokenInvalid
+              msgTitle: Ошибка
               msgUser: Сессия не действительна или истекло время, авторизуйтесь
               msgDev: Сессия не действительна, требуется выдача нового token
               domain: ''
@@ -1161,7 +1319,13 @@ paths:
       operationId: GetBalance8
       produces:
       - application/json
-      parameters: []
+      parameters:
+      - name: Accept-language
+        in: header
+        type: string
+        required: true
+        description: 'Язык устройства'
+        x-example: 'RU'      
       responses:
         200:
           description: 'Получения спика заявок и банковских карт'
@@ -1187,6 +1351,7 @@ paths:
           examples:
             application/json:
               key: tokenInvalid
+              msgTitle: Ошибка
               msgUser: Сессия не действительна или истекло время, авторизуйтесь
               msgDev: Сессия не действительна, требуется выдача нового token
               domain: ''
@@ -1203,6 +1368,12 @@ paths:
       consumes:
       - application/x-www-form-urlencoded
       parameters:
+        - name: Accept-language
+          in: header
+          type: string
+          required: true
+          description: 'Язык устройства'
+          x-example: 'RU'      
         - in: formData
           name: dataqrcode
           required: true
@@ -1226,8 +1397,9 @@ paths:
             $ref: '#/definitions/Failure'
           examples:
             application/json:
-              key: sendQRParametersInvalid
-              msgUser: Внутренняя ошибка приложения
+              key: sendQRCodeInvalid
+              msgTitle: Чек не принят! К сожалению, нам не удалось распознать данные чека
+              msgUser: Пожалуйста, повторите сканирование или обратитесь в службу поддержки              
               msgDev: Обязательный параметр dataqrcode не передан
               domain: ''
         401:
@@ -1250,7 +1422,13 @@ paths:
       operationId: GetOrders
       produces:
       - application/json
-      parameters: 
+      parameters:
+        - name: Accept-language
+          in: header
+          type: string
+          required: true
+          description: 'Язык устройства'
+          x-example: 'RU'      
         - in: query
           name: page_number
           required: false
@@ -1285,28 +1463,6 @@ paths:
                 currency: RUB
       security:
       - auth: []
-  /getPreCashBack:
-    get:
-      description: 'Получение предварительного кэшбэка'
-      tags:
-      - getPreCashBack
-      operationId: getPreCashBack
-      produces:
-      - application/json
-      responses:
-        200:
-          description: 'Получение предварительного кэшбэка'
-          schema:
-            $ref: '#/definitions/PreCashBack'
-          examples:
-            application/json:
-              PreCashB:
-              - id: 59
-                shop_name: Buyon и cash back от WWP Capital
-                cash_back: 9.8800000000000008
-                currency: RUB
-      security:
-      - auth: []
   /getCashVouchers:
     get:
       description: 'Получение списка всех чеков'
@@ -1316,6 +1472,12 @@ paths:
       produces:
       - application/json
       parameters: 
+        - name: Accept-language
+          in: header
+          type: string
+          required: true
+          description: 'Язык устройства'
+          x-example: 'RU'      
         - in: query
           name: page_number
           required: false
@@ -1373,6 +1535,12 @@ paths:
       produces:
       - application/json
       parameters:
+        - name: Accept-language
+          in: header
+          type: string
+          required: true
+          description: 'Язык устройства'
+          x-example: 'RU'      
         - in: query
           name: sort_type
           required: false
@@ -1467,6 +1635,12 @@ paths:
       produces:
       - application/json
       parameters:
+        - name: Accept-language
+          in: header
+          type: string
+          required: true
+          description: 'Язык устройства'
+          x-example: 'RU'      
         - in: query
           name: sort_type
           required: false
@@ -1526,6 +1700,12 @@ paths:
       consumes:
       - application/x-www-form-urlencoded
       parameters:
+      - name: Accept-language
+        in: header
+        type: string
+        required: true
+        description: 'Язык устройства'
+        x-example: 'RU'      
       - in: formData
         name: title
         required: true
@@ -1546,6 +1726,7 @@ paths:
           examples:
             application/json:
               key: sendFeedbackParametersInvalid
+              msgTitle: Ошибка!
               msgUser: Внутренняя ошибка приложения
               msgDev: Обязательные параметры title и description не переданы
               domain: ''
@@ -1562,6 +1743,12 @@ paths:
       consumes:
       - application/x-www-form-urlencoded
       parameters:
+      - name: Accept-language
+        in: header
+        type: string
+        required: true
+        description: 'Язык устройства'
+        x-example: 'RU'      
       - in: formData
         name: shop_id
         required: true
@@ -1579,6 +1766,7 @@ paths:
           examples:
             application/json:
               key: sendFeedbackParametersInvalid
+              msgTitle: Ошибка
               msgUser: Внутренняя ошибка приложения
               msgDev: Обязательный параметр shopId не передан
               domain: ''
@@ -1621,6 +1809,12 @@ paths:
       consumes:
       - application/x-www-form-urlencoded
       parameters:
+      - name: Accept-language
+        in: header
+        type: string
+        required: true
+        description: 'Язык устройства'
+        x-example: 'RU'      
       - in: formData
         name: shop_id
         required: true
@@ -1638,6 +1832,7 @@ paths:
           examples:
             application/json:
               key: sendFeedbackParametersInvalid
+              msgTitle: Ошибка
               msgUser: Внутренняя ошибка приложения
               msgDev: Обязательный параметр shopId не передан
               domain: ''
@@ -1678,6 +1873,12 @@ paths:
       produces:
       - application/json
       parameters: 
+        - name: Accept-language
+          in: header
+          type: string
+          required: true
+          description: 'Язык устройства'
+          x-example: 'RU'      
         - in: query
           name: sort_type
           required: false
@@ -1813,6 +2014,13 @@ paths:
       - application/json
       consumes:
       - application/x-www-form-urlencoded
+      parameters:
+      - name: Accept-language
+        in: header
+        type: string
+        required: true
+        description: 'Язык устройства'
+        x-example: 'RU'      
       responses:
         200:
           description: 'Получение списка категорий'
@@ -1843,6 +2051,13 @@ paths:
       operationId: getCountries
       produces:
       - application/json
+      parameters:
+      - name: Accept-language
+        in: header
+        type: string
+        required: true
+        description: 'Язык устройства'
+        x-example: 'RU'      
       responses:
         200:
           description: 'Получение списка стран'
@@ -1866,6 +2081,13 @@ paths:
       operationId: getShopsForWebExtensions
       produces:
       - application/json
+      parameters:
+      - name: Accept-language
+        in: header
+        type: string
+        required: true
+        description: 'Язык устройства'
+        x-example: 'RU'      
       responses:
         200:
           description: 'Получение ифнормации по кэшбэку и акциям для сайтов в веб-расширении'
@@ -1908,6 +2130,13 @@ paths:
       operationId: bankCards
       produces:
       - application/json
+      parameters:
+      - name: Accept-language
+        in: header
+        type: string
+        required: true
+        description: 'Язык устройства'
+        x-example: 'RU'      
       responses:
         200:
           description: 'Получения спика заявок и банковских карт'
@@ -1983,6 +2212,7 @@ definitions:
     title: Failure
     example:
       key: badCredentials
+      msgTitle: 
       msgUser: Неверно введен логин или пароль
       msgDev: Неверно введен логин или пароль
       domain: ''
@@ -1991,6 +2221,10 @@ definitions:
       key:
         description: 'Код ошибки'
         example: badCredentials
+        type: string
+      msgTitle:
+        description: 'Заголовок ошибки для пользователя'
+        example: Ошибка
         type: string
       msgUser:
         description: 'Сообщение об ошибке для пользователя'
@@ -2094,6 +2328,8 @@ definitions:
         logo: '/url/docs/image.jpg'
         is_online: true
         is_offline: false
+        accept_switips_card: true
+        verified_switips: true
         have_actions: true
         is_top10: false
         exclusive: true
@@ -2161,6 +2397,8 @@ definitions:
           logo: '/url/docs/image.jpg'
           is_online: true
           is_offline: false
+          accept_switips_card: true
+          verified_switips: true
           have_actions: true
           is_top10: false
           exclusive: true
@@ -2192,6 +2430,8 @@ definitions:
           logo: '/url/docs/image.jpg'
           is_online: true
           is_offline: false
+          accept_switips_card: true
+          verified_switips: true
           have_actions: true
           is_top10: false
           exclusive: true
@@ -2232,6 +2472,8 @@ definitions:
         logo: '/url/docs/image.jpg'
         is_online: true
         is_offline: false
+        accept_switips_card: true
+        accept_qr_code: true
         have_actions: true
         is_top10: false
         exclusive: true
@@ -2282,6 +2524,14 @@ definitions:
         type: boolean
       is_offline:
         description: 'Доступность покупки в офлайн магазине'
+        example: false
+        type: boolean
+      accept_switips_card:
+        description: 'Принимает ли партнёр карты ко-бренда свитипс'
+        example: false
+        type: boolean
+      verified_switips:
+        description: 'Чеки проверены командой Switips, кэшбэк по ним приходит'
         example: false
         type: boolean
       have_actions:
@@ -2384,6 +2634,8 @@ definitions:
     - logo
     - is_online
     - is_offline
+    - accept_switips_card
+    - accept_qr_code
     - status
     - category_title
     - cashback
@@ -2395,6 +2647,7 @@ definitions:
       last_name: Яна
       login: win17
       email: winyanamagazine@yandex.ru
+      language: 'RU'
       available_balance: 181320.14999999999
       awaiting_balance: 0
       rejected_balance: 0.522
@@ -2423,11 +2676,16 @@ definitions:
         description: 'Электронная почта'
         example: winyanamagazine@yandex.ru
         type: string
+      language:
+        description: 'Язык профиля'
+        example: 'RU'
+        type: string
+        enum: [SYS, RU, EN, UK, KK, BE] 
       available_balance:
-        description: 'Доступный внутренний баланс пользователя'
-        example: 181320.14999999999
-        type: number
-        format: double
+              description: 'Доступный внутренний баланс пользователя'
+              example: 181320.14999999999
+              type: number
+              format: double
       awaiting_balance:
         description: 'Баланс ожидающий поступления на счет пользователя, не доступный для зачисления'
         example: 0
@@ -2451,6 +2709,7 @@ definitions:
     - first_name
     - last_name
     - login
+    - language
     - email
     - available_balance
     - awaiting_balance
