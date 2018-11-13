@@ -681,7 +681,7 @@ paths:
       description: "Получение профиля текущего авторизованного юзера."
       tags:
       - ProfileDetails
-      operationId: ProfileDetails7
+      operationId: ProfileDetails
       produces:
       - application/json
       parameters:
@@ -751,7 +751,7 @@ paths:
           examples:
              application/json: []
         500:
-          description: 'Обязательный параметр dataqrcode не передан'
+          description: 'Язык не был изменён'
         default:
           description: Internal Server Error
           schema:
@@ -2176,6 +2176,13 @@ paths:
       operationId: urlForRequest
       produces:
       - application/json
+      parameters:
+      - name: Language
+        in: header
+        type: string
+        required: true
+        description: 'Язык устройства'
+        x-example: 'RU'      
       responses:
         200:
           description: 'Получение ссылки для кнопки заявки карты'
@@ -2195,6 +2202,88 @@ paths:
               requestid: 182
               claimurl: 'https://app.apiary.io/switips1/editor'
       security: [] 
+  /getPaymentCommission:
+    get:
+      description: 'Получение процента комиссии'
+      tags:
+      - getpaymentcommission
+      operationId: getpaymentcommission
+      produces:
+      - application/json
+      parameters:
+      - name: Language
+        in: header
+        type: string
+        required: true
+        description: 'Язык устройства'
+        x-example: 'RU'
+      - name: WithdrawalMethod
+        in: query
+        type: string
+        enum: [BankCard, YandexMoney, ePayments, Qiwi]
+        required: true
+        description: 'Метод вывода средств'
+        x-example: 'YandexMoney'
+      - name: Currency
+        in: query
+        type: string
+        required: true
+        enum: [RUB, USD, EUR, UAH, KZT, BYN]
+        description: 'Валюта'
+        x-example: 'RUB'
+      responses:
+        200:
+          description: 'Получения спика заявок и банковских карт'
+          schema:
+            $ref: '#/definitions/PaymentCommission'
+          examples:
+            application/json:: 
+            withdrawalmethod: 'YandexMoney'
+            currency: 'USD'
+            percentage: 5.00
+      security: 
+      - auth: []          
+  /getПОРОГВЫВОДА:
+    get:
+      description: 'Получение процента комиссии'
+      tags:
+      - getpaymentcommission
+      operationId: getpaymentcommission
+      produces:
+      - application/json
+      parameters:
+      - name: Language
+        in: header
+        type: string
+        required: true
+        description: 'Язык устройства'
+        x-example: 'RU'
+      - name: WithdrawalMethod
+        in: query
+        type: string
+        enum: [BankCard, YandexMoney, ePayments, Qiwi]
+        required: true
+        description: 'Метод вывода средств'
+        x-example: 'YandexMoney'
+      - name: Currency
+        in: query
+        type: string
+        required: true
+        enum: [RUB, USD, EUR, UAH, KZT, BYN]
+        description: 'Валюта'
+        x-example: 'RUB'
+      responses:
+        200:
+          description: 'Получения спика заявок и банковских карт'
+          schema:
+            $ref: '#/definitions/PaymentCommission'
+          examples:
+            application/json:: 
+            withdrawalmethod: 'YandexMoney'
+            currency: 'USD'
+            percentage: 5.00
+      security: 
+      - auth: []          
 definitions:
   Successfull:
     title: Successfull
@@ -4021,3 +4110,29 @@ definitions:
     - shop_name
     - cash_back
     - currency
+  PaymentCommission:
+    title: PaymentCommission
+    example:
+      withdrawalmethod: 'YandexMoney'
+      currency: 'USD'
+      percentage: 5.00
+    type: object
+    properties:
+      withdrawalmethod:
+        description: 'Метод вывода средств'
+        example: 'YandexMoney'
+        type: string
+      currency:
+        description: 'Валюта'
+        example: 'RUB'
+        type: string
+        enum: [RUB, USD, EUR, UAH, KZT, BYN]   
+      percentage:
+        description: 'Процент комиссии'
+        example: 5.65
+        type: number
+        format: float  
+    required:
+    - withdrawalmethod
+    - currency
+    - percentage
