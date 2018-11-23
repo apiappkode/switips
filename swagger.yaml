@@ -1313,7 +1313,7 @@ paths:
       - auth: []      
   /balance:
     get:
-      description: 'Получение баланса профиля текущего авторизованного юзера.'
+      description: 'Получение баланса всех счетов профиля текущего авторизованного юзера'
       tags:
       - getBalance
       operationId: GetBalance8
@@ -1328,7 +1328,7 @@ paths:
         x-example: 'RU'      
       responses:
         200:
-          description: 'Получения спика заявок и банковских карт'
+          description: 'Получение баланса всех счетов текущего авторизованного юзера'
           schema:
             $ref: '#/definitions/Balances2'
           examples:
@@ -1343,7 +1343,7 @@ paths:
                   awaiting_balance: 9.8800000000000008
                   rejected_balance: 2.12
                   approved_balance: 2.213
-                  currency: 'RUB'
+                  currency: 'USD'
         401:
           description: Unauthorized
           schema:
@@ -2202,12 +2202,12 @@ paths:
               requestid: 182
               claimurl: 'https://app.apiary.io/switips1/editor'
       security: [] 
-  /getPaymentCommission:
+  /getPaymentCommissions:
     get:
-      description: 'Получение процента комиссии'
+      description: 'Получение процента комиссий'
       tags:
-      - getpaymentcommission
-      operationId: getpaymentcommission
+      - getpaymentcommissions
+      operationId: getpaymentcommissions
       produces:
       - application/json
       parameters:
@@ -2217,73 +2217,136 @@ paths:
         required: true
         description: 'Язык устройства'
         x-example: 'RU'
-      - name: WithdrawalMethod
-        in: query
-        type: string
-        enum: [BankCard, YandexMoney, ePayments, Qiwi]
-        required: true
-        description: 'Метод вывода средств'
-        x-example: 'YandexMoney'
-      - name: Currency
-        in: query
-        type: string
-        required: true
-        enum: [RUB, USD, EUR, UAH, KZT, BYN]
-        description: 'Валюта'
-        x-example: 'RUB'
       responses:
         200:
-          description: 'Получения спика заявок и банковских карт'
+          description: 'Получение процента комиссий для всех валют'
           schema:
-            $ref: '#/definitions/PaymentCommission'
+            $ref: '#/definitions/PaymentCommissions'
           examples:
-            application/json:: 
-            withdrawalmethod: 'YandexMoney'
-            currency: 'USD'
-            percentage: 5.00
+            application/json:
+              PaymentCommissions:
+              - id: 1
+                output_method: 'yandex'
+                currency: 'RUB'
+                percent: 5.00
+                commission: 0
+                min: 30
+              - id: 2
+                output_method: 'yandex'
+                currency: 'KZT'
+                percent: 5.00
+                commission: 0
+                min: 30
+              - id: 3
+                output_method: 'yandex'
+                currency: 'USD'
+                percent: 5.00
+                commission: 0
+                min: 30
+              - id: 4
+                output_method: 'YandexMoney'
+                currency: 'BLE'
+                percent: 5.00
+                commission: 0
+                min: 30
+              - id: 5
+                output_method: 'YandexMoney'
+                currency: 'EUR'
+                percent: 5.00
+                commission: 0
+                min: 30        
+              - id: 6
+                output_method: 'BankCard'
+                currency: 'EUR'
+                percent: 5.00
+                commission: 0
+                min: 30        
       security: 
       - auth: []          
-  /getПОРОГВЫВОДА:
-    get:
-      description: 'Получение процента комиссии'
+  /NewTransfer:
+    post:
+      description: 'Вывод на Яндекс'
       tags:
-      - getpaymentcommission
-      operationId: getpaymentcommission
+      - NewTransfer
+      operationId: NewTransfer
       produces:
       - application/json
+      consumes:
+      - application/x-www-form-urlencoded
       parameters:
-      - name: Language
-        in: header
-        type: string
-        required: true
-        description: 'Язык устройства'
-        x-example: 'RU'
-      - name: WithdrawalMethod
-        in: query
-        type: string
-        enum: [BankCard, YandexMoney, ePayments, Qiwi]
-        required: true
-        description: 'Метод вывода средств'
-        x-example: 'YandexMoney'
-      - name: Currency
-        in: query
-        type: string
-        required: true
-        enum: [RUB, USD, EUR, UAH, KZT, BYN]
-        description: 'Валюта'
-        x-example: 'RUB'
-      responses:
-        200:
-          description: 'Получения спика заявок и банковских карт'
+        - name: Language
+          in: header
+          type: string
+          required: true
+          description: 'Язык устройства'
+          x-example: 'RU'
+        - name: amount
+          in: query
+          required: true
+          type: string
+          description: 'Сумма вывода'
+        - name: output_method
+          in: query
+          type: string
+          enum: [switips, card, yandex, epayments, qiwi]
+          required: true
+          description: 'Метод вывода средств'
+          x-example: 'yandex'
+        - name: currency
+          in: query
+          type: string
+          required: true
+          enum: [RUB, USD, EUR, UAH, KZT, BYN]
+          description: 'Валюта'
+          x-example: 'RUB'
+        - name: props
+          in: body
+          required: true
+          description: 'Параметры вывода'
           schema:
-            $ref: '#/definitions/PaymentCommission'
+            type: object
+            properties:
+              card:
+                type: string
+              name:
+                type: string
+              date_month:
+                type: string
+              date_year:
+                type: string
+              epayments:
+                type: string
+              yandex:
+                type: string  
+              qiwi:
+                type: string    
+              operator:
+                type: string
+                enum: [mts, tele2, megafon, beeline, another]
+        - name: preliminary_amount
+          in: query
+          required: true
+          type: boolean
+          description: 'Предварительный расчёт. Используется для вычесления предварительной суммы, которая будет выведена'
+      responses:
+        201:
+          description: 'Получение суммы вывода после вычета комиссии'
           examples:
-            application/json:: 
-            withdrawalmethod: 'YandexMoney'
-            currency: 'USD'
-            percentage: 5.00
-      security: 
-      - auth: []          
+            application/json:
+              key: SuccessfullTransfer
+              msgUser: 'Вывод кэшбэка успешно выполнен'
+              msgDev: 'Вывод кэшбэка успешно выполнен'
+              domain: ''
+        200:
+          description: 'Получение суммы вывода после вычета комиссии'
+          schema:
+            $ref: '#/definitions/Amount'
+          examples:
+            application/json:
+              paymentsystem: 'Visa'
+              amount: 1000.00
+              amountWithCommission: 800
+      security: []
 definitions:
   Successfull:
     title: Successfull
@@ -2899,31 +2962,71 @@ definitions:
     title: Balances2
     example:
       balances2:
-      - available_balance: 181320.14999999999
-        awaiting_balance: 9.8800000000000008
-        rejected_balance: 2.12
-        approved_balance: 2.213
-        currency: 'RUB'
-      - available_balance: 181320.14999999999
-        awaiting_balance: 9.8800000000000008
-        rejected_balance: 2.12
-        approved_balance: 2.213
-        currency: 'RUB'
+        - id: 1
+          available_balance: 181320.14999999999
+          awaiting_balance: 9.8800000000000008
+          rejected_balance: 2.12
+          approved_balance: 2.213
+          currency: 'RUB'
+        - id: 2
+          available_balance: 181320.14999999999
+          awaiting_balance: 9.8800000000000008
+          rejected_balance: 2.12
+          approved_balance: 2.213
+          currency: 'USD'
+        - id: 3
+          available_balance: 181320.14999999999
+          awaiting_balance: 9.8800000000000008
+          rejected_balance: 2.12
+          approved_balance: 2.213
+          currency: 'EUR'
+        - id: 4
+          available_balance: 181320.14999999999
+          awaiting_balance: 9.8800000000000008
+          rejected_balance: 2.12
+          approved_balance: 2.213
+          currency: 'BYN'  
+        - id: 5
+          available_balance: 181320.14999999999
+          awaiting_balance: 9.8800000000000008
+          rejected_balance: 2.12
+          approved_balance: 2.213
+          currency: 'BYN' 
     type: object
     properties:
       balances2:
         description: 'Балансы в разных валютах'
         example:
-        - available_balance: 181320.14999999999
+        - id: 1
+          available_balance: 181320.14999999999
           awaiting_balance: 9.8800000000000008
           rejected_balance: 2.12
           approved_balance: 2.213
           currency: 'RUB'
-        - available_balance: 181320.14999999999
+        - id: 2
+          available_balance: 181320.14999999999
           awaiting_balance: 9.8800000000000008
           rejected_balance: 2.12
           approved_balance: 2.213
-          currency: 'RUB'
+          currency: 'USD'
+        - id: 3
+          available_balance: 181320.14999999999
+          awaiting_balance: 9.8800000000000008
+          rejected_balance: 2.12
+          approved_balance: 2.213
+          currency: 'EUR'
+        - id: 4
+          available_balance: 181320.14999999999
+          awaiting_balance: 9.8800000000000008
+          rejected_balance: 2.12
+          approved_balance: 2.213
+          currency: 'BYN'  
+        - id: 5
+          available_balance: 181320.14999999999
+          awaiting_balance: 9.8800000000000008
+          rejected_balance: 2.12
+          approved_balance: 2.213
+          currency: 'KZT' 
         type: array
         items:
           $ref: '#/definitions/Balance2'
@@ -4100,7 +4203,7 @@ definitions:
         description: 'Сумма кешбэка'
         example: 9.8800000000000008
         type: number
-        format: double
+        format: doubleа
       currency:
         description: 'Валюта'
         example: 'RUB'
@@ -4113,26 +4216,148 @@ definitions:
   PaymentCommission:
     title: PaymentCommission
     example:
-      withdrawalmethod: 'YandexMoney'
+      output_method: 'YandexMoney'
       currency: 'USD'
-      percentage: 5.00
+      percent: 5.00
+      commission: 70
+      min: 30
     type: object
     properties:
-      withdrawalmethod:
+      output_method:
         description: 'Метод вывода средств'
-        example: 'YandexMoney'
+        example: 'yandex'
         type: string
+        enum: [switips, card, yandex, epayments, qiwi]
       currency:
         description: 'Валюта'
         example: 'RUB'
         type: string
         enum: [RUB, USD, EUR, UAH, KZT, BYN]   
-      percentage:
-        description: 'Процент комиссии'
+      percent:
+        description: 'Комиссия в процентах'
         example: 5.65
         type: number
         format: float  
+      commission:
+        description: 'Комиссия в валюте'
+        example: 70.00
+        type: number
+        format: float  
+      min: 
+        description: 'Минимальная сумма вывода'
+        example: 30.00
+        type: number
+        format: float  
     required:
-    - withdrawalmethod
+    - output_method
     - currency
-    - percentage
+    - min
+  PaymentCommissions:
+    title: PaymentCommissions
+    example:
+      PaymentCommissions:
+      - id: 1
+        output_method: 'yandex'
+        currency: 'RUB'
+        percent: 4.90
+        commission: 0
+      - id: 2
+        output_method: 'yandex'
+        currency: 'KZT'
+        percent: 5.00
+        commission: 0
+        min: 30
+      - id: 3
+        output_method: 'yandex'
+        currency: 'USD'
+        percent: 5.00
+        commission: 0
+        min: 30
+      - id: 4
+        output_method: 'yandex'
+        currency: 'BLE'
+        percent: 5.00
+        commission: 0
+        min: 30
+      - id: 5
+        output_method: 'yandex'
+        currency: 'EUR'
+        percent: 5.00
+        commission: 0
+        min: 30        
+      - id: 6
+        output_method: 'card'
+        currency: 'EUR'
+        percent: 5.00
+        commission: 0
+        min: 30        
+    type: object
+    properties:
+      PaymentCommissions:
+        description: 'Балансы в разных валютах'
+        example:
+        - id: 1
+          output_method: 'yandex'
+          currency: 'RUB'
+          percent: 5.00
+          commission: 0
+          min: 30
+        - id: 2
+          output_method: 'yandex'
+          currency: 'KZT'
+          percent: 5.00
+          commission: 0
+          min: 30
+        - id: 3
+          output_method: 'yandex'
+          currency: 'USD'
+          percent: 5.00
+          commission: 0
+          min: 30
+        - id: 4
+          output_method: 'yandex'
+          currency: 'BLE'
+          percent: 5.00
+          commission: 0
+          min: 30
+        - id: 5
+          output_method: 'yandex'
+          currency: 'EUR'
+          percent: 5.00
+          commission: 0
+          min: 30        
+        - id: 6
+          output_method: 'card'
+          currency: 'EUR'
+          percent: 5.00
+          commission: 0
+        type: array
+        items:
+          $ref: '#/definitions/PaymentCommission'
+    required:
+    - PaymentCommissions
+  Amount:
+    title: amount
+    example:
+        amount: 1000.00
+        amountWithCommission: 800
+    type: object
+    properties:
+      amount:
+        description: 'Сумма для вывода, которую вводит пользователь'
+        example: 1000
+        type: number
+        format: float
+      amountWithCommission:
+        description: 'Получение суммы вывода после вычета комиссии'
+        example: 800
+        type: number
+        format: float
+      paymentsystem:
+        description: 'Платёжная система'
+        example: 'visa'
+        type: string
+        enum: [visa, mastercard, americanexpress, mir, anothe]      
+    required:
+    - amount
+    - amountWithCommission
