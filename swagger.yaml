@@ -2264,7 +2264,7 @@ paths:
       - auth: []          
   /NewTransfer:
     post:
-      description: 'Вывод на Яндекс'
+      description: 'Вывод средств'
       tags:
       - NewTransfer
       operationId: NewTransfer
