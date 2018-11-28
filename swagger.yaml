@@ -2202,12 +2202,12 @@ paths:
               requestid: 182
               claimurl: 'https://app.apiary.io/switips1/editor'
       security: [] 
-  /getPaymentCommissions:
+  /paymentCommissions:
     get:
       description: 'Получение процента комиссий'
       tags:
-      - getpaymentcommissions
-      operationId: getpaymentcommissions
+      - paymentcommission
+      operationId: paymentcommission
       produces:
       - application/json
       parameters:
@@ -2221,46 +2221,45 @@ paths:
         200:
           description: 'Получение процента комиссий для всех валют'
           schema:
-            $ref: '#/definitions/PaymentCommissions'
+            $ref: '#/definitions/PaymentCommission'
           examples:
             application/json:
-              PaymentCommissions:
-              - id: 1
-                output_method: 'yandex'
-                currency: 'RUB'
-                percent: 5.00
-                commission: 0
-                min: 30
-              - id: 2
-                output_method: 'yandex'
-                currency: 'KZT'
-                percent: 5.00
-                commission: 0
-                min: 30
-              - id: 3
-                output_method: 'yandex'
-                currency: 'USD'
-                percent: 5.00
-                commission: 0
-                min: 30
-              - id: 4
-                output_method: 'YandexMoney'
-                currency: 'BLE'
-                percent: 5.00
-                commission: 0
-                min: 30
-              - id: 5
-                output_method: 'YandexMoney'
-                currency: 'EUR'
-                percent: 5.00
-                commission: 0
-                min: 30        
-              - id: 6
-                output_method: 'BankCard'
-                currency: 'EUR'
-                percent: 5.00
-                commission: 0
-                min: 30        
+              PaymentCommission:
+                                "ndfl": {
+                                    "rate": 0,
+                                    "percent": 0
+                                }
+                                "card": {
+                                    "rate": 0,
+                                    "percent": 2.9,
+                                    "min": 3000,
+                                    "commission": 70
+                                }
+                                "webmoney": {
+                                    "rate": 42,
+                                    "percent": 3
+                                }
+                                "qiwi": {
+                                    "rate": 0,
+                                    "percent": 3
+                                }
+                                "yandexmoney": {
+                                    "rate": 0,
+                                    "percent": 3
+                                }
+                                "paypal": {
+                                    "rate": 44,
+                                    "percent": 5
+                                }
+                                "sms": {
+                                    "rate": 43,
+                                    "percent": 5
+                                }
+                                "switips": {
+                                    "rate": 0,
+                                    "percent": 0,
+                                    "commission": 0
+                                }
       security: 
       - auth: []          
   /NewTransfer:
@@ -2281,72 +2280,69 @@ paths:
           description: 'Язык устройства'
           x-example: 'RU'
         - name: amount
-          in: query
+          in: formData
           required: true
           type: string
           description: 'Сумма вывода'
         - name: output_method
-          in: query
+          in: formData
           type: string
           enum: [switips, card, yandex, epayments, qiwi]
           required: true
           description: 'Метод вывода средств'
           x-example: 'yandex'
-        - name: currency
-          in: query
+        - name: props[card]
+          in: formData
           type: string
-          required: true
-          enum: [RUB, USD, EUR, UAH, KZT, BYN]
-          description: 'Валюта'
-          x-example: 'RUB'
-        - name: props
-          in: body
-          required: true
-          description: 'Параметры вывода'
-          schema:
-            type: object
-            properties:
-              card:
-                type: string
-              name:
-                type: string
-              date_month:
-                type: string
-              date_year:
-                type: string
-              epayments:
-                type: string
-              yandex:
-                type: string  
-              qiwi:
-                type: string    
-              operator:
-                type: string
-                enum: [mts, tele2, megafon, beeline, another]
+          description: 'Номер карты'
+        - name: props[name]
+          in: formData
+          type: string
+          description: 'Владелец карты'
+        - name: props[date_months]
+          in: formData
+          type: string
+          description: 'Дата окончания действия карты - месяц'
+        - name: props[date_year]
+          in: formData
+          type: string
+          description: 'Дата окончания действия карты - год'         
+        - name: props[epayments]
+          in: formData
+          type: string
+          description: 'Номер кошелька epayments'
+        - name: props[yandex]
+          in: formData
+          type: string
+          description: 'Номер кошелька yandex'
+        - name: props[qiwi]
+          in: formData
+          type: string
+          description: 'Номер кошелька qiwi'
         - name: preliminary_amount
-          in: query
+          in: formData
           required: true
           type: boolean
           description: 'Предварительный расчёт. Используется для вычесления предварительной суммы, которая будет выведена'
       responses:
         201:
-          description: 'Получение суммы вывода после вычета комиссии'
+          description: 'Успех!'
           examples:
-            application/json:
-              key: SuccessfullTransfer
-              msgUser: 'Вывод кэшбэка успешно выполнен'
-              msgDev: 'Вывод кэшбэка успешно выполнен'
-              domain: ''
+            application/json: []
         200:
-          description: 'Получение суммы вывода после вычета комиссии'
+          description: 'Получение суммы вывода после вычета комиссии/ Получение способа вывода'
           schema:
             $ref: '#/definitions/Amount'
           examples:
             application/json:
-              paymentsystem: 'Visa'
-              amount: 1000.00
-              amountWithCommission: 800
-      security: []
+              transferred_amount : 1000,
+              credited_amount: 1000,
+              declaration_amount: 0,
+              additional_amount: 1000,
+              additional_rate: 0,
+              output_method: switips
+      security: 
+      - auth: []
 definitions:
   Successfull:
     title: Successfull
@@ -4110,7 +4106,7 @@ definitions:
         description: 'Статус карты в учетных системах'
         example: 'NewNotPerson'
         type: string
-        enum: [NewNotPerson, Wait, NewAtPerson, Active, Annuled, Closed]  
+        enum: [NewNotPerson, Wait, NewAtPerson, Active, Annuled, Closed, null]  
       date_request_created:
         description: 'Дата регистрации заявки в банке (ISODateTime)'
         example: '2010-08-18 08:15:30'
@@ -4119,7 +4115,7 @@ definitions:
         description: 'Статус заявки клиента'
         example: 'Complete'
         type: string
-        enum: [New, InProgress, Decline, Failed, Complete]
+        enum: [New, InProgress, Decline, Failed, Complete, null]
       formUrl:
         description: 'Ссылка для дозаполнения заявки'
         example: 'https://app.apiary.io'
@@ -4216,148 +4212,239 @@ definitions:
   PaymentCommission:
     title: PaymentCommission
     example:
-      output_method: 'YandexMoney'
-      currency: 'USD'
-      percent: 5.00
-      commission: 70
-      min: 30
+      ndfl:
+          $ref: '#/definitions/ndfl'
+      card:
+          $ref: '#/definitions/card'
+      webmoney:
+          $ref: '#/definitions/webmoney'
+      qiwi:
+          $ref: '#/definitions/qiwi'
+      yandexmoney:
+          $ref: '#/definitions/yandexmoney'
+      paypal:
+          $ref: '#/definitions/paypal'
+      sms:
+          $ref: '#/definitions/sms'
+      switips:
+          $ref: '#/definitions/switips'          
+    type: object
+    description: 'Если один из параметров не приходит, принимаем его за 0'
+    properties:
+      ndfl:
+          $ref: '#/definitions/ndfl'
+      card:
+          $ref: '#/definitions/card'
+      webmoney:
+          $ref: '#/definitions/webmoney'
+      qiwi:
+          $ref: '#/definitions/qiwi'
+      yandexmoney:
+          $ref: '#/definitions/yandexmoney'
+      paypal:
+          $ref: '#/definitions/paypal'
+      sms:
+          $ref: '#/definitions/sms'
+      switips:
+          $ref: '#/definitions/switips'
+  ndfl:
+    title: ndfl
+    description: 'Если один из параметров не приходит, принимаем его за 0'
+    example:
+        rate: 32
+        percent: 7
     type: object
     properties:
+        rate:
+          description: 'Не используем. Если один из параметров не приходит, принимаем его за 0'
+          example: '32'
+          type: string
+          format: double
+        percent:
+          description: 'Не используем. Если один из параметров не приходит, принимаем его за 0'
+          example: '7'
+          type: string
+          format: double      
+  card:
+    title: card
+    example:
+        rate: 30
+        percent: 5.65
+        min: 0
+        commission: 70
+    type: object
+    properties:
+        rate:
+          description: 'Не используем. Если один из параметров не приходит, принимаем его за 0'
+          example: 30
+          type: string
+          format: double
+        percent:
+          description: 'Комиссия в виде процента. Если один из параметров не приходит, принимаем его за 0'
+          example: 5.65
+          type: string
+          format: double
+        min:
+          description: 'Не используем. Если один из параметров не приходит, принимаем его за 0'
+          example: 0
+          type: string
+          format: double
+        commission:
+          description: 'Фиксированная комиссия. Используется если процент, выдаёт сумму меньше, чем фиксированная. Если параметр не приходит, принимаем его за 0'
+          example: 80
+          type: string
+          format: double                
+    description: 'Если один из параметров не приходит, принимаем его за 0'
+  webmoney:
+    title: webmoney
+    example:
+        rate: 30
+        percent: 5.65
+    type: object
+    description: 'Если один из параметров не приходит, принимаем его за 0'
+    properties:
+        rate:
+          description: 'Не используем. Если один из параметров не приходит, принимаем его за 0'
+          example: 30
+          type: string
+          format: double
+        percent:
+          description: 'Комиссия в виде процента. Если один из параметров не приходит, принимаем его за 0'
+          example: 5.65
+          type: string
+          format: double
+  qiwi:
+    title: qiwi
+    description: 'Если один из параметров не приходит, принимаем его за 0'
+    example:
+        rate: 0
+        percent: 5.65
+    type: object
+    properties:
+        rate:
+          description: 'Не используем. Если один из параметров не приходит, принимаем его за 0'
+          example: 30
+          type: string
+          format: double
+        percent:
+          description: 'Комиссия в виде процента. Если один из параметров не приходит, принимаем его за 0'
+          example: 5.65
+          type: string
+          format: double
+  yandexmoney:
+    title: yandexmoney
+    description: 'Если один из параметров не приходит, принимаем его за 0'
+    example:
+        rate: 30
+        percent: 5.65
+    type: object
+    properties:
+        rate:
+          description: 'Не используем. Если один из параметров не приходит, принимаем его за 0'
+          example: 30
+          type: string
+          format: double
+        percent:
+          description: 'Комиссия в виде процента. Если один из параметров не приходит, принимаем его за 0'
+          example: 5.65
+          type: string
+          format: double
+  paypal:
+    title: ndfl
+    description: 'Если один из параметров не приходит, принимаем его за 0'
+    example:
+        rate: 30
+        percent: 5.65
+    type: object
+    properties:
+        rate:
+          description: 'Не используем. Если один из параметров не приходит, принимаем его за 0'
+          example: 30
+          type: string
+          format: double
+        percent:
+          description: 'Комиссия в виде процента. Если один из параметров не приходит, принимаем его за 0'
+          example: 5.65
+          type: string
+          format: double
+  sms:
+    title: ndfl
+    description: 'Если один из параметров не приходит, принимаем его за 0'
+    example:
+        rate: 30
+        percent: 5.65
+    type: object
+    properties:
+        rate:
+          description: 'Не используем. Если один из параметров не приходит, принимаем его за 0'
+          example: 30
+          type: string
+          format: double
+        percent:
+          description: 'Комиссия в виде процента. Если один из параметров не приходит, принимаем его за 0'
+          example: 5.65
+          type: string
+          format: double
+  switips:
+    title: switips
+    description: 'Если один из параметров не приходит, принимаем его за 0'
+    example:
+        rate: 30
+        percent: 7
+    type: object
+    properties:
+      rate:
+        description: 'Не используем. Если один из параметров не приходит, принимаем его за 0'
+        example: 30
+        type: string
+        format: double
+      percent:
+        description: 'Комиссия в виде процента. Если один из параметров не приходит, принимаем его за 0'
+        example: 5.65
+        type: string
+        format: double
+  Amount:
+    title: amount
+    example:
+      transferred_amount : 1000
+      credited_amount: 930
+      declaration_amount: 0
+      additional_amount: 1000
+      additional_rate: 70
+      output_method: card
+    type: object
+    properties:
+      transferred_amount:
+        description: 'Не используем!'
+        example: 1000
+        type: number
+        format: float
+      credited_amount:
+        description: 'Сумма за вычетом комиссии'
+        example: 800
+        type: number
+        format: float
+      declaration_amount:
+        description: 'Не используем'
+        example: 0
+        type: number
+        format: float
+      additional_amount:
+        description: 'Сумма, которую пользователь заявил на выход'
+        example: 1000
+        type: number
+        format: float     
+      additional_rate:
+        description: 'Платёжная система'
+        example: 70
+        type: number
+        format: float
       output_method:
         description: 'Метод вывода средств'
         example: 'yandex'
         type: string
         enum: [switips, card, yandex, epayments, qiwi]
-      currency:
-        description: 'Валюта'
-        example: 'RUB'
-        type: string
-        enum: [RUB, USD, EUR, UAH, KZT, BYN]   
-      percent:
-        description: 'Комиссия в процентах'
-        example: 5.65
-        type: number
-        format: float  
-      commission:
-        description: 'Комиссия в валюте'
-        example: 70.00
-        type: number
-        format: float  
-      min: 
-        description: 'Минимальная сумма вывода'
-        example: 30.00
-        type: number
-        format: float  
     required:
+    - additional_amount
+    - additional_rate
     - output_method
-    - currency
-    - min
-  PaymentCommissions:
-    title: PaymentCommissions
-    example:
-      PaymentCommissions:
-      - id: 1
-        output_method: 'yandex'
-        currency: 'RUB'
-        percent: 4.90
-        commission: 0
-      - id: 2
-        output_method: 'yandex'
-        currency: 'KZT'
-        percent: 5.00
-        commission: 0
-        min: 30
-      - id: 3
-        output_method: 'yandex'
-        currency: 'USD'
-        percent: 5.00
-        commission: 0
-        min: 30
-      - id: 4
-        output_method: 'yandex'
-        currency: 'BLE'
-        percent: 5.00
-        commission: 0
-        min: 30
-      - id: 5
-        output_method: 'yandex'
-        currency: 'EUR'
-        percent: 5.00
-        commission: 0
-        min: 30        
-      - id: 6
-        output_method: 'card'
-        currency: 'EUR'
-        percent: 5.00
-        commission: 0
-        min: 30        
-    type: object
-    properties:
-      PaymentCommissions:
-        description: 'Балансы в разных валютах'
-        example:
-        - id: 1
-          output_method: 'yandex'
-          currency: 'RUB'
-          percent: 5.00
-          commission: 0
-          min: 30
-        - id: 2
-          output_method: 'yandex'
-          currency: 'KZT'
-          percent: 5.00
-          commission: 0
-          min: 30
-        - id: 3
-          output_method: 'yandex'
-          currency: 'USD'
-          percent: 5.00
-          commission: 0
-          min: 30
-        - id: 4
-          output_method: 'yandex'
-          currency: 'BLE'
-          percent: 5.00
-          commission: 0
-          min: 30
-        - id: 5
-          output_method: 'yandex'
-          currency: 'EUR'
-          percent: 5.00
-          commission: 0
-          min: 30        
-        - id: 6
-          output_method: 'card'
-          currency: 'EUR'
-          percent: 5.00
-          commission: 0
-        type: array
-        items:
-          $ref: '#/definitions/PaymentCommission'
-    required:
-    - PaymentCommissions
-  Amount:
-    title: amount
-    example:
-        amount: 1000.00
-        amountWithCommission: 800
-    type: object
-    properties:
-      amount:
-        description: 'Сумма для вывода, которую вводит пользователь'
-        example: 1000
-        type: number
-        format: float
-      amountWithCommission:
-        description: 'Получение суммы вывода после вычета комиссии'
-        example: 800
-        type: number
-        format: float
-      paymentsystem:
-        description: 'Платёжная система'
-        example: 'visa'
-        type: string
-        enum: [visa, mastercard, americanexpress, mir, anothe]      
-    required:
-    - amount
-    - amountWithCommission
