@@ -1277,7 +1277,7 @@ paths:
       description: 'Получение баланса профиля текущего авторизованного юзера.'
       tags:
       - getBalance
-      operationId: GetBalance8
+      operationId: GetBalance88
       produces:
       - application/json
       parameters:
@@ -2202,7 +2202,7 @@ paths:
               requestid: 182
               claimurl: 'https://app.apiary.io/switips1/editor'
       security: [] 
-  /paymentCommissions:
+  /getPaymentCommissions:
     get:
       description: 'Получение процента комиссий'
       tags:
@@ -2673,6 +2673,10 @@ definitions:
       is_offline:
         description: 'Доступность покупки в офлайн магазине'
         example: false
+        type: boolean
+      accept_qr_code:
+        description: 'Надо дописать'
+        example: true
         type: boolean
       accept_switips_card:
         description: 'Принимает ли партнёр карты ко-бренда свитипс'
@@ -3555,7 +3559,7 @@ definitions:
         items:
           $ref: '#/definitions/Shop'
     required:
-    - shops
+    - favourites
   Category:
     title: Category
     example:
@@ -3833,9 +3837,7 @@ definitions:
         items:
           $ref: '#/definitions/Category'
     required:
-    - id
-    - title
-    - code
+    - categories
   Country:
     title: Country
     type: object
@@ -4056,7 +4058,7 @@ definitions:
         items:
           $ref: '#/definitions/ShopForWE'
     required:
-    - ShopForWE
+    - ShopsForWE
   CardRequest:
     title: CardRequest
     example:
