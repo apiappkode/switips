@@ -2324,6 +2324,10 @@ paths:
           required: true
           type: boolean
           description: 'Предварительный расчёт. Используется для вычесления предварительной суммы, которая будет выведена'
+        - name: paypass
+          in: formData
+          type: integer
+          description: 'Платежный пароль'
       responses:
         201:
           description: 'Успех!'
