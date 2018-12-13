@@ -1210,6 +1210,8 @@ paths:
                     lat: 0.34554564
                     long: 0.345656
                     address: 'г.Москва, пер. Лесной, д.12'
+                  currency: 'usd'
+                  amount: '45.00'
       security: []
   /getShop/{shop_id}/actions:
     get:
@@ -1341,11 +1343,13 @@ paths:
                   rejected_balance: 2.12
                   approved_balance: 2.213
                   currency: 'RUB'
+                  minimum_amount: 1000
                 - available_balance: 181320.14999999999
                   awaiting_balance: 9.8800000000000008
                   rejected_balance: 2.12
                   approved_balance: 2.213
                   currency: 'USD'
+                  minimum_amount: 100
         401:
           description: Unauthorized
           schema:
@@ -2703,6 +2707,8 @@ definitions:
           detail_text: 'Подробное описание партнеров'
           description: 'Условия начисления кэшбэка, условия продаж'
           conditions: 'Особые условия партнера'
+          currency: 'usd'
+          amount: '45'
           loc: 
           - id: 122334
             lat: 0.34554564
@@ -2736,6 +2742,8 @@ definitions:
           detail_text: 'Подробное описание партнеров'
           description: 'Условия начисления кэшбэка, условия продаж'
           conditions: 'Особые условия партнера'
+          currency: 'usd'
+          amount: '45'          
           loc: 
           - id: 122334
             lat: 0.34554564
@@ -2905,6 +2913,16 @@ definitions:
         description: 'Особые условия'
         example: 'В настоящий момент партнер не предоставляет эксклюзивных условий для участников.'
         type: string
+      currency:
+        description: 'Валюта'
+        example: RUB
+        enum: [USD, RUB, KZT, UAH, EUR]
+        type: string
+      amount:
+        description: 'Текущая ставка кэшбэка партнера'
+        example: 70
+        type: number
+        format: float        
       loc:
         description: 'Координаты местонахождения магазинов'
         example:
@@ -3105,9 +3123,15 @@ definitions:
         example: 'RUB'
         type: string
         enum: [RUB, USD, EUR, UAH, KZT] 
+      minimum_amount:
+        description: 'Минимальная сумма вывода'
+        example: 1000
+        type: number
+        format: double
     required:
     - available_balance
     - approved_balance
+    - currency
   Balances.v2:
     title: Balances2
     example:
@@ -3153,30 +3177,28 @@ definitions:
           rejected_balance: 2.12
           approved_balance: 2.213
           currency: 'RUB'
+          minimum_amount: 100          
         - id: 2
           available_balance: 181320.14999999999
           awaiting_balance: 9.8800000000000008
           rejected_balance: 2.12
           approved_balance: 2.213
           currency: 'USD'
+          minimum_amount: 100          
         - id: 3
           available_balance: 181320.14999999999
           awaiting_balance: 9.8800000000000008
           rejected_balance: 2.12
           approved_balance: 2.213
           currency: 'EUR'
+          minimum_amount: 100          
         - id: 4
           available_balance: 181320.14999999999
           awaiting_balance: 9.8800000000000008
           rejected_balance: 2.12
           approved_balance: 2.213
-          currency: 'BYN'  
-        - id: 5
-          available_balance: 181320.14999999999
-          awaiting_balance: 9.8800000000000008
-          rejected_balance: 2.12
-          approved_balance: 2.213
           currency: 'KZT' 
+          minimum_amount: 100          
         type: array
         items:
           $ref: '#/definitions/Balance.v2'
