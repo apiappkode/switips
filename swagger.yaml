@@ -710,6 +710,8 @@ paths:
                 rejected_balance: 0.522
                 ref_link: '/ref/6546243243'
                 cashback_status: 'silver'
+                paypass: true
+                invite_login: aragalka
         401:
           description: Unauthorized
           schema:
@@ -1311,7 +1313,7 @@ paths:
               domain: ''
       security: 
       - auth: []      
-  /balance:
+  /Balance/v2:
     get:
       description: 'Получение баланса всех счетов профиля текущего авторизованного юзера'
       tags:
@@ -1330,7 +1332,7 @@ paths:
         200:
           description: 'Получение баланса всех счетов текущего авторизованного юзера'
           schema:
-            $ref: '#/definitions/Balances2'
+            $ref: '#/definitions/Balances.v2'
           examples:
             application/json:
               balances2: 
@@ -2260,6 +2262,10 @@ paths:
                                     "percent": 0,
                                     "commission": 0
                                 }
+                                "epayments": {
+                                    "rate": 0,
+                                    "percent": 3
+                                }
       security: 
       - auth: []          
   /NewTransfer:
@@ -2299,14 +2305,10 @@ paths:
           in: formData
           type: string
           description: 'Владелец карты'
-        - name: props[date_months]
+        - name: props[date_card]
           in: formData
           type: string
-          description: 'Дата окончания действия карты - месяц'
-        - name: props[date_year]
-          in: formData
-          type: string
-          description: 'Дата окончания действия карты - год'         
+          description: 'Дата окончания действия карты в формате - месяц/год'
         - name: props[epayments]
           in: formData
           type: string
@@ -2328,6 +2330,13 @@ paths:
           in: formData
           type: integer
           description: 'Платежный пароль'
+        - name: currency
+          in: formData
+          type: string
+          enum: [USD, RUB, EUR, BYN, UAH, KZT]
+          required: true
+          description: 'Валюта вывода'
+          x-example: 'USD'          
       responses:
         201:
           description: 'Успех!'
@@ -2347,6 +2356,133 @@ paths:
               output_method: switips
       security: 
       - auth: []
+  /SetNewPayPass:
+    post:
+      description: "Установка нового платёжного пароля"
+      tags:
+      - SetNewPayPass
+      operationId: SetNewPayPass
+      produces:
+      - application/json
+      consumes:
+      - application/x-www-form-urlencoded
+      parameters:
+        - name: Language
+          in: header
+          type: string
+          required: true
+          description: 'Язык устройства'
+          x-example: 'RU'
+        - in: formData
+          name: paypass
+          required: true
+          type: string
+          description: 'Новый платёжный пароль'
+        - in: formData
+          name: confirm_paypass
+          required: true
+          type: string
+          description: 'Подтверждение платёжного пароля'
+      responses:
+        200:
+          description: 'Платёжный пароль задан успешно'
+          examples:
+            application/json: []
+        424:
+          description: "Пароль и подтверждение платёжного пароля не совпадают"
+          examples:
+            application/json:
+              key: WrongCode
+              msgUser: 'Пароль и подтверждение пароля не совпадают'
+              msgDev: 'Пароль и подтверждение пароля не совпадают'
+              domain: ''
+        411:
+          description: PayPassword is too short
+          examples:
+            application/json:
+              key: WrongCode
+              msgUser: 'Указан слишком короткий пароль. Пароль не может быть короче 6 символов'
+              msgDev: 'Пароль не может быть короче 6 символов'
+              domain: ''
+        413:
+          description: PayPassword Includes wrong symbols
+          examples:
+            application/json:
+              key: passwordIncludesWrongSymbols
+              msgUser: 'Пароль содержит неверные символы. Пароль может содержать только цифры'
+              msgDev: 'Пароль содержит неверные символы. Пароль может содержать только цифры'
+              domain: ''  
+      security: []
+  /CheckTimePayPassword:
+    post:
+      description: "Проверка. Не превысил ли пользователь кол-во попыток ввода платёжного пароля"
+      tags:
+      - CheckTimePayPassword
+      operationId: CheckTimePayPassword
+      produces:
+      - application/json
+      consumes:
+      - application/x-www-form-urlencoded
+      parameters:
+        - name: Language
+          in: header
+          type: string
+          required: true
+          description: 'Язык устройства'
+          x-example: 'RU'
+      responses:
+        200:
+          description: 'Вывод средств возможен'
+          examples:
+            application/json: []
+        500:
+          description: "Превышен лимит ввода платёжного пароля"
+          examples:
+            application/json:
+              key: limitPayPassword
+              msgTitle: 'Вывод средств'
+              msgUser: 'Превышен лимит попыток ввода платёжного пароля. Данная функция будет доступна через 06.10 мин'
+              msgDev: 'Пароль и подтверждение пароля не совпадают'
+              domain: ''
+      security: []
+  /SecuritySettingsPassword:
+    post:
+      description: "Проверка пароля для доступа в настройки безопасности"
+      tags:
+      - SecuritySettingsPassword
+      operationId: SecuritySettingsPassword59
+      produces:
+      - application/json
+      consumes:
+      - application/x-www-form-urlencoded
+      parameters:
+      - name: password
+        in: formData
+        required: true
+        type: string
+        description: 'Пароль'
+      - name: Language
+        in: header
+        type: string
+        required: true
+        description: 'Язык устройства'
+        x-example: 'RU'
+      responses:
+        200:
+          description: 'Пароль ввердён верно'
+          examples:
+            application/json: []
+        401:
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/Failure'
+          examples:
+            application/json:
+              key: badPassword
+              msgTitle: Ошибка
+              msgUser: Неверный пароль
+              msgDev: Неверный пароль
+      security: []            
 definitions:
   Successfull:
     title: Successfull
@@ -2860,8 +2996,17 @@ definitions:
         example: 'silver'
         type: string
         enum: [silver, gold] 
+      paypass: 
+        description: 'Установлен ли платёжный пароль'
+        example: false
+        type: boolean
+      invite_login:
+        description: 'login пригласившего пользователя'
+        type: string
+        example: 'mario'  
     required:
     - id
+    - paypass
     - first_name
     - last_name
     - login
@@ -2871,6 +3016,7 @@ definitions:
     - awaiting_balance
     - ref_link
     - cashback_status
+    - invite_login
   UserShort:
     title: UserShort
     example:
@@ -2924,7 +3070,7 @@ definitions:
     - awaiting_balance
     - rejected_balance
     - approved_balance
-  Balance2:
+  Balance.v2:
     title: Balance2
     example:
       available_balance: 181320.14999999999
@@ -2958,11 +3104,11 @@ definitions:
         description: 'Валюта'
         example: 'RUB'
         type: string
-        enum: [RUB, USD, EUR, UAH, KZT, BYN] 
+        enum: [RUB, USD, EUR, UAH, KZT] 
     required:
     - available_balance
     - approved_balance
-  Balances2:
+  Balances.v2:
     title: Balances2
     example:
       balances2:
@@ -3033,7 +3179,7 @@ definitions:
           currency: 'KZT' 
         type: array
         items:
-          $ref: '#/definitions/Balance2'
+          $ref: '#/definitions/Balance.v2'
     required:
     - balances2 
   Orders:
@@ -4253,6 +4399,8 @@ definitions:
           $ref: '#/definitions/sms'
       switips:
           $ref: '#/definitions/switips'
+      epayments:
+          $ref: '#/definitions/epayments'          
   ndfl:
     title: ndfl
     description: 'Если один из параметров не приходит, принимаем его за 0'
@@ -4409,6 +4557,24 @@ definitions:
         example: 5.65
         type: string
         format: double
+  epayments:
+    title: epayments
+    description: 'Если один из параметров не приходит, принимаем его за 0'
+    example:
+        rate: 30
+        percent: 5.65
+    type: object
+    properties:
+        rate:
+          description: 'Не используем. Если один из параметров не приходит, принимаем его за 0'
+          example: 30
+          type: string
+          format: double
+        percent:
+          description: 'Комиссия в виде процента. Если один из параметров не приходит, принимаем его за 0'
+          example: 5.65
+          type: string
+          format: double        
   Amount:
     title: amount
     example:
