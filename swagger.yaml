@@ -882,6 +882,8 @@ paths:
                 detail_text: 'Подробное описание партнеров'
                 description: 'Условия начисления кэшбэка, условия продаж'
                 conditions: 'Особые условия партнера'
+                currency: 'USD'
+                amount: '45.00'
                 loc:
                 - id: 122334
                   lat: 0.34554564
@@ -915,6 +917,8 @@ paths:
                 detail_text: 'Подробное описание партнеров'
                 description: 'Условия начисления кэшбэка, условия продаж'
                 conditions: 'Особые условия партнера'
+                currency: 'USD'
+                amount: '45.00'
                 loc:
                 - id: 122334
                   lat: 0.34554564
@@ -1115,6 +1119,8 @@ paths:
                 cashback: 0.06
                 oldCashback: 0.06
                 category_title: 'Обувь'
+                currency: 'USD'
+                amount: '45.00'                
                 loc: 
                 - id: 122334
                   lat: 0.34554564
@@ -1137,6 +1143,8 @@ paths:
                 cashback: 0.06
                 oldCashback: 0.06
                 category_title: 'Обувь'
+                currency: 'USD'
+                amount: '45.00'                
                 loc: 
                 - id: 122334
                   lat: 0.34554564
@@ -1201,6 +1209,8 @@ paths:
                   detail_text: 'Подробное описание партнеров'
                   description: 'Условия начисления кэшбэка, условия продаж'
                   conditions: 'Особые условия партнера'
+                  currency: 'USD'
+                  amount: '45.00'                  
                   loc: 
                   - id: 122334
                     lat: 0.34554564
@@ -1210,8 +1220,6 @@ paths:
                     lat: 0.34554564
                     long: 0.345656
                     address: 'г.Москва, пер. Лесной, д.12'
-                  currency: 'usd'
-                  amount: '45.00'
       security: []
   /getShop/{shop_id}/actions:
     get:
@@ -1397,8 +1405,6 @@ paths:
               currency: RUB
         500:
           description: 'Обязательный параметр dataqrcode не передан'
-        default:
-          description: Internal Server Error
           schema:
             $ref: '#/definitions/Failure'
           examples:
@@ -2358,6 +2364,25 @@ paths:
               additional_amount: 1000,
               additional_rate: 0,
               output_method: switips
+        500:
+          description: "Превышен лимит ввода платёжного пароля"
+          examples:
+            application/json:
+              key: limitPayPassword
+              msgTitle: 'Внимание'
+              msgUser: 'Превышен лимит попыток ввода платёжного пароля. Данная функция будет доступна через 06.10 мин'
+              msgDev: 'Пароль и подтверждение пароля не совпадают'
+              domain: ''              
+        501:
+          description: "Превышен лимит ввода платёжного пароля"
+          examples:
+            application/json:
+              key: PayPasswordIsNotCorrect
+              msgTitle: 'Ошибка'
+              msgUser: 'Неверный платжный пароль'
+              msgDev: 'Неверный платжный пароль'
+              domain: ''              
+              
       security: 
       - auth: []
   /SetNewPayPass:
@@ -2444,7 +2469,7 @@ paths:
           examples:
             application/json:
               key: limitPayPassword
-              msgTitle: 'Вывод средств'
+              msgTitle: 'Внимание'
               msgUser: 'Превышен лимит попыток ввода платёжного пароля. Данная функция будет доступна через 06.10 мин'
               msgDev: 'Пароль и подтверждение пароля не совпадают'
               domain: ''
@@ -2487,6 +2512,141 @@ paths:
               msgUser: Неверный пароль
               msgDev: Неверный пароль
       security: []            
+  /ManualSendQRCode:
+    post:
+      description: "Отправка кода чека"
+      tags:
+      - ManualInputSendQRCode
+      operationId: ManualInputSendQRCode
+      produces:
+      - application/json
+      consumes:
+      - multipart/form-data
+      parameters:
+        - name: Language
+          in: header
+          type: string
+          required: true
+          description: 'Язык устройства'
+          x-example: 'RU'      
+        - in: formData
+          name: upfile
+          type: file
+          description: The file to upload
+          required: true
+        - in: formData
+          name: data_qrcode_partner
+          required: true
+          type: string
+          description: 'Строка расшифрованного штрихкода c информацией по партнёру'
+        - in: formData
+          name: i
+          required: true
+          type: string
+          description: 'Номер чека(Номер фискального документа)'
+        - in: formData
+          name: t
+          required: true
+          type: string
+          description: 'Дата покупки'
+        - in: formData
+          name: s
+          required: true
+          type: string
+          description: 'Сумма чека'
+        - in: formData
+          name: fn
+          required: false
+          type: string
+          description: 'Заводской номер фискального накопителя'
+        - in: formData
+          name: fp
+          required: false
+          type: string
+          description: 'Фискальный признак документа'          
+        - in: formData
+          name: n
+          required: false
+          type: string
+          description: 'Признак расчета'          
+      responses:
+        200:
+          description: 'Успешный ответ'
+          schema:
+            $ref: '#/definitions/Success'
+          examples:
+            application/json:
+              key: successManualSendQR
+              msgTitle: Чек принят на рассмотрение
+              msgUser: Проверка чеков происходит в течении N часов
+              msgDev: Покупка принята
+              domain: ''
+        514:
+          description: 'Данный магазин не является партнером Switips'
+          schema:
+            $ref: '#/definitions/Failure'
+          examples:
+            application/json:
+              key: partnerNotFound
+              msgTitle: Операция не подтверждена
+              msgUser: Данный магазин не является партнером Switips           
+              msgDev: Данный магазин не является партнером Switips
+              domain: ''
+        512:
+          description: 'К сожалению, нам не удалось распознать данный QR-код'
+          schema:
+            $ref: '#/definitions/Failure'
+          examples:
+            application/json:
+              key: formatQRCodeInvalid
+              msgTitle: Операция не подтверждена
+              msgUser: К сожалению, нам не удалось распознать данный QR-код           
+              msgDev: QR-код не распознан
+              domain: ''
+        517:
+          description: 'QR код просрочен'
+          schema:
+            $ref: '#/definitions/Failure'
+          examples:
+            application/json:
+              key: qrCodeNotActual
+              msgTitle: Операция не подтверждена
+              msgUser: Вам необходимо обратиться к партнёру и получить актуальный QR-код для подтверждения Вашей покупки           
+              msgDev: QR-код просрочен
+              domain: ''
+        500:
+          description: 'Ошибка сервера'
+          schema:
+            $ref: '#/definitions/Failure'
+          examples:
+            application/json:
+              key: InternalServerError
+              msgTitle: Операция не подтверждена
+              msgUser: Мы уже решаем возникшую проблему. Пожалуйста, ожидайте           
+              msgDev: Ошибка сервера
+              domain: ''
+        515:
+          description: 'Превышен лимит сканирований на одного партнёра в месяц'
+          schema:
+            $ref: '#/definitions/Failure'
+          examples:
+            application/json:
+              key: limitVoucherPartner
+              msgTitle: Чек не принят!
+              msgUser: К сожалению, вы не можете получать кэшбэк более чем 5 раз в месяц по одному партнёру            
+              msgDev: Превышен лимит сканирований на одного партнёра в месяц
+              domain: ''
+        516:
+          description: 'Превышен лимит сканирований на одного юзера в месяц'
+          schema:
+            $ref: '#/definitions/Failure'
+          examples:
+            application/json:
+              key: limitVoucherUser
+              msgTitle: Чек не принят!
+              msgUser: К сожалению, невозможно получить кэшбэк больше 20 раз в месяц          
+              msgDev: Превышен лимит сканирований на одного юзера в месяц
+              domain: ''              
 definitions:
   Successfull:
     title: Successfull
@@ -2534,6 +2694,40 @@ definitions:
     - msgUser
     - msgDev
     - domain
+  Success:
+    title: Success
+    example:
+      key: successManualSendQR
+      msgTitle: Чек принят на рассмотрение
+      msgUser: Проверка чеков происходит в течении N часов
+      msgDev: Покупка принята
+      domain: ''
+    type: object
+    properties:
+      key:
+        description: 'Код сообщения'
+        example: badCredentials
+        type: string
+      msgTitle:
+        description: 'Заголовок сообщения для пользователя'
+        example: Ошибка
+        type: string
+      msgUser:
+        description: 'Сообщение для пользователя'
+        example: Неверно введен логин или пароль
+        type: string
+      msgDev:
+        description: 'Сообщение для разработчика'
+        example: Неверно введен логин или пароль
+        type: string
+      domain:
+        description: ''
+        type: string
+    required:
+    - key
+    - msgUser
+    - msgDev
+    - domain    
   VersionMismatch:
     title: Version mismatch
     example:
