@@ -2311,6 +2311,12 @@ paths:
           in: formData
           type: string
           description: 'Номер карты'
+        - name: props[currency]
+          in: formData
+          type: string
+          enum: [USD, RUB, EUR, BYN, UAH, KZT]
+          required: true          
+          description: 'Валюта банковской карты(выпадающий список валют). Не используется в карте Switips'
         - name: props[name]
           in: formData
           type: string
@@ -2382,7 +2388,6 @@ paths:
               msgUser: 'Неверный платжный пароль'
               msgDev: 'Неверный платжный пароль'
               domain: ''              
-              
       security: 
       - auth: []
   /SetNewPayPass:
