@@ -70,6 +70,18 @@ paths:
         description: 'Информация о девайсе с которого была отправлена информация о чеке'
         required: true
         type: string
+      - name: Application-Version
+        in: header
+        type: string
+        required: true
+        description: 'Версия приложения'
+        x-example: '1.04.55 beta' 
+      - name: Application-Platform
+        in: header
+        type: string
+        required: true
+        description: 'Платформа'
+        x-example: 'iOs'                 
       responses:
         200:
           description: 'Пользователь успешно зарегистрирован'
@@ -384,6 +396,18 @@ paths:
         required: true
         description: 'Язык устройства'
         x-example: 'RU'
+      - name: Application-Version
+        in: header
+        type: string
+        required: true
+        description: 'Версия приложения'
+        x-example: '1.04.55 beta' 
+      - name: Application-Platform
+        in: header
+        type: string
+        required: true
+        description: 'Платформа '
+        x-example: 'iOs'         
       responses:
         200:
           description: 'Авторизация прошла успешно'
@@ -404,7 +428,7 @@ paths:
                 type: string
             required:
             - key
-            - access_token            
+            - access_token           
         401:
           description: Unauthorized
           schema:
@@ -704,7 +728,7 @@ paths:
                 last_name: 'Петров'
                 login: 'serega'
                 email: 'seregaRulit@gmail.com'
-                language: 'RU'
+                language: {'RU','EN', 'UK'}
                 available_balance: 0.5422
                 awaiting_balance: 0.122
                 rejected_balance: 0.522
@@ -811,7 +835,7 @@ paths:
           type: boolean
           description: 'Чеки проверены командой Switips, кэшбэк по ним приходит'
         - in: query
-          name: country_id
+          name: filter_country
           required: false
           type: integer
           description: 'id страны' 
@@ -877,13 +901,15 @@ paths:
                 oldCashback: 0.05
                 status: 'Новый'
                 category_id: 12
-                category_title: 'Обувь'  
+                category_title: 'Обувь'
                 country_title: 'Россия'
+                country_id: [12 , 13 , 14]
                 detail_text: 'Подробное описание партнеров'
                 description: 'Условия начисления кэшбэка, условия продаж'
                 conditions: 'Особые условия партнера'
                 currency: 'USD'
                 amount: '45.00'
+                phone_number: '+79865646565'
                 loc:
                 - id: 122334
                   lat: 0.34554564
@@ -919,6 +945,8 @@ paths:
                 conditions: 'Особые условия партнера'
                 currency: 'USD'
                 amount: '45.00'
+                dynamics: true
+                phone_number: '+79865646565'                
                 loc:
                 - id: 122334
                   lat: 0.34554564
@@ -952,6 +980,10 @@ paths:
                 detail_text: 'Подробное описание партнеров'
                 description: 'Условия начисления кэшбэка, условия продаж'
                 conditions: 'Особые условия партнера'
+                currency: 'USD'
+                amount: '45.00'
+                dynamics: true
+                phone_number: '+79865646565'                
                 loc:
                 - id: 122334
                   lat: 0.34554564
@@ -1120,7 +1152,8 @@ paths:
                 oldCashback: 0.06
                 category_title: 'Обувь'
                 currency: 'USD'
-                amount: '45.00'                
+                amount: '45.00'
+                dynamics: true
                 loc: 
                 - id: 122334
                   lat: 0.34554564
@@ -1145,6 +1178,7 @@ paths:
                 category_title: 'Обувь'
                 currency: 'USD'
                 amount: '45.00'                
+                dynamics: true
                 loc: 
                 - id: 122334
                   lat: 0.34554564
@@ -1206,11 +1240,14 @@ paths:
                   category_id: 12
                   category_title: 'Обувь'  
                   country_title: 'Россия'
+                  country_id: [12 , 13 , 14]                  
                   detail_text: 'Подробное описание партнеров'
                   description: 'Условия начисления кэшбэка, условия продаж'
                   conditions: 'Особые условия партнера'
                   currency: 'USD'
                   amount: '45.00'                  
+                  dynamics: true
+                  phone_number: '+79865646565'
                   loc: 
                   - id: 122334
                     lat: 0.34554564
@@ -1223,7 +1260,7 @@ paths:
       security: []
   /getShop/{shop_id}/actions:
     get:
-      description: "Получение списка акций магазина."
+      description: "Получение списка акций магазина"
       tags:
       - getShopActions
       operationId: getShopActions9
@@ -1267,6 +1304,7 @@ paths:
                 partner_name: 'Aliexpress'
                 is_new: true
                 is_favourite: true
+                is_favourite_actions: true
               - id: 5039
                 active: true
                 title: 'Ali express russia'
@@ -1466,6 +1504,7 @@ paths:
                 cash_back: 136.00999999999999
                 status: approved
                 currency: RUB
+                process_end_date: '2018-02-27 00:00:00'
               - id: 28795
                 shop_name: Aviasales.ru и cash back от WWP Capital
                 date_time_order: '2018-01-05 00:00:00'
@@ -1473,6 +1512,7 @@ paths:
                 cash_back: 282.83999999999997
                 status: approved
                 currency: RUB
+                process_end_date: '2018-02-27 00:00:00'
       security:
       - auth: []
   /getCashVouchers:
@@ -1515,6 +1555,7 @@ paths:
                 cash_back: 9.8800000000000008
                 status: declined
                 currency: RUB
+                process_end_date: '2018-02-27 00:00:00'
               - id: 60
                 shop_name: Buyon и cash back от WWP Capital
                 date_time_order: '2018-04-17 00:00:00'
@@ -1522,6 +1563,7 @@ paths:
                 cash_back: 9.8800000000000008
                 status: declined
                 currency: RUB
+                process_end_date: '2018-02-27 00:00:00'
               - id: 61
                 shop_name: Buyon и cash back от WWP Capital
                 date_time_order: '2018-04-17 00:00:00'
@@ -1529,6 +1571,7 @@ paths:
                 cash_back: 9.8800000000000008
                 status: declined
                 currency: RUB
+                process_end_date: '2018-02-27 00:00:00'
               - id: 62
                 shop_name: Buyon и cash back от WWP Capital
                 date_time_order: '2018-04-17 00:00:00'
@@ -1536,6 +1579,7 @@ paths:
                 cash_back: 9.8800000000000008
                 status: declined
                 currency: RUB
+                process_end_date: '2018-02-27 00:00:00'
       security:
       - auth: []
   /getActions:
@@ -1597,6 +1641,11 @@ paths:
           required: false
           type: integer
           description: 'Колличество записей на странице (для постраничной навигации)' 
+        - in: query
+          name: country_id
+          required: false
+          type: integer
+          description: 'id страны'           
       responses:
         200:
           description: 'Получение списка акций'
@@ -1621,6 +1670,8 @@ paths:
                 partner_name: 'Aliexpress'
                 is_new: true
                 is_favourite: true
+                is_favourite_actions: true
+                country_title: 'Россия'
               - id: 5039
                 active: true
                 title: 'Ali express russia'
@@ -1637,6 +1688,8 @@ paths:
                 partner_name: 'Aliexpress'
                 is_new: true
                 is_favourite: true
+                is_favourite_actions: true
+                country_title: 'Россия'
       security: []      
   /getActionsCount:
     get:
@@ -2311,6 +2364,7 @@ paths:
           in: formData
           type: string
           description: 'Номер карты'
+          x-example: 'XXXX-XXXX-XXXX-XXXX'
         - name: props[currency]
           in: formData
           type: string
@@ -2324,7 +2378,7 @@ paths:
         - name: props[date_card]
           in: formData
           type: string
-          description: 'Дата окончания действия карты в формате - месяц/год'
+          description: 'Дата окончания действия карты в формате - месяц/год. Либо два параметра props[date_month] и props[date_year] '
         - name: props[epayments]
           in: formData
           type: string
@@ -2426,29 +2480,45 @@ paths:
           description: "Пароль и подтверждение платёжного пароля не совпадают"
           examples:
             application/json:
-              key: WrongCode
+              key: PaypassMismatch
               msgUser: 'Пароль и подтверждение пароля не совпадают'
               msgDev: 'Пароль и подтверждение пароля не совпадают'
               domain: ''
-        411:
+        412:
           description: PayPassword is too short
           examples:
             application/json:
-              key: WrongCode
+              key: paypassIsTooLong
               msgUser: 'Указан слишком короткий пароль. Пароль не может быть короче 6 символов'
               msgDev: 'Пароль не может быть короче 6 символов'
               domain: ''
+        411:
+          description: PayPassword is too long
+          examples:
+            application/json:
+              key: paypassIsTooShort
+              msgUser: 'Указан слишком короткий пароль. Пароль не может быть короче 6 символов'
+              msgDev: 'Пароль не может быть короче 6 символов'              
         413:
           description: PayPassword Includes wrong symbols
           examples:
             application/json:
-              key: passwordIncludesWrongSymbols
+              key: paypassIncludesWrongSymbols
               msgUser: 'Пароль содержит неверные символы. Пароль может содержать только цифры'
               msgDev: 'Пароль содержит неверные символы. Пароль может содержать только цифры'
               domain: ''  
-      security: []
+        415:
+          description: PayPassword Includes wrong symbols
+          examples:
+            application/json:
+              key: paypassExist
+              msgUser:  'Платежный пароль уже установлен'
+              msgDev:  'Платежный пароль уже установлен'
+              domain: ''                
+      security:
+      - auth: []
   /CheckTimePayPassword:
-    post:
+    get:
       description: "Проверка. Не превысил ли пользователь кол-во попыток ввода платёжного пароля"
       tags:
       - CheckTimePayPassword
@@ -2478,7 +2548,8 @@ paths:
               msgUser: 'Превышен лимит попыток ввода платёжного пароля. Данная функция будет доступна через 06.10 мин'
               msgDev: 'Пароль и подтверждение пароля не совпадают'
               domain: ''
-      security: []
+      security:
+      - auth: []
   /SecuritySettingsPassword:
     post:
       description: "Проверка пароля для доступа в настройки безопасности"
@@ -2506,8 +2577,8 @@ paths:
           description: 'Пароль ввердён верно'
           examples:
             application/json: []
-        401:
-          description: Unauthorized
+        401: 
+          description: Неправильный пароль
           schema:
             $ref: '#/definitions/Failure'
           examples:
@@ -2516,7 +2587,8 @@ paths:
               msgTitle: Ошибка
               msgUser: Неверный пароль
               msgDev: Неверный пароль
-      security: []            
+      security:
+      - auth: []            
   /ManualSendQRCode:
     post:
       description: "Отправка кода чека"
@@ -2652,6 +2724,677 @@ paths:
               msgUser: К сожалению, невозможно получить кэшбэк больше 20 раз в месяц          
               msgDev: Превышен лимит сканирований на одного юзера в месяц
               domain: ''              
+      security:
+      - auth: []              
+  /newAccessToken:
+    post:
+      description: "Проверка актуальности AccessToken"
+      tags:
+      - NewAccessToken
+      operationId: NewAccessToken
+      produces:
+      - application/json
+      consumes:
+      - application/x-www-form-urlencoded
+      parameters:
+      - name: refresh_token
+        in: formData
+        required: true
+        type: string
+        description: 'refresh_token'
+      - name: Language
+        in: header
+        type: string
+        required: true
+        description: 'Язык устройства'
+        x-example: 'RU'
+      responses:
+        200:
+          description: 'Успех. Токены получены'
+          schema:
+            title: Successful receipt of tokens
+            example:
+              key: successfulReceiptTokens
+              access_token: 'eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyMDIxNzAsImV4cCI6MTUyNDMxNDUyNn0.WKojqh6gLLQJA6ce2aUJj0X_KsubFWB45044HKVdFxA'
+              access_token_time: '20190231T022239'  
+              refresh_token: 'eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyMDIxNzAsImV4cCI6MTUyNDMxNDUyNn0.WKojqh6gLLQJA6ce2aUJj0X_KsubFWB45044HKVdFxA'
+            type: object
+            properties:
+              key:
+                description: ''
+                example: successfulReceiptTokens
+                type: string
+              access_token:
+                description: ''
+                example: 'eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyMDIxNzAsImV4cCI6MTUyNDMxNDUyNn0.WKojqh6gLLQJA6ce2aUJj0X_KsubFWB45044HKVdFxA'
+                type: string
+              access_token_time:
+                description: ''
+                example: 'Время окончания жизни токена'
+                type: string       
+              refresh_token:
+                description: ''
+                example: 'eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyMDIxNzAsImV4cCI6MTUyNDMxNDUyNn0.WKojqh6gLLQJA6ce2aUJj0X_KsubFWB45044HKVdFxA'
+                type: string                
+            required:
+            - key
+            - access_token
+            - refresh_token  
+        400: 
+          description: Неверный временный токен
+          schema:
+            $ref: '#/definitions/Failure'
+          examples:
+            application/json:
+              key: badRefreshToken
+              msgTitle: Ошибка
+              msgUser: 
+              msgDev: Неверный временный токен, либо уже использовался.
+      security: []                          
+  /addActionToFavourites:
+    post:
+      description: "Добавление акции в избранное"
+      tags:
+      - addActionToFavourites
+      operationId: addActionToFavourites
+      produces:
+      - application/json
+      consumes:
+      - application/x-www-form-urlencoded
+      parameters:
+      - name: Language
+        in: header
+        type: string
+        required: true
+        description: 'Язык устройства'
+        x-example: 'RU'      
+      - in: formData
+        name: action_id
+        required: true
+        type: string
+        description: 'ID акции' 
+      responses:
+        200:
+          description: 'Акция успешно добавлен в избранное'
+          examples:
+            application/json: []
+        418:
+          description: Не указан shopId
+          schema:
+            $ref: '#/definitions/Failure'
+          examples:
+            application/json:
+              key: actionIdInvalid
+              msgTitle: Ошибка
+              msgUser: Внутренняя ошибка приложения
+              msgDev: Обязательный параметр actionId не передан
+              domain: ''
+        419:
+          description: Не найден акция с указанным actionId
+          schema:
+            title: ActionId not found
+            example:
+              key: actionNotFound
+              msgUser: Не найдена акция с указанным actionId
+              msgDev: Не найдена акция с указанным actionId
+            type: object
+            properties:
+              key:
+                description: 'Ключ'
+                example: actionNotFound
+                type: string
+              msgUser:
+                description: 'Сообщение для пользователя'
+                example: Не найден магазин с указанным actionId
+                type: string
+              msgDev:
+                description: 'Сообщение для разработчика'
+                example: Не найден магазин с указанным actionId
+                type: string
+            required:
+            - key
+            - msgUser
+            - msgDev
+      security: 
+      - auth: []
+  /removeActionFromFavourites:
+    post:
+      description: "Добавление магазина в избранное"
+      tags:
+      - removeActionFromFavourites
+      operationId: removeActionFromFavourites
+      produces:
+      - application/json
+      consumes:
+      - application/x-www-form-urlencoded
+      parameters:
+      - name: Language
+        in: header
+        type: string
+        required: true
+        description: 'Язык устройства'
+        x-example: 'RU'      
+      - in: formData
+        name: action_id
+        required: true
+        type: string
+        description: 'ID акции' 
+      responses:
+        200:
+          description: 'Акция успешно удалена из избранного'
+          examples:
+            application/json: []
+        418:
+          description: Не указан actionId
+          schema:
+            $ref: '#/definitions/Failure'
+          examples:
+            application/json:
+              key: actionIdInvalid
+              msgTitle: Ошибка
+              msgUser: Внутренняя ошибка приложения
+              msgDev: Обязательный параметр actionId не передан
+              domain: ''
+        419:
+          description: Не найден акция с указанным actionId
+          schema:
+            title: ActionId not found
+            example:
+              key: actionNotFound
+              msgUser: Не найдена акция с указанным actionId
+              msgDev: Не найдена акция с указанным actionId
+            type: object
+            properties:
+              key:
+                description: 'Ключ'
+                example: actionNotFound
+                type: string
+              msgUser:
+                description: 'Сообщение для пользователя'
+                example: Не найден магазин с указанным actionId
+                type: string
+              msgDev:
+                description: 'Сообщение для разработчика'
+                example: Не найден магазин с указанным actionId
+                type: string
+            required:
+            - key
+            - msgUser
+            - msgDev
+      security: 
+      - auth: []            
+  /Registration/v2:
+    post:
+      description: "Метод для регистрации пользователей на сервисе"
+      tags:
+      - Registration
+      operationId: Registration/v2
+      produces:
+      - application/json
+      consumes:
+      - application/x-www-form-urlencoded
+      parameters:
+      - name: language
+        in: header
+        type: string
+        required: true
+        description: 'Язык устройства'
+        x-example: 'RU'
+      - name: login
+        in: formData
+        type: string
+        required: true
+        description: 'Имя пользователя'
+        x-example: 'capitan_jack'
+      - name: email
+        in: formData
+        required: true
+        type: string
+        description: 'e-mail пользователя'
+        x-example: 'capitanjack@gmail.com'
+      - name: password
+        in: formData
+        required: true
+        type: string
+        description: 'Пароль'
+        x-example: 'vorobei'
+      - name: invite_login
+        in: formData
+        required: true
+        type: string
+        description: 'login пригласившего пользователя'
+        x-example: 'mario'
+      - name: subscription_agreement
+        in: formData
+        required: false
+        type: boolean
+        description: 'Согласие на получение рекламной рассылки'
+        x-example: true
+      - in: formData
+        name: device_info
+        description: 'Информация о девайсе с которого была отправлена информация о чеке'
+        required: true
+        type: string
+      - name: Application-Version
+        in: header
+        type: string
+        required: true
+        description: 'Версия приложения'
+        x-example: '1.04.55 beta' 
+      - name: Application-Platform
+        in: header
+        type: string
+        required: true
+        description: 'Платформа'
+        x-example: 'iOs'        
+      responses:
+        200:
+          description: 'Пользователь успешно зарегистрирован'
+          schema:
+            title: Successful registration
+            example:
+              key: successfulRegistration
+              access_token_time: '20190231T022239'  
+              access_token: 'eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyMDIxNzAsImV4cCI6MTUyNDMxNDUyNn0.WKojqh6gLLQJA6ce2aUJj0X_KsubFWB45044HKVdFxA'
+              refresh_token: 'eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyMDIxNzAsImV4cCI6MTUyNDMxNDUyNn0.WKojqh6gLLQJA6ce2aUJj0X_KsubFWB45044HKVdFxA'
+            type: object
+            properties:
+              key:
+                description: ''
+                example: successfulRegistration
+                type: string
+              access_token:
+                description: ''
+                example: 'eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyMDIxNzAsImV4cCI6MTUyNDMxNDUyNn0.WKojqh6gLLQJA6ce2aUJj0X_KsubFWB45044HKVdFxA'
+                type: string
+              access_token_time:
+                description: 'Дата окончания время жизни токена'
+                example: 'YYYYMMDDThhmmss'
+                type: string             
+              refresh_token:
+                description: ''
+                example: 'eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyMDIxNzAsImV4cCI6MTUyNDMxNDUyNn0.WKojqh6gLLQJA6ce2aUJj0X_KsubFWB45044HKVdFxA'
+                type: string                
+            required:
+            - key
+            - access_token
+            - refresh_token
+        405:
+          description: Login exists
+          schema:
+            title: Login exists
+            example:
+              key: loginExists
+              msgUser: Указанный логин уже используется другим пользователем, укажите другой логин
+              msgDev: указанный логин найден в БД
+            type: object
+            properties:
+              key:
+                description: 'Ключ'
+                example: loginExists
+                type: string
+              msgUser:
+                description: 'Сообщение для пользователя'
+                example: Указанный логин уже используется другим пользователем, укажите другой логин
+                type: string
+              msgDev:
+                description: 'Сообщение для разработчика'
+                example: указанный логин найден в БД
+                type: string
+            required:
+            - key
+            - msgUser
+            - msgDev
+        406:
+          description: Login is too long
+          schema:
+            title: Login is too long
+            example:
+              key: loginIsToLong
+              msgUser: Указанный логин содержит слишком много символов. Максимальная длина логина 30 символов.
+              msgDev: Указанный логин длиннее 30 символов
+            type: object
+            properties:
+              key:
+                description: 'Ключ'
+                example: loginIsToLong
+                type: string
+              msgUser:
+                description: 'Сообщение для пользователя'
+                example: Указанный логин содержит слишком много символов. Максимальная длина логина 30 символов.
+                type: string
+              msgDev:
+                description: 'Сообщение для разработчика'
+                example: Указанный логин длиннее 30 символов.
+                type: string
+            required:
+            - key
+            - msgUser
+            - msgDev
+        407:
+          description: Login is too short
+          schema:
+            title: Login is too short
+            example:
+              key: loginIsToShort
+              msgUser: Указанный логин содержит слишком мало символов. Минимальная длина логина 4 символа.
+              msgDev: Указанный логин короче 4 символов.
+            type: object
+            properties:
+              key:
+                description: 'Ключ'
+                example: loginIsToShort
+                type: string
+              msgUser:
+                description: 'Сообщение для пользователя'
+                example: Указанный логин содержит слишком мало символов. Минимальная длина логина 4 символа.
+                type: string
+              msgDev:
+                description: 'Сообщение для разработчика'
+                example: Указанный логин короче 4 символов.
+                type: string
+            required:
+            - key
+            - msgUser
+            - msgDev
+        408:
+          description: Login includes wrong symbols
+          schema:
+            title: Login includes wrong symbols
+            example:
+              key: loginIncludesWrongSymbols
+              msgUser: Указанный логин содержит недопустимые символы. Логин может содержать только цифры, буквы латинского алфавита, "_", тире и точку.
+              msgDev: Указанный логин содержит недопустимые символы.
+            type: object
+            properties:
+              key:
+                description: 'Ключ'
+                example: loginIncludesWrongSymbols
+                type: string
+              msgUser:
+                description: 'Сообщение для пользователя'
+                example: Указанный логин содержит недопустимые символы. Логин может содержать только цифры, буквы латинского алфавита, "_", тире и точку.
+                type: string
+              msgDev:
+                description: 'Сообщение для разработчика'
+                example: Указанный логин содержит недопустимые символы.
+                type: string
+            required:
+            - key
+            - msgUser
+            - msgDev
+        409:
+          description: Wrong email
+          schema:
+            title: Wrong email
+            example:
+              key: wrongEmail
+              msgUser: Указан не корректный email, укажите реально существующий email
+              msgDev: Указан не корректный email
+            type: object
+            properties:
+              key:
+                description: ''
+                example: wrongEmail
+                type: string
+              msgUser:
+                description: ''
+                example: Указан не корректный email, укажите реально существующий email.
+                type: string
+              msgDev:
+                description: ''
+                example: Указан не корректный email
+                type: string
+            required:
+            - key
+            - msgUser
+            - msgDev
+        410:
+          description: Password is too short
+          schema:
+            title: Password is too short
+            example:
+              key: passwordIsTooShort
+              msgUser: Указан слишком короткий пароль. Пароль не может быть короче 6 символов
+              msgDev: Пароль не может быть короче 6 символов
+            type: object
+            properties:
+              key:
+                description: ''
+                example: passwordIsTooShort
+                type: string
+              msgUser:
+                description: ''
+                example: Указан слишком короткий пароль. Пароль не может быть короче 6 символов
+                type: string
+              msgDev:
+                description: ''
+                example: Пароль не может быть короче 6 символов
+                type: string
+            required:
+            - key
+            - msgUser
+            - msgDev
+        411:
+          description: Password is too long
+          schema:
+            title: Password is too long
+            example:
+              key: passwordIsTooLong
+              msgUser: Указан слишком длинный пароль. Пароль не может быть длиннее 30 символов
+              msgDev: Пароль не может быть длиннее 30 символов
+            type: object
+            properties:
+              key:
+                description: ''
+                example: passwordIsTooLong
+                type: string
+              msgUser:
+                description: ''
+                example: Указан слишком длинный пароль. Пароль не может быть длиннее 30 символов
+                type: string
+              msgDev:
+                description: ''
+                example: Пароль не может быть длиннее 30 символов
+                type: string
+            required:
+            - key
+            - msgUser
+            - msgDev
+        412:
+          description: Password Includes wrong symbols
+          schema:
+            title: Password Includes wrong symbols
+            example:
+              key: passwordIncludesWrongSymbols
+              msgUser: Пароль содержит неxtверные символы. Пароль должен содержать как минимум одну букву латинского алфавита и одну цифру.
+              msgDev: Пароль должен содержать как минимум одну букву латинского алфавита и одну цифру.
+            type: object
+            properties:
+              key:
+                description: ''
+                example: passwordIncludesWrongSymbols
+                type: string
+              msgUser:
+                description: ''
+                example: Пароль должен содержать как минимум одну букву латинского алфавита и одну цифру.
+                type: string
+              msgDev:
+                description: ''
+                example: Пароль должен содержать как минимум одну букву латинского алфавита и одну цифру.
+                type: string
+            required:
+            - key
+            - msgUser
+            - msgDev
+        415:
+          description: Email exists
+          schema:
+            title: Email exists
+            example:
+              key: emailExists
+              msgUser: Указанный email уже используется другим пользователем.
+              msgDev: Указанный email уже используется другим пользователем.
+            type: object
+            properties:
+              key:
+                description: ''
+                example: emailExists
+                type: string
+              msgUser:
+                description: ''
+                example: Указанный email уже используется другим пользователем.
+                type: string
+              msgDev:
+                description: ''
+                example: Указанный email уже используется другим пользователем.
+                type: string
+            required:
+            - key
+            - msgUser
+            - msgDev
+        416:
+          description: Invited login is not exist
+          schema:
+            title: Invited login is not exist
+            example:
+              key: invitedLoginIsNotExist
+              msgUser: Указанный email пригласившего не найден в системе.
+              msgDev: Указанный email пригласившего не найден в базе.
+            type: object
+            properties:
+              key:
+                description: ''
+                example: invitedLoginIsNotExist
+                type: string
+              msgUser:
+                description: ''
+                example: Указанный email пригласившего не найден в системе.
+                type: string
+              msgDev:
+                description: ''
+                example: Указанный email пригласившего не найден в базе.
+                type: string
+            required:
+            - key
+            - msgUser
+            - msgDev
+      security: []
+  /Login/v2:
+    post:
+      description: "Метод для аутентификации пользователя на сервисе"
+      tags:
+      - Login
+      operationId: Login/v2
+      produces:
+      - application/json
+      consumes:
+      - application/x-www-form-urlencoded
+      parameters:
+      - name: login
+        in: formData
+        required: true
+        type: string
+        description: 'Имя пользователя'
+      - name: password
+        in: formData
+        required: true
+        type: string
+        description: 'Пароль'
+      - in: formData
+        name: device_info
+        description: 'Информация о девайсе с которого была отправлена информация о чеке'
+        required: true
+        type: string        
+      - name: Language
+        in: header
+        type: string
+        required: true
+        description: 'Язык устройства'
+        x-example: 'RU'
+      - name: Application-Version
+        in: header
+        type: string
+        required: true
+        description: 'Версия приложения'
+        x-example: '1.04.55 beta' 
+      - name: Application-Platform
+        in: header
+        type: string
+        required: true
+        description: 'Платформа'
+        x-example: 'iOs'        
+      responses:
+        200:
+          description: 'Авторизация прошла успешно'
+          schema:
+            title: Successful authorisation
+            example:
+              key: successfulRegistration
+              access_token_time: '20190231T022239'  
+              access_token: 'eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyMDIxNzAsImV4cCI6MTUyNDMxNDUyNn0.WKojqh6gLLQJA6ce2aUJj0X_KsubFWB45044HKVdFxA'
+              refresh_token: 'eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyMDIxNzAsImV4cCI6MTUyNDMxNDUyNn0.WKojqh6gLLQJA6ce2aUJj0X_KsubFWB45044HKVdFxA'
+            type: object
+            properties:
+              key:
+                description: ''
+                example: successfulRegistration
+                type: string
+              access_token:
+                description: ''
+                example: 'eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyMDIxNzAsImV4cCI6MTUyNDMxNDUyNn0.WKojqh6gLLQJA6ce2aUJj0X_KsubFWB45044HKVdFxA'
+                type: string
+              access_token_time:
+                description: 'Дата окончания время жизни токена'
+                example: 'YYYYMMDDThhmmss'
+                type: string             
+              refresh_token:
+                description: ''
+                example: 'eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyMDIxNzAsImV4cCI6MTUyNDMxNDUyNn0.WKojqh6gLLQJA6ce2aUJj0X_KsubFWB45044HKVdFxA'
+                type: string                
+            required:
+            - key
+            - access_token
+            - refresh_token
+        401:
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/Failure'
+          examples:
+            application/json:
+              key: badCredentials
+              msgTitle: Ошибка
+              msgUser: Неверно введен логин или пароль
+              msgDev: Неверно введен логин или пароль
+      security: []      
+  /ServiceRequest:
+    get:
+      description: "Проверка актуальности версии приложения"
+      tags:
+      - ServiceRequest
+      operationId: ServiceRequest
+      produces:
+      - application/json
+      consumes:
+      - application/x-www-form-urlencoded
+      parameters:
+      - name: Application-Version
+        in: header
+        type: string
+        required: true
+        description: 'Версия приложения'
+        x-example: '2.0.1' 
+      - name: Application-Platform
+        in: header
+        type: string
+        required: true
+        description: 'Платформа'
+        x-example: 'iOs'                 
+      responses:
+        200:
+          description: "Проверка актуальности версии МП. True or False"
+          schema:
+            $ref: '#/definitions/ServiceRequest'
 definitions:
   Successfull:
     title: Successfull
@@ -2837,6 +3580,10 @@ definitions:
         detail_text: 'Подробное описание партнеров'
         description: 'Условия начисления кэшбэка, условия продаж'
         conditions: 'Особые условия партнера'
+        currency: 'USD'
+        amount: '45.00'                  
+        dynamics: true
+        phone_number: '+79865646565'
         loc: 
         - id: 122334
           lat: 0.34554564
@@ -2868,6 +3615,10 @@ definitions:
         detail_text: 'Подробное описание партнеров'
         description: 'Условия начисления кэшбэка, условия продаж'
         conditions: 'Особые условия партнера'
+        currency: 'USD'
+        amount: '45.00'    
+        dynamics: true
+        phone_number: '+79865646565'        
         loc: 
         - id: 122334
           lat: 0.34554564
@@ -2903,11 +3654,13 @@ definitions:
           category_id: 12
           category_title: 'Обувь'  
           country_title: 'Россия'
+          country_id: [12 , 13 , 14]                  
           detail_text: 'Подробное описание партнеров'
           description: 'Условия начисления кэшбэка, условия продаж'
           conditions: 'Особые условия партнера'
           currency: 'usd'
           amount: '45'
+          phone_number: '+79865646565'
           loc: 
           - id: 122334
             lat: 0.34554564
@@ -2938,11 +3691,13 @@ definitions:
           category_id: 12
           category_title: 'Обувь'  
           country_title: 'Россия'
+          country_id: [12 , 13 , 14]                  
           detail_text: 'Подробное описание партнеров'
           description: 'Условия начисления кэшбэка, условия продаж'
           conditions: 'Особые условия партнера'
           currency: 'usd'
-          amount: '45'          
+          amount: '45'
+          phone_number: '+79865646565'
           loc: 
           - id: 122334
             lat: 0.34554564
@@ -2982,9 +3737,14 @@ definitions:
         category_id: 12
         category_title: 'Обувь'  
         country_title: 'Россия'
+        country_id: [12 , 13 , 14]                  
         detail_text: 'Подробное описание партнеров'
         description: 'Условия начисления кэшбэка, условия продаж'
         conditions: 'Особые условия партнера'
+        currency: 'USD'
+        amount: '45.00'
+        dynamics: true
+        phone_number: '+79865646565'        
         loc: 
         - id: 122334
           lat: 0.34554564
@@ -3100,10 +3860,14 @@ definitions:
         description: 'Название страны'
         example: 'Россия'
         type: string
+      country_id:
+        description: 'ID страны. Используется если один магазин есть во многих странах'
+        example: 'Россия'
+        type: array        
       detail_text:
-        description: 'Подробное описание партнеров'
-        example: 'adidas - это компания, которая каждый день меняет жизнь людей через спорт, создавая новое и стирая границы невозможного. Это компания, которая живет спортом, вдохновляет своим примером и помогает людям делать уверенные шаги навстречу ярким достижениям'
-        type: string
+          description: 'Подробное описание партнеров'
+          example: 'adidas - это компания, которая каждый день меняет жизнь людей через спорт, создавая новое и стирая границы невозможного. Это компания, которая живет спортом, вдохновляет своим примером и помогает людям делать уверенные шаги навстречу ярким достижениям'
+          type: string
       description:
         description: 'Условия начисления кэшбэка, условия продаж'
         example: 'Cash Back будет начислен за каждую сделанную покупку в интернет-магазине партнера только в том случае, если вы перейдете с сайта Switips в этот интернет-магазин. Оплатить свою покупку вы можете любым способом, который предлагается в интернет-магазине партнера.'
@@ -3120,6 +3884,15 @@ definitions:
       amount:
         description: 'Текущая ставка кэшбэка партнера'
         example: 70
+        type: number
+        format: float        
+      dynamics:
+        description: 'Фиксированный Кэшбэк или зависит от условий? true = До 6%, false = 6%'
+        example: true
+        type: boolean
+      phone_number:
+        description: 'Текущая ставка кэшбэка партнера'
+        example: '+79965213588'
         type: number
         format: float        
       loc:
@@ -3148,6 +3921,9 @@ definitions:
     - status
     - category_title
     - cashback
+    - amount
+    - currency
+    - dynamics    
   User:
     title: User
     example:
@@ -3156,7 +3932,7 @@ definitions:
       last_name: Яна
       login: win17
       email: winyanamagazine@yandex.ru
-      language: 'RU'
+      language: {'RU','EN', 'UK'}
       available_balance: 181320.14999999999
       awaiting_balance: 0
       rejected_balance: 0.522
@@ -3414,6 +4190,7 @@ definitions:
         cash_back: 136.00999999999999
         status: approved
         currency: RUB
+        process_end_date: '2018-02-27'
       - id: 28795
         shop_name: Aviasales.ru и cash back от WWP Capital
         date_time_order: '2018-01-05 00:00:00'
@@ -3421,6 +4198,7 @@ definitions:
         cash_back: 282.83999999999997
         status: approved
         currency: RUB
+        process_end_date: '2018-02-27'
     type: object
     properties:
       orders:
@@ -3455,6 +4233,7 @@ definitions:
       cash_back: 136.00999999999999
       status: approved
       currency: RUB
+      process_end_date: '2018-02-27'
     type: object
     properties:
       id:
@@ -3489,7 +4268,11 @@ definitions:
         description: 'Валюта'
         example: 'RUB'
         type: string
-        enum: [RUB, USD, EUR, UAH, KZT, BYN]   
+        enum: [RUB, USD, EUR, UAH, KZT, BYN]
+      process_end_date:
+        description: 'Дата завершения обработки чека'
+        example: '2018-01-27 00:00:00'
+        type: string        
     required:
     - id
     - shop_name
@@ -3542,6 +4325,7 @@ definitions:
           cash_back: 9.8800000000000008
           status: declined
           currency: RUB
+          process_end_date: '2018-02-27'
         - id: 60
           shop_name: Buyon и cash back от WWP Capital
           date_time_order: '2018-04-17 00:00:00'
@@ -3549,6 +4333,7 @@ definitions:
           cash_back: 9.8800000000000008
           status: declined
           currency: RUB
+          process_end_date: '2018-02-27'          
         - id: 61
           shop_name: Buyon и cash back от WWP Capital
           date_time_order: '2018-04-17 00:00:00'
@@ -3556,6 +4341,7 @@ definitions:
           cash_back: 9.8800000000000008
           status: declined
           currency: RUB
+          process_end_date: '2018-02-27'
         - id: 62
           shop_name: Buyon и cash back от WWP Capital
           date_time_order: '2018-04-17 00:00:00'
@@ -3563,6 +4349,7 @@ definitions:
           cash_back: 9.8800000000000008
           status: declined
           currency: RUB
+          process_end_date: '2018-02-27'
         type: array
         items:
           $ref: '#/definitions/Voucher'
@@ -3578,6 +4365,7 @@ definitions:
       cashBack: 9.8800000000000008
       status: declined
       currency: RUB
+      process_end_date: '2018-02-27'      
     type: object
     properties:
       id:
@@ -3613,6 +4401,10 @@ definitions:
         example: 'RUB'
         type: string
         enum: [RUB, USD, EUR, UAH, KZT, BYN]   
+      process_end_date:
+        description: 'Дата завершения обработки чека'
+        example: '2018-01-27 00:00:00'
+        type: string         
     required:
     - id
     - shop_name
@@ -3704,9 +4496,13 @@ definitions:
         example: true
         type: boolean
       is_favourite:
-        description: 'Признак избранности акции'
+        description: 'Пока не реализовано.Признак избранности акции'
         example: true
         type: boolean
+      country_title:
+        description: 'Название страны'
+        example: 'Россия'
+        type: string
     required:
     - id
     - active
@@ -3965,7 +4761,7 @@ definitions:
   MapsShops:
     title: MapsShops
     example:
-      shops:
+      MapsShop:
       - id: 37967
         title: 'Али экспресс'
         logo: '/url/file/logo.jpg'
@@ -3976,6 +4772,9 @@ definitions:
         cashback: 0.06
         oldCashback: 0.06
         category_title: 'Обувь'
+        currency: 'USD'
+        amount: '45.00'
+        dynamics: true
         loc: 
         - id: 122334
           lat: 0.34554564
@@ -3995,6 +4794,9 @@ definitions:
         cashback: 0.06
         oldCashback: 0.06
         category_title: 'Обувь'
+        currency: 'USD'
+        amount: '45.00'
+        dynamics: true        
         loc: 
         - id: 122334
           lat: 0.34554564
@@ -4006,7 +4808,7 @@ definitions:
           address: 'г.Москва, пер. Лесной, д.12'
     type: object
     properties:
-      shops:
+      MapsShop:
         description: 'Список магазинов'
         example:
         - id: 37967
@@ -4018,6 +4820,9 @@ definitions:
           oldCashback: 0.06
           category_title: 'Обувь'
           country_title: 'Россия'
+          currency: 'USD'
+          amount: '45.00'
+          dynamics: true
         - id: 37967
           title: 'Али экспресс'
           logo: '/url/file/logo.jpg'
@@ -4028,6 +4833,9 @@ definitions:
           cashback: 0.06
           oldCashback: 0.06
           category_title: 'Обувь'
+          currency: 'USD'
+          amount: '45.00'
+          dynamics: true
           loc: 
           - id: 122334
             lat: 0.34554564
@@ -4041,7 +4849,7 @@ definitions:
         items:
           $ref: '#/definitions/MapsShop'
     required:
-    - shops
+    - MapsShop
   MapsShop:
     title: MapsShop
     example:
@@ -4057,6 +4865,9 @@ definitions:
         cashback: 0.06
         oldCashback: 0.06
         category_title: 'Обувь'
+        currency: 'USD'
+        amount: '45.00'
+        dynamics: true
         loc: 
         - id: 122334
           lat: 0.34554564
@@ -4111,6 +4922,20 @@ definitions:
         description: 'Название категории (Группа товаров по которой у партнера актуально предложение)'
         example: 'Обувь'
         type: string
+      currency:
+        description: 'Валюта'
+        example: RUB
+        enum: [USD, RUB, KZT, UAH, EUR]
+        type: string
+      amount:
+        description: 'Текущая ставка кэшбэка партнера'
+        example: 70
+        type: number
+        format: float        
+      dynamics:
+        description: 'Фиксированный Кэшбэк или зависит от условий? true = До 6%, false = 6%'
+        example: true
+        type: boolean        
       loc:
         description: 'Массив с координатами магазинов'
         example: 
@@ -4137,6 +4962,7 @@ definitions:
     - cashback
     - oldCashback
     - loc
+    - amount
   DeviceInfo:
     title: DeviceInfo
     type: object
@@ -4841,3 +5667,793 @@ definitions:
     - additional_amount
     - additional_rate
     - output_method
+  ActionNew:
+    title: ActionNew
+    example:
+      id: 5039
+      active: true
+      title: 'Ali express russia'
+      logo: '/url/docs/image.jpg'
+      extra_benefits: 'Дополнительные преимущества'      
+      all_shop_actions_link: '/actionlist/ali_express/'
+      active_ref: 'https://aliexpress.com/?ref=sdfsdfsdfsd'
+      created_date: '2018-02-17 00:00:00'
+      updated_date: '2018-03-17 00:00:00'
+      expiry_date: '2018-04-17 00:00:00'
+      detail_text: 'Подробные условия акции'
+      promocode: 02VV2
+      partner_id: 3442
+      partner_name: 'Aliexpress'
+      is_new: true
+      is_favourite: true
+    type: object
+    properties:
+      id:
+        description: 'Идентификатор, назначается автоматически'
+        example: 5039
+        type: integer
+        format: int32
+      active:
+        description: 'Активность'
+        example: true
+        type: boolean
+      title:
+        description: 'Заголовок акции'
+        example: 'Али экспресс'
+        type: string
+      logo:
+        description: 'Изображение логотипа партнера (Логотип партнера)'
+        example: '/url/docs/image.jpg'
+        type: string
+      extra_benefits:
+        description: 'Дополнительные преимущества акции'
+        example: 'Обновите крупную бытовую технику с выгодой! Действует уникальная акция на холодильники, посудомоечные и стиральные машины, плиты, а также встраиваемую технику Bosch. '
+        type: string
+      all_shop_actions_link:
+        description: 'Ссылка на просмотр всех акций этого партнера'
+        example: '/actionlist/ali_express/'
+        type: string
+      active_ref:
+        description: 'Ссылка на магазин партнера с реферальными метками для возврата кэшбека (Кнопка перехода за покупками)'
+        example: 'https://aliexpress.com/?ref=dfdffdfd'
+        type: string
+      created_date:
+        description: 'Дата создания акции'
+        example: '2018-02-17 00:00:00'
+        type: string
+      updated_date:
+        description: 'Дата обновления акции'
+        example: '2018-03-17 00:00:00'
+        type: string
+      expiry_date:
+        description: 'Дата окончания акции'
+        example: '2018-04-17 00:00:00'
+        type: string
+      detail_text:
+        description: 'Подробные условия акции'
+        example: 'Подробные условия акции'
+        type: string
+      promocode:
+        description: 'Промокод'
+        example: '02VV2'
+        type: string
+      partner_id: 
+        description: 'Идентификатор магазина, которому принадлежит акция'
+        example: 3442
+        type: integer
+      partner_name: 
+        description: 'Название магазина, которому принадлежит акция'
+        example: 'Aliexpress'
+        type: string
+      is_new:
+        description: 'Признак новой акции'
+        example: true
+        type: boolean
+      is_favourite:
+        description: 'Пока не реализовано.Признак избранности акции'
+        example: true
+        type: boolean
+      country_title:
+        description: 'Название страны'
+        example: 'Россия'
+        type: string
+    required:
+    - id
+    - active
+    - title
+    - logo
+    - active_ref
+    - expiry_date 
+    - detail_text
+  ActionsNew:
+    title: ActionsNew
+    example:
+      actions:
+      - id: 5039
+        active: true
+        title: 'Ali express russia'
+        logo: '/url/docs/image.jpg'
+        extra_benefits: 'Дополнительные преимущества'      
+        all_shop_actions_link: '/actionlist/ali_express/'
+        active_ref: 'https://aliexpress.com/?ref=sdfsdfsdfsd'
+        created_date: '2018-02-17 00:00:00'
+        updated_date: '2018-03-17 00:00:00'
+        expiry_date: '2018-04-17 00:00:00'
+        detail_text: 'Подробные условия акции'
+        promocode: 02VV2
+        partner_id: 3442
+        partner_name: 'Aliexpress'
+        is_new: true
+        is_favourite: true
+      - id: 5039
+        active: true
+        title: 'Ali express russia'
+        logo: '/url/docs/image.jpg'
+        extra_benefits: 'Дополнительные преимущества'      
+        all_shop_actions_link: '/actionlist/ali_express/'
+        active_ref: 'https://aliexpress.com/?ref=sdfsdfsdfsd'
+        created_date: '2018-02-17 00:00:00'
+        updated_date: '2018-03-17 00:00:00'
+        expiry_date: '2018-04-17 00:00:00'
+        detail_text: 'Подробные условия акции'
+        promocode: 02VV2
+        partner_id: 3442
+        partner_name: 'Aliexpress'
+        is_new: true
+        is_favourite: true
+    type: object
+    properties:
+      actions:
+        description: 'Список акций'
+        example:
+        - id: 5039
+          active: true
+          title: 'Ali express russia'
+          logo: '/url/docs/image.jpg'
+          extra_benefits: 'Дополнительные преимущества'      
+          all_shop_actions_link: '/actionlist/ali_express/'
+          active_ref: 'https://aliexpress.com/?ref=sdfsdfsdfsd'
+          created_date: '2018-02-17 00:00:00'
+          updated_date: '2018-03-17 00:00:00'
+          expiry_date: '2018-04-17 00:00:00'
+          detail_text: 'Подробные условия акции'
+          promocode: 02VV2
+          partner_id: 3442
+          partner_name: 'Aliexpress'
+          is_new: true
+          is_favourite: true
+        - id: 5039
+          active: true
+          title: 'Ali express russia'
+          logo: '/url/docs/image.jpg'
+          extra_benefits: 'Дополнительные преимущества'      
+          all_shop_actions_link: '/actionlist/ali_express/'
+          active_ref: 'https://aliexpress.com/?ref=sdfsdfsdfsd'
+          created_date: '2018-02-17 00:00:00'
+          updated_date: '2018-03-17 00:00:00'
+          expiry_date: '2018-04-17 00:00:00'
+          detail_text: 'Подробные условия акции'
+          promocode: 02VV2
+          partner_id: 3442
+          partner_name: 'Aliexpress'
+          is_new: true
+          is_favourite: true
+        type: array
+        items:
+          $ref: '#/definitions/Action'
+    required:
+    - actions    
+  MapsShopsNew:
+    title: MapsShopsNew
+    example:
+      MapsShop:
+      - id: 37967
+        title: 'Али экспресс'
+        logo: '/url/file/logo.jpg'
+        have_actions: true
+        is_top10: true
+        favourite: true
+        vip: true
+        cashback: 0.06
+        oldCashback: 0.06
+        category_title: 'Обувь'
+        currency: 'USD'
+        amount: '45.00'
+        dynamics: true
+        loc: 
+        - id: 122334
+          lat: 0.34554564
+          long: 0.345656
+          address: 'г.Москва, пер. Лесной, д.12'
+        - id: 122334
+          lat: 0.34554564
+          long: 0.345656
+          address: 'г.Москва, пер. Лесной, д.12'
+      - id: 37967
+        title: 'Али экспресс'
+        logo: '/url/file/logo.jpg'
+        have_actions: true
+        is_top10: true
+        favourite: true
+        vip: true
+        cashback: 0.06
+        oldCashback: 0.06
+        category_title: 'Обувь'
+        currency: 'USD'
+        amount: '45.00'
+        dynamics: true        
+        loc: 
+        - id: 122334
+          lat: 0.34554564
+          long: 0.345656
+          address: 'г.Москва, пер. Лесной, д.12'
+        - id: 122334
+          lat: 0.34554564
+          long: 0.345656
+          address: 'г.Москва, пер. Лесной, д.12'
+    type: object
+    properties:
+      MapsShop:
+        description: 'Список магазинов'
+        example:
+        - id: 37967
+          title: 'Али экспресс'
+          logo: '/url/file/logo.jpg'
+          have_actions: true
+          is_top10: true
+          cashback: 0.06
+          oldCashback: 0.06
+          category_title: 'Обувь'
+          country_title: 'Россия'
+          currency: 'USD'
+          amount: '45.00'
+          dynamics: true
+        - id: 37967
+          title: 'Али экспресс'
+          logo: '/url/file/logo.jpg'
+          have_actions: true
+          is_top10: true
+          favourite: true
+          vip: true
+          cashback: 0.06
+          oldCashback: 0.06
+          category_title: 'Обувь'
+          currency: 'USD'
+          amount: '45.00'
+          dynamics: true
+          loc: 
+          - id: 122334
+            lat: 0.34554564
+            long: 0.345656
+            address: 'г.Москва, пер. Лесной, д.12'
+          - id: 122334
+            lat: 0.34554564
+            long: 0.345656
+            address: 'г.Москва, пер. Лесной, д.12'
+        type: array
+        items:
+          $ref: '#/definitions/MapsShop'
+    required:
+    - MapsShop
+  MapsShopNew:
+    title: MapsShopNew
+    example:
+      shop: 
+        id: 5039
+        title: 'Али экспресс'
+        logo: '/url/file/logo.jpg'
+        have_actions: true
+        is_top10: true
+        favourite: true
+        vip: true
+        exclusive: true
+        cashback: 0.06
+        oldCashback: 0.06
+        category_title: 'Обувь'
+        currency: 'USD'
+        amount: '45.00'
+        dynamics: true
+        loc: 
+        - id: 122334
+          lat: 0.34554564
+          long: 0.345656
+          address: 'г.Москва, пер. Лесной, д.12'
+        - id: 122334
+          lat: 0.34554564
+          long: 0.345656
+          address: 'г.Москва, пер. Лесной, д.12'
+    type: object
+    properties:
+      id:
+        description: 'Идентификатор, назначается автоматически'
+        example: 5039
+        type: integer
+        format: int32
+      title:
+        description: 'Название партнера/магазина'
+        example: 'Али экспресс'
+        type: string
+      logo:
+        description: 'Изображение логотипа партнера (Логотип партнера)'
+        example: '/url/docs/image.jpg'
+        type: string
+      have_actions:
+        description: 'Магазин имеет акции'
+        example: true
+        type: boolean
+      is_top10:
+        description: 'Магазин имеет шильду Топ10'
+        example: true
+        type: boolean
+      favourite:
+        description: 'Магазин является избранным'
+        example: true
+        type: boolean
+      vip:
+        description: 'Магазин является VIP партнером'
+        example: true
+        type: boolean
+      cashback:
+        description: 'Текущая ставка кэшбэка партнера'
+        example: 0.2123
+        type: number
+        format: float
+      oldCashback:
+        description: 'Старая ставка кэшбэка партнера'
+        example: 0.2123
+        type: number
+        format: float
+      category_title:
+        description: 'Название категории (Группа товаров по которой у партнера актуально предложение)'
+        example: 'Обувь'
+        type: string
+      currency:
+        description: 'Валюта'
+        example: RUB
+        enum: [USD, RUB, KZT, UAH, EUR]
+        type: string
+      amount:
+        description: 'Текущая ставка кэшбэка партнера'
+        example: 70
+        type: number
+        format: float        
+      dynamics:
+        description: 'Фиксированный Кэшбэк или зависит от условий? true = До 6%, false = 6%'
+        example: true
+        type: boolean        
+      loc:
+        description: 'Массив с координатами магазинов'
+        example: 
+        - id: 122334
+          lat: 0.34554564
+          long: 0.345656
+          address: 'г.Москва, пер. Лесной, д.12'
+        - id: 122334
+          lat: 0.34554564
+          long: 0.345656
+          address: 'г.Москва, пер. Лесной, д.12'
+        type: array
+        items: 
+          $ref: '#/definitions/Address'
+    required:
+    - id
+    - title
+    - logo
+    - have_actions
+    - is_top10
+    - favourite
+    - vip
+    - category_title
+    - cashback
+    - oldCashback
+    - loc
+    - amount    
+  ShopsNew:
+    title: ShopsNew
+    example:
+      shops:
+      - id: 5039
+        active: true
+        title: 'Ali express russia'
+        logo: '/url/docs/image.jpg'
+        is_online: true
+        is_offline: false
+        accept_switips_card: true
+        verified_switips: true
+        have_actions: true
+        is_top10: false
+        exclusive: true
+        created_at: '2018-04-17 00:00:00'
+        views: 30
+        cashback_period: 30
+        active_ref: 'https://aliexpress.com/?ref=sdfsdfsdfsd'
+        cashback: 0.05
+        oldCashback: 0.05
+        status: 'Новый'
+        category_id: 12
+        category_title: 'Обувь'  
+        country_title: 'Россия'
+        detail_text: 'Подробное описание партнеров'
+        description: 'Условия начисления кэшбэка, условия продаж'
+        conditions: 'Особые условия партнера'
+        currency: 'USD'
+        amount: '45.00'                  
+        dynamics: true
+        phone_number: '+79865646565'
+        loc: 
+        - id: 122334
+          lat: 0.34554564
+          long: 0.345656
+          address: 'г.Москва, пер. Лесной, д.12'
+        - id: 122334
+          lat: 0.34554564
+          long: 0.345656
+          address: 'г.Москва, пер. Лесной, д.12'
+      - id: 5039
+        active: true
+        title: 'Ali express russia'
+        logo: '/url/docs/image.jpg'
+        is_online: true
+        is_offline: false
+        have_actions: true
+        is_top10: false
+        exclusive: true
+        created_at: '2018-04-17 00:00:00'
+        views: 30
+        cashback_period: 30
+        active_ref: 'https://aliexpress.com/?ref=sdfsdfsdfsd'
+        cashback: 0.05
+        oldCashback: 0.05
+        status: 'Новый'
+        category_id: 12
+        category_title: 'Обувь'  
+        country_title: 'Россия'
+        detail_text: 'Подробное описание партнеров'
+        description: 'Условия начисления кэшбэка, условия продаж'
+        conditions: 'Особые условия партнера'
+        currency: 'USD'
+        amount: '45.00'    
+        dynamics: true
+        phone_number: '+79865646565'        
+        loc: 
+        - id: 122334
+          lat: 0.34554564
+          long: 0.345656
+          address: 'г.Москва, пер. Лесной, д.12'
+        - id: 122334
+          lat: 0.34554564
+          long: 0.345656
+          address: 'г.Москва, пер. Лесной, д.12'
+    type: object
+    properties:
+      shops:
+        description: 'Список магазинов'
+        example:
+        - id: 5039
+          active: true
+          title: 'Ali express russia'
+          logo: '/url/docs/image.jpg'
+          is_online: true
+          is_offline: false
+          accept_switips_card: true
+          verified_switips: true
+          have_actions: true
+          is_top10: false
+          exclusive: true
+          created_at: '2018-04-17 00:00:00'
+          views: 30
+          cashback_period: 30
+          active_ref: 'https://aliexpress.com/?ref=sdfsdfsdfsd'
+          cashback: 0.05
+          oldCashback: 0.05
+          status: 'Новый'
+          category_id: 12
+          category_title: 'Обувь'  
+          country_title: 'Россия'
+          detail_text: 'Подробное описание партнеров'
+          description: 'Условия начисления кэшбэка, условия продаж'
+          conditions: 'Особые условия партнера'
+          currency: 'usd'
+          amount: '45'
+          phone_number: '+79865646565'
+          loc: 
+          - id: 122334
+            lat: 0.34554564
+            long: 0.345656
+            address: 'г.Москва, пер. Лесной, д.12'
+          - id: 122334
+            lat: 0.34554564
+            long: 0.345656
+            address: 'г.Москва, пер. Лесной, д.12'
+        - id: 5039
+          active: true
+          title: 'Ali express russia'
+          logo: '/url/docs/image.jpg'
+          is_online: true
+          is_offline: false
+          accept_switips_card: true
+          verified_switips: true
+          have_actions: true
+          is_top10: false
+          exclusive: true
+          created_at: '2018-04-17 00:00:00'
+          views: 30
+          cashback_period: 30
+          active_ref: 'https://aliexpress.com/?ref=sdfsdfsdfsd'
+          cashback: 0.05
+          oldCashback: 0.05
+          status: 'Новый'
+          category_id: 12
+          category_title: 'Обувь'  
+          country_title: 'Россия'
+          detail_text: 'Подробное описание партнеров'
+          description: 'Условия начисления кэшбэка, условия продаж'
+          conditions: 'Особые условия партнера'
+          currency: 'usd'
+          amount: '45'
+          phone_number: '+79865646565'
+          loc: 
+          - id: 122334
+            lat: 0.34554564
+            long: 0.345656
+            address: 'г.Москва, пер. Лесной, д.12'
+          - id: 122334
+            lat: 0.34554564
+            long: 0.345656
+            address: 'г.Москва, пер. Лесной, д.12'
+        type: array
+        items:
+          $ref: '#/definitions/Shop'
+    required:
+    - shops
+  ShopNew:
+    title: ShopNew
+    example:
+      shop: 
+        id: 5039
+        active: true
+        title: 'Ali express russia'
+        logo: '/url/docs/image.jpg'
+        is_online: true
+        is_offline: false
+        accept_switips_card: true
+        accept_qr_code: true
+        have_actions: true
+        is_top10: false
+        exclusive: true
+        created_at: '2018-04-17 00:00:00'
+        views: 30
+        cashback_period: 30
+        active_ref: 'https://aliexpress.com/?ref=sdfsdfsdfsd'
+        cashback: 0.05
+        oldCashback: 0.05
+        status: 'Новый'
+        category_id: 12
+        category_title: 'Обувь'  
+        country_title: 'Россия'
+        detail_text: 'Подробное описание партнеров'
+        description: 'Условия начисления кэшбэка, условия продаж'
+        conditions: 'Особые условия партнера'
+        currency: 'USD'
+        amount: '45.00'
+        dynamics: true
+        phone_number: '+79865646565'        
+        loc: 
+        - id: 122334
+          lat: 0.34554564
+          long: 0.345656
+          address: 'г.Москва, пер. Лесной, д.12'
+        - id: 122334
+          lat: 0.34554564
+          long: 0.345656
+          address: 'г.Москва, пер. Лесной, д.12'
+    type: object
+    properties:
+      id:
+        description: 'Идентификатор, назначается автоматически'
+        example: 5039
+        type: integer
+        format: int32
+      active:
+        description: 'Активность'
+        example: true
+        type: boolean
+      title:
+        description: 'Название партнера/магазина'
+        example: 'Али экспресс'
+        type: string
+      logo:
+        description: 'Изображение логотипа партнера (Логотип партнера)'
+        example: '/url/docs/image.jpg'
+        type: string
+      is_online:
+        description: 'Доступность покупки в интернет магазине'
+        example: false
+        type: boolean
+      is_offline:
+        description: 'Доступность покупки в офлайн магазине'
+        example: false
+        type: boolean
+      accept_qr_code:
+        description: 'Надо дописать'
+        example: true
+        type: boolean
+      accept_switips_card:
+        description: 'Принимает ли партнёр карты ко-бренда свитипс'
+        example: false
+        type: boolean
+      verified_switips:
+        description: 'Чеки проверены командой Switips, кэшбэк по ним приходит'
+        example: false
+        type: boolean
+      have_actions:
+        description: 'Магазин имеет акции'
+        example: true
+        type: boolean
+      is_top10:
+        description: 'Магазин имеет шильду Топ10'
+        example: true
+        type: boolean
+      favourite:
+        description: 'Магазин является избранным'
+        example: true
+        type: boolean
+      vip:
+        description: 'Магазин является VIP партнером'
+        example: true
+        type: boolean
+      exclusive:
+        description: 'Магазин является эксклюзивным партнером'
+        example: true
+        type: boolean
+      created_at:
+        description: 'Дата создания'
+        example: '2018-04-17 00:00:00'
+        type: string
+      views:
+        description: 'Кол-во просмотров. На основе кол-ва просмотров можно строить рейтинг популярности'
+        example: 30
+        type: integer
+      cashback_period:
+        description: 'Период начисления кэшбэка'
+        example: 30
+        type: integer
+      mobile_trafic:
+        description: 'Признак выставляется у магазинов, которые поддерживают работы с мобильными устройствами'
+        example: true
+        type: boolean
+      active_ref:
+        description: 'Ссылка на магазин партнера с реферальными метками для возврата кэшбека (Кнопка перехода за покупками). Значение доступно только для авторизованных пользователей.'
+        example: 'https://aliexpress.com/?ref=dfdffdfd'
+        type: string
+      cashback:
+        description: 'Текущая ставка кэшбэка партнера'
+        example: 0.2123
+        type: number
+        format: float
+      oldCashback:
+        description: 'Текущая ставка кэшбэка партнера'
+        example: 0.2123
+        type: number
+        format: float
+      status:
+        description: 'Статус партнера'
+        example: 'Новый'
+        type: string
+      category_id:
+        description: 'Идентификатор категории (Группа товаров по которой у партнера актуально предложение)'
+        example: 4
+        type: integer
+        format: int8
+      category_title:
+        description: 'Название категории (Группа товаров по которой у партнера актуально предложение)'
+        example: 'Обувь'
+        type: string
+      country_title:
+        description: 'Название страны'
+        example: 'Россия'
+        type: string
+      detail_text:
+        description: 'Подробное описание партнеров'
+        example: 'adidas - это компания, которая каждый день меняет жизнь людей через спорт, создавая новое и стирая границы невозможного. Это компания, которая живет спортом, вдохновляет своим примером и помогает людям делать уверенные шаги навстречу ярким достижениям'
+        type: string
+      description:
+        description: 'Условия начисления кэшбэка, условия продаж'
+        example: 'Cash Back будет начислен за каждую сделанную покупку в интернет-магазине партнера только в том случае, если вы перейдете с сайта Switips в этот интернет-магазин. Оплатить свою покупку вы можете любым способом, который предлагается в интернет-магазине партнера.'
+        type: string
+      conditions:
+        description: 'Особые условия'
+        example: 'В настоящий момент партнер не предоставляет эксклюзивных условий для участников.'
+        type: string
+      currency:
+        description: 'Валюта'
+        example: RUB
+        enum: [USD, RUB, KZT, UAH, EUR]
+        type: string
+      amount:
+        description: 'Текущая ставка кэшбэка партнера'
+        example: 70
+        type: number
+        format: float        
+      dynamics:
+        description: 'Фиксированный Кэшбэк или зависит от условий? true = До 6%, false = 6%'
+        example: true
+        type: boolean
+      phone_number:
+        description: 'Текущая ставка кэшбэка партнера'
+        example: '+79965213588'
+        type: number
+        format: float        
+      loc:
+        description: 'Координаты местонахождения магазинов'
+        example:
+        - id: 122334
+          lat: 0.34554564
+          long: 0.345656
+          address: 'г.Москва, пер. Лесной, д.12'
+        - id: 122334
+          lat: 0.34554564
+          long: 0.345656
+          address: 'г.Москва, пер. Лесной, д.12'
+        type: array
+        items: 
+          $ref: '#/definitions/Address'
+    required:
+    - id
+    - active
+    - title
+    - logo
+    - is_online
+    - is_offline
+    - accept_switips_card
+    - accept_qr_code
+    - status
+    - category_title
+    - cashback
+    - amount
+    - currency
+    - dynamics        
+  ServiceRequest:
+    title: ServiceRequest
+    description: 'Сервисный запрос'
+    example:
+      state: critical
+      title_text: 'Внимание'
+      text: 'Приложение необходимо обновить'
+      link: 
+        title_link: "Обновить"
+        link: 'https://itunes.apple.com/ru/app/switips/id1376764377?mt=8' 
+    type: object
+    properties:
+        ServiceRequest:
+          type: object
+          properties:
+            state:
+              description: 'Текст кнопки с ссылкой'
+              example: 'Обновить'
+              type: string
+              enum: [critical, info, none]
+            title_text:
+              description: 'Ссылка на сторонний ресурс'
+              example: 'https://itunes.apple.com/ru/app/switips/id1376764377?mt=8'
+              type: string
+              format: double
+            text:
+              description: 'Ссылка на сторонний ресурс'
+              example: 'https://itunes.apple.com/ru/app/switips/id1376764377?mt=8'
+              type: string
+              format: double
+            link:
+              $ref: '#/definitions/link'          
+  link:
+    title: Link
+    description: 'Ссылка'
+    type: object
+    example:
+      title_link: "Обновить"
+      link: 'https://itunes.apple.com/ru/app/switips/id1376764377?mt=8'
+    properties:
+       title_link: 
+         type: string
+       link:   
+         type: string
