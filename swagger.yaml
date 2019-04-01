@@ -736,6 +736,14 @@ paths:
                 cashback_status: 'silver'
                 paypass: true
                 invite_login: aragalka
+                birthday: 'YYYY-MM-DD'
+                country: {
+                  id: 232,
+                  title: 'Russia'}
+                city: {
+                  id: 222,
+                  title: 'Novosibirsk'}            
+                sex: ' Male'
         401:
           description: Unauthorized
           schema:
@@ -771,6 +779,31 @@ paths:
         required: true
         description: 'Язык устройства'
         x-example: 'RU'
+      - name: birthday 
+        in: formData
+        description: 'Дата рождения'
+        x-example: 'YYYY-MM-DD'
+        type: string
+        required: true
+      - name: id_city
+        in: formData
+        type: string
+        description: 'ID города из профиля'
+        x-example: 'Novosibirsk'
+        required: false
+      - name: id_counrty
+        in: formData
+        type: string
+        description: 'ID страны в профиле'
+        x-example: 'Russia'
+        required: false
+      - name: sex
+        in: formData
+        type: string
+        description: 'Пол в профиле'
+        x-example: 'Male'
+        enum: [Male, Female]
+        required: false
       responses:
         200:
           description: 'Язык системы успешно изменён'
@@ -830,6 +863,11 @@ paths:
           type: boolean
           description: 'Принимает ли магазин карты Switips'
         - in: query
+          name: accept_qr_code
+          required: false
+          type: boolean
+          description: 'Принимает QR'
+        - in: query
           name: verified_switips
           required: false
           type: boolean
@@ -855,6 +893,11 @@ paths:
           type: boolean
           description: 'Фильтр по признаку VIP предложение'
         - in: query
+          name: filter_gold
+          required: false
+          type: boolean
+          description: 'Фильтр по признаку GOLD предложение'          
+        - in: query
           name: filter_category_id
           required: false
           type: string
@@ -872,8 +915,20 @@ paths:
         - in: query
           name: count
           required: false
-          type: integer
+          type: number
           description: 'Колличество записей на странице (для постраничной навигации)' 
+        - name: latitude
+          in: query
+          type: number
+          format: double
+          x-example: 0.345656
+          description: 'Широта. Определяется по местоположению'
+        - name: longitude
+          in: query
+          type: number
+          format: double
+          x-example: 0.345656
+          description: 'Долгота. Определяется по местоположению'             
       responses:
         200:
           description: 'Получение списка магазинов'
@@ -889,10 +944,12 @@ paths:
                 is_online: true
                 is_offline: false
                 accept_switips_card: true
+                accept_qr_code: false
                 verified_switips: true
                 have_actions: true
                 is_top10: false
                 exclusive: true
+                have_gold_actions: true
                 created_at: '2018-04-17 00:00:00'
                 views: 30
                 cashback_period: 30
@@ -904,6 +961,11 @@ paths:
                 category_title: 'Обувь'
                 country_title: 'Россия'
                 country_id: [12 , 13 , 14]
+                countries: 
+                  - id: 2017370,
+                    title: 'Россия'
+                  - id: 2017310,
+                    title: 'США'
                 detail_text: 'Подробное описание партнеров'
                 description: 'Условия начисления кэшбэка, условия продаж'
                 conditions: 'Особые условия партнера'
@@ -926,10 +988,12 @@ paths:
                 is_online: true
                 is_offline: false
                 accept_switips_card: true
+                accept_qr_code: false
                 verified_switips: true
                 have_actions: true
                 is_top10: false
                 exclusive: true
+                have_gold_actions: true
                 created_at: '2018-04-17 00:00:00'
                 views: 30
                 cashback_period: 30
@@ -940,6 +1004,11 @@ paths:
                 category_id: 12
                 category_title: 'Обувь'  
                 country_title: 'Россия'
+                countries: 
+                  - id: 2017370,
+                    title: 'Россия'
+                  - id: 2017310,
+                    title: 'США'                  
                 detail_text: 'Подробное описание партнеров'
                 description: 'Условия начисления кэшбэка, условия продаж'
                 conditions: 'Особые условия партнера'
@@ -963,10 +1032,12 @@ paths:
                 is_online: true
                 is_offline: false
                 accept_switips_card: true
+                accept_qr_code: false
                 verified_switips: true
                 have_actions: true
                 is_top10: false
                 exclusive: true
+                have_gold_actions: true
                 created_at: '2018-04-17 00:00:00'
                 views: 30
                 cashback_period: 30
@@ -975,6 +1046,11 @@ paths:
                 oldCashback: 0.05
                 status: 'Новый'
                 category_id: 12
+                countries: 
+                  - id: 2017370,
+                    title: 'Россия'
+                  - id: 2017310,
+                    title: 'США'                  
                 category_title: 'Обувь'  
                 country_title: 'Россия'
                 detail_text: 'Подробное описание партнеров'
@@ -1033,6 +1109,11 @@ paths:
           type: boolean
           description: 'Принимает ли магазин карты Switips'
         - in: query
+          name: accept_qr_code
+          required: false
+          type: boolean
+          description: 'Принимает QR'          
+        - in: query
           name: verified_switips
           required: false
           type: boolean
@@ -1067,6 +1148,23 @@ paths:
           required: false
           type: boolean
           description: 'Фильтр по избранным партнерам этого пользователя'
+        - in: query
+          name: filter_gold
+          required: false
+          type: boolean
+          description: 'Фильтр по признаку GOLD предложение'           
+        - name: latitude
+          in: query
+          type: number
+          format: double
+          x-example: 0.345656
+          description: 'Широта. Определяется по местоположению'
+        - name: longitude
+          in: query
+          type: number
+          format: double
+          x-example: 0.345656
+          description: 'Долгота. Определяется по местоположению'  
       responses:
         200:
           description: 'Количество магазинов получено'
@@ -1146,6 +1244,7 @@ paths:
                 favourite: true
                 vip: true
                 exclusive: true
+                have_gold_actions: true
                 created_at: '2018-04-17 00:00:00'
                 views: 30
                 cashback: 0.06
@@ -1171,6 +1270,7 @@ paths:
                 favourite: true
                 vip: true
                 exclusive: true
+                have_gold_actions: true
                 created_at: '2018-04-17 00:00:00'
                 views: 30
                 cashback: 0.06
@@ -1226,10 +1326,12 @@ paths:
                   is_online: true
                   is_offline: false
                   accept_switips_card: true
+                  accept_qr_code: false
                   verified_switips: true
                   have_actions: true
                   is_top10: false
                   exclusive: true
+                  have_gold_actions: true
                   created_at: '2018-04-17 00:00:00'
                   views: 30
                   cashback_period: 30
@@ -1240,7 +1342,12 @@ paths:
                   category_id: 12
                   category_title: 'Обувь'  
                   country_title: 'Россия'
-                  country_id: [12 , 13 , 14]                  
+                  country_id: [12 , 13 , 14]
+                  countries: 
+                    - id: 2017370,
+                      title: 'Россия'
+                    - id: 2017310,
+                      title: 'США'                  
                   detail_text: 'Подробное описание партнеров'
                   description: 'Условия начисления кэшбэка, условия продаж'
                   conditions: 'Особые условия партнера'
@@ -1763,24 +1870,49 @@ paths:
       produces:
       - application/json
       consumes:
-      - application/x-www-form-urlencoded
+      - multipart/form-data
       parameters:
-      - name: Language
-        in: header
-        type: string
-        required: true
-        description: 'Язык устройства'
-        x-example: 'RU'      
-      - in: formData
-        name: title
-        required: true
-        type: string
-        description: 'Заголовок письма' 
-      - in: formData
-        name: description
-        required: true
-        type: string
-        description: 'Текст письма'
+        - name: Language
+          in: header
+          type: string
+          required: true
+          description: 'Язык устройства'
+          x-example: 'RU'      
+        - name: upfile1
+          in: formData
+          type: file
+          description: The file to upload
+          required: false
+        - name: upfile2
+          in: formData
+          type: file
+          description: The file to upload
+          required: false
+        - name: upfile3
+          in: formData
+          type: file
+          description: The file to upload
+          required: false          
+        - name: upfile4
+          in: formData
+          type: file
+          description: The file to upload
+          required: false          
+        - name: upfile5
+          in: formData
+          type: file
+          description: The file to upload
+          required: false          
+        - in: formData
+          name: title
+          required: true
+          type: string
+          description: 'Заголовок письма' 
+        - in: formData
+          name: description
+          required: true
+          type: string
+          description: 'Текст письма'
       responses:
         200:
           description: 'Успешная отправка сообщения'
@@ -2108,36 +2240,6 @@ paths:
                 code: 'shoes'
                 icon: 'https://app.apiary.io/switips1/editor'
       security: []
-  /getCountries:
-    get:
-      description: "Получение списка стран"
-      tags:
-      - getCountries
-      operationId: getCountries
-      produces:
-      - application/json
-      parameters:
-      - name: Language
-        in: header
-        type: string
-        required: true
-        description: 'Язык устройства'
-        x-example: 'RU'      
-      responses:
-        200:
-          description: 'Получение списка стран'
-          schema:
-            $ref: '#/definitions/Country'
-          examples:
-            application/json:
-              countries:
-              - id: 37967
-                title: 'Россия'
-              - id: 37967
-                title: 'Россия'
-              - id: 37967
-                title: 'Россия'
-      security: []  
   /getShopsForWebExtensions:
     get:
       description: "Получение ифнормации по кэшбэку и акциям для сайтов в веб-расширении"
@@ -3395,6 +3497,571 @@ paths:
           description: "Проверка актуальности версии МП. True or False"
           schema:
             $ref: '#/definitions/ServiceRequest'
+  /demo/getBalance:
+    get:
+      description: 'Получение баланса профиля текущего авторизованного юзера.'
+      tags:
+      - getBalanceDemo
+      operationId: GetBalanceDemo1
+      produces:
+      - application/json
+      parameters:
+      - name: Language
+        in: header
+        type: string
+        required: true
+        description: 'Язык устройства'
+        x-example: 'RU'      
+      responses:
+        200:
+          description: 'Отображение баланса профиля текущего авторизованного юзера'
+          schema:
+            $ref: '#/definitions/Balance'
+          examples:
+            application/json:
+              available_balance: 181320.14999999999
+              awaiting_balance: 9.8800000000000008
+              rejected_balance: 2.12
+              approved_balance: 2.213
+        401:
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/Failure'
+          examples:
+            application/json:
+              key: tokenInvalid
+              msgTitle: Ошибка
+              msgUser: Сессия не действительна или истекло время, авторизуйтесь
+              msgDev: Сессия не действительна, требуется выдача нового token
+              domain: ''
+  /demo/getProfileDetails:
+    get:
+      description: "Получение профиля текущего авторизованного юзера."
+      tags:
+      - ProfileDetailsDemo
+      operationId: ProfileDetailsDemo
+      produces:
+      - application/json
+      parameters:
+      - name: Language
+        in: header
+        type: string
+        required: true
+        description: 'Язык устройства'
+        x-example: 'RU'      
+      responses:
+        200:
+          description: 'Данные профиля'
+          schema:
+            $ref: '#/definitions/User'
+          examples:
+            application/json:
+              user:
+              - id: 37967
+                first_name: 'Сергей'
+                last_name: 'Петров'
+                login: 'serega'
+                email: 'seregaRulit@gmail.com'
+                language: {'RU','EN', 'UK'}
+                available_balance: 0.5422
+                awaiting_balance: 0.122
+                rejected_balance: 0.522
+                ref_link: '/ref/6546243243'
+                cashback_status: 'silver'
+                paypass: true
+                invite_login: aragalka
+        401:
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/Failure'
+          examples:
+            application/json:
+              key: tokenInvalid
+              msgTitle: Ошибка
+              msgUser: Сессия не действительна или истекло время, авторизуйтесь
+              msgDev: Сессия не действительна, требуется выдача нового token
+              domain: ''
+    post:
+      description: "Обновление профиля"
+      tags:
+      - ProfileDetailsDemo
+      operationId: UpdateProfileDemo
+      produces:
+      - application/json
+      consumes:
+      - application/x-www-form-urlencoded
+      parameters:
+      - name: Language
+        in: header
+        type: string
+        required: true
+        description: 'Язык устройства'
+        x-example: 'RU'
+      - name: Language
+        in: formData
+        type: string
+        required: true
+        description: 'Язык устройства'
+        x-example: 'RU'
+      responses:
+        200:
+          description: 'Язык системы успешно изменён'
+          examples:
+             application/json: []
+        500:
+          description: 'Язык не был изменён'
+        default:
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/Failure'
+          examples:
+            application/json:
+              key: languagenotchanged
+              msgTitle: Язык не был изменён! К сожалению, произошла ошибка
+              msgUser: Мы уже решаем возникшую проблему. Пожалуйста, повторите попытку немного позже  
+              msgDev: Отсутствует связь с сервером
+              domain: ''
+  /demo/Balance/v2:
+    get:
+      description: 'Получение баланса всех счетов профиля текущего авторизованного юзера'
+      tags:
+      - getBalanceDemo
+      operationId: GetBalanceDemo
+      produces:
+      - application/json
+      parameters:
+      - name: Language
+        in: header
+        type: string
+        required: true
+        description: 'Язык устройства'
+        x-example: 'RU'      
+      responses:
+        200:
+          description: 'Получение баланса всех счетов текущего авторизованного юзера'
+          schema:
+            $ref: '#/definitions/Balances.v2'
+          examples:
+            application/json:
+              balances2: 
+                - available_balance: 181320.14999999999
+                  awaiting_balance: 9.8800000000000008
+                  rejected_balance: 2.12
+                  approved_balance: 2.213
+                  currency: 'RUB'
+                  minimum_amount: 1000
+                - available_balance: 181320.14999999999
+                  awaiting_balance: 9.8800000000000008
+                  rejected_balance: 2.12
+                  approved_balance: 2.213
+                  currency: 'USD'
+                  minimum_amount: 100
+        401:
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/Failure'
+          examples:
+            application/json:
+              key: tokenInvalid
+              msgTitle: Ошибка
+              msgUser: Сессия не действительна или истекло время, авторизуйтесь
+              msgDev: Сессия не действительна, требуется выдача нового token
+              domain: ''
+  /demo/getOrders:
+    get:
+      description: 'Получение списка всех заказов'
+      tags:
+      - getOrdersDemo
+      operationId: GetOrdersDemo
+      produces:
+      - application/json
+      parameters:
+        - name: Language
+          in: header
+          type: string
+          required: true
+          description: 'Язык устройства'
+          x-example: 'RU'      
+        - in: query
+          name: page_number
+          required: false
+          type: integer
+          description: 'Номер страницы (для постраничной навигации)'   
+        - in: query
+          name: count
+          required: false
+          type: integer
+          description: 'Колличество записей на странице (для постраничной навигации)' 
+      responses:
+        200:
+          description: 'Успешное получение списка заказов пользователя'
+          schema:
+            $ref: '#/definitions/Orders'
+          examples:
+            application/json:
+              orders:
+              - id: 37967
+                shop_name: Aviasales.ru и cash back от WWP Capital
+                date_time_order: '2018-01-27 00:00:00'
+                amount: 9341.22
+                cash_back: 136.00999999999999
+                status: approved
+                currency: RUB
+                process_end_date: '2018-02-27 00:00:00'
+              - id: 28795
+                shop_name: Aviasales.ru и cash back от WWP Capital
+                date_time_order: '2018-01-05 00:00:00'
+                amount: 19426.33
+                cash_back: 282.83999999999997
+                status: approved
+                currency: RUB
+                process_end_date: '2018-02-27 00:00:00'
+  /demo/getCashVouchers:
+    get:
+      description: 'Получение списка всех чеков'
+      tags:
+      - getCashVouchersDemo
+      operationId: GetCashVouchersDemo
+      produces:
+      - application/json
+      parameters: 
+        - name: Language
+          in: header
+          type: string
+          required: true
+          description: 'Язык устройства'
+          x-example: 'RU'      
+        - in: query
+          name: page_number
+          required: false
+          type: integer
+          description: 'Номер страницы (для постраничной навигации)'   
+        - in: query
+          name: count
+          required: false
+          type: integer
+          description: 'Колличество записей на странице (для постраничной навигации)' 
+      responses:
+        200:
+          description: 'Получение списка чеков'
+          schema:
+            $ref: '#/definitions/Vouchers'
+          examples:
+            application/json:
+              vouchers:
+              - id: 59
+                shop_name: Buyon и cash back от WWP Capital
+                date_time_order: '2018-04-17 00:00:00'
+                amount: 123.5
+                cash_back: 9.8800000000000008
+                status: declined
+                currency: RUB
+                process_end_date: '2018-02-27 00:00:00'
+              - id: 60
+                shop_name: Buyon и cash back от WWP Capital
+                date_time_order: '2018-04-17 00:00:00'
+                amount: 123.5
+                cash_back: 9.8800000000000008
+                status: declined
+                currency: RUB
+                process_end_date: '2018-02-27 00:00:00'
+              - id: 61
+                shop_name: Buyon и cash back от WWP Capital
+                date_time_order: '2018-04-17 00:00:00'
+                amount: 123.5
+                cash_back: 9.8800000000000008
+                status: declined
+                currency: RUB
+                process_end_date: '2018-02-27 00:00:00'
+              - id: 62
+                shop_name: Buyon и cash back от WWP Capital
+                date_time_order: '2018-04-17 00:00:00'
+                amount: 123.5
+                cash_back: 9.8800000000000008
+                status: declined
+                currency: RUB
+                process_end_date: '2018-02-27 00:00:00'
+  /demo/getPaymentCommissions:
+    get:
+      description: 'Получение процента комиссий'
+      tags:
+      - paymentCommissionDemo
+      operationId: paymentCommissionDemo
+      produces:
+      - application/json
+      parameters:
+      - name: Language
+        in: header
+        type: string
+        required: true
+        description: 'Язык устройства'
+        x-example: 'RU'
+      responses:
+        200:
+          description: 'Получение процента комиссий для всех валют'
+          schema:
+            $ref: '#/definitions/PaymentCommission'
+          examples:
+            application/json:
+              PaymentCommission:
+                                "ndfl": {
+                                    "rate": 0,
+                                    "percent": 0
+                                }
+                                "card": {
+                                    "rate": 0,
+                                    "percent": 2.9,
+                                    "min": 3000,
+                                    "commission": 70
+                                }
+                                "webmoney": {
+                                    "rate": 42,
+                                    "percent": 3
+                                }
+                                "qiwi": {
+                                    "rate": 0,
+                                    "percent": 3
+                                }
+                                "yandexmoney": {
+                                    "rate": 0,
+                                    "percent": 3
+                                }
+                                "paypal": {
+                                    "rate": 44,
+                                    "percent": 5
+                                }
+                                "sms": {
+                                    "rate": 43,
+                                    "percent": 5
+                                }
+                                "switips": {
+                                    "rate": 0,
+                                    "percent": 0,
+                                    "commission": 0
+                                }
+                                "epayments": {
+                                    "rate": 0,
+                                    "percent": 3
+                                }
+  /demo/NewTransfer:
+    post:
+      description: 'Вывод средств'
+      tags:
+      - NewTransferDemo
+      operationId: NewTransferDemo
+      produces:
+      - application/json
+      consumes:
+      - application/x-www-form-urlencoded
+      parameters:
+        - name: Language
+          in: header
+          type: string
+          required: true
+          description: 'Язык устройства'
+          x-example: 'RU'
+        - name: amount
+          in: formData
+          required: true
+          type: string
+          description: 'Сумма вывода'
+        - name: output_method
+          in: formData
+          type: string
+          enum: [switips, card, yandex, epayments, qiwi]
+          required: true
+          description: 'Метод вывода средств'
+          x-example: 'yandex'
+        - name: props[card]
+          in: formData
+          type: string
+          description: 'Номер карты'
+          x-example: 'XXXX-XXXX-XXXX-XXXX'
+        - name: props[currency]
+          in: formData
+          type: string
+          enum: [USD, RUB, EUR, BYN, UAH, KZT]
+          required: true          
+          description: 'Валюта банковской карты(выпадающий список валют). Не используется в карте Switips'
+        - name: props[name]
+          in: formData
+          type: string
+          description: 'Владелец карты'
+        - name: props[date_card]
+          in: formData
+          type: string
+          description: 'Дата окончания действия карты в формате - месяц/год. Либо два параметра props[date_month] и props[date_year] '
+        - name: props[epayments]
+          in: formData
+          type: string
+          description: 'Номер кошелька epayments'
+        - name: props[yandex]
+          in: formData
+          type: string
+          description: 'Номер кошелька yandex'
+        - name: props[qiwi]
+          in: formData
+          type: string
+          description: 'Номер кошелька qiwi'
+        - name: preliminary_amount
+          in: formData
+          required: true
+          type: boolean
+          description: 'Предварительный расчёт. Используется для вычесления предварительной суммы, которая будет выведена'
+        - name: paypass
+          in: formData
+          type: integer
+          description: 'Платежный пароль'
+        - name: currency
+          in: formData
+          type: string
+          enum: [USD, RUB, EUR, BYN, UAH, KZT]
+          required: true
+          description: 'Валюта вывода'
+          x-example: 'USD'          
+      responses:
+        201:
+          description: 'Успех!'
+          examples:
+            application/json: []
+        200:
+          description: 'Получение суммы вывода после вычета комиссии/ Получение способа вывода'
+          schema:
+            $ref: '#/definitions/Amount'
+          examples:
+            application/json:
+              transferred_amount : 1000,
+              credited_amount: 1000,
+              declaration_amount: 0,
+              additional_amount: 1000,
+              additional_rate: 0,
+              output_method: switips
+  /getCountries:
+    get:
+      description: "Получение списка стран"
+      tags:
+      - getCountries
+      operationId: getCountries
+      produces:
+      - application/json
+      parameters:
+      - name: Language
+        in: header
+        type: string
+        required: true
+        description: 'Язык устройства'
+        x-example: 'RU'      
+      responses:
+        200:
+          description: 'Получение списка стран'
+          schema:
+            $ref: '#/definitions/Countries'
+          examples:
+            application/json:
+              countries:
+              - id: 37967
+                title: 'Россия'
+              - id: 37967
+                title: 'США'
+              - id: 37967
+                title: 'Польша'
+      security: []        
+  /profileCities:
+    get:
+      description: "Получение списка городов"
+      tags:
+      - profileCities
+      operationId: profileCities
+      produces:
+      - application/json
+      parameters:
+      - name: Language
+        in: header
+        type: string
+        required: true
+        description: 'Язык устройства'
+        x-example: 'RU'      
+      - name: id_country
+        in: query
+        type: string
+        required: true
+        description: 'Страна выбранная пользователем в профиле'
+        x-example: '12'      
+      - name: page_number
+        in: query
+        required: false
+        type: integer
+        description: 'Номер страницы (для постраничной навигации)'   
+      - name: count
+        in: query
+        required: false
+        type: integer
+        description: 'Колличество записей на странице (для постраничной навигации)'
+      - name: filter_city
+        in: query
+        required: false
+        type: string
+        description: 'Фильтр по названию города'        
+      responses:
+        200:
+          description: 'Получение списка стран'
+          schema:
+            $ref: '#/definitions/Cities'
+          examples:
+            application/json:
+              cities:
+              - id: 37967
+                title: 'Ростов'
+              - id: 37967
+                title: 'Москва'
+              - id: 37967
+                title: 'Екатеринбург'
+      security: []              
+  /profileCountries:
+    get:
+      description: "Получение списка стран"
+      tags:
+      - profileCountries
+      operationId: profileCountries
+      produces:
+      - application/json
+      parameters:
+      - name: Language
+        in: header
+        type: string
+        required: true
+        description: 'Язык устройства'
+        x-example: 'RU'      
+      - name: page_number
+        in: query
+        required: false
+        type: integer
+        description: 'Номер страницы (для постраничной навигации)'   
+      - name: count
+        in: query
+        required: false
+        type: integer
+        description: 'Колличество записей на странице (для постраничной навигации)'
+      - name: filter_country
+        in: query
+        required: false
+        type: string
+        description: 'Фильтр по названию страны'        
+      responses:
+        200:
+          description: 'Получение списка стран'
+          schema:
+            $ref: '#/definitions/Countries'
+          examples:
+            application/json:
+              countries:
+              - id: 37967
+                title: 'Россия'
+              - id: 37967
+                title: 'США'
+              - id: 37967
+                title: 'Польша'
+      security: []        
 definitions:
   Successfull:
     title: Successfull
@@ -3556,83 +4223,6 @@ definitions:
     title: Shops
     example:
       shops:
-      - id: 5039
-        active: true
-        title: 'Ali express russia'
-        logo: '/url/docs/image.jpg'
-        is_online: true
-        is_offline: false
-        accept_switips_card: true
-        verified_switips: true
-        have_actions: true
-        is_top10: false
-        exclusive: true
-        created_at: '2018-04-17 00:00:00'
-        views: 30
-        cashback_period: 30
-        active_ref: 'https://aliexpress.com/?ref=sdfsdfsdfsd'
-        cashback: 0.05
-        oldCashback: 0.05
-        status: 'Новый'
-        category_id: 12
-        category_title: 'Обувь'  
-        country_title: 'Россия'
-        detail_text: 'Подробное описание партнеров'
-        description: 'Условия начисления кэшбэка, условия продаж'
-        conditions: 'Особые условия партнера'
-        currency: 'USD'
-        amount: '45.00'                  
-        dynamics: true
-        phone_number: '+79865646565'
-        loc: 
-        - id: 122334
-          lat: 0.34554564
-          long: 0.345656
-          address: 'г.Москва, пер. Лесной, д.12'
-        - id: 122334
-          lat: 0.34554564
-          long: 0.345656
-          address: 'г.Москва, пер. Лесной, д.12'
-      - id: 5039
-        active: true
-        title: 'Ali express russia'
-        logo: '/url/docs/image.jpg'
-        is_online: true
-        is_offline: false
-        have_actions: true
-        is_top10: false
-        exclusive: true
-        created_at: '2018-04-17 00:00:00'
-        views: 30
-        cashback_period: 30
-        active_ref: 'https://aliexpress.com/?ref=sdfsdfsdfsd'
-        cashback: 0.05
-        oldCashback: 0.05
-        status: 'Новый'
-        category_id: 12
-        category_title: 'Обувь'  
-        country_title: 'Россия'
-        detail_text: 'Подробное описание партнеров'
-        description: 'Условия начисления кэшбэка, условия продаж'
-        conditions: 'Особые условия партнера'
-        currency: 'USD'
-        amount: '45.00'    
-        dynamics: true
-        phone_number: '+79865646565'        
-        loc: 
-        - id: 122334
-          lat: 0.34554564
-          long: 0.345656
-          address: 'г.Москва, пер. Лесной, д.12'
-        - id: 122334
-          lat: 0.34554564
-          long: 0.345656
-          address: 'г.Москва, пер. Лесной, д.12'
-    type: object
-    properties:
-      shops:
-        description: 'Список магазинов'
-        example:
         - id: 5039
           active: true
           title: 'Ali express russia'
@@ -3640,6 +4230,7 @@ definitions:
           is_online: true
           is_offline: false
           accept_switips_card: true
+          accept_qr_code: true
           verified_switips: true
           have_actions: true
           is_top10: false
@@ -3677,6 +4268,7 @@ definitions:
           is_online: true
           is_offline: false
           accept_switips_card: true
+          accept_qr_code: true
           verified_switips: true
           have_actions: true
           is_top10: false
@@ -3692,6 +4284,98 @@ definitions:
           category_title: 'Обувь'  
           country_title: 'Россия'
           country_id: [12 , 13 , 14]                  
+          detail_text: 'Подробное описание партнеров'
+          description: 'Условия начисления кэшбэка, условия продаж'
+          conditions: 'Особые условия партнера'
+          currency: 'usd'
+          amount: '45'
+          phone_number: '+79865646565'
+          loc: 
+          - id: 122334
+            lat: 0.34554564
+            long: 0.345656
+            address: 'г.Москва, пер. Лесной, д.12'
+          - id: 122334
+            lat: 0.34554564
+            long: 0.345656
+            address: 'г.Москва, пер. Лесной, д.12'
+    type: object
+    properties:
+      shops:
+        description: 'Список магазинов'
+        example:
+        - id: 5039
+          active: true
+          title: 'Ali express russia'
+          logo: '/url/docs/image.jpg'
+          is_online: true
+          is_offline: false
+          accept_switips_card: true
+          accept_qr_code: true
+          verified_switips: true
+          have_actions: true
+          is_top10: false
+          exclusive: true
+          created_at: '2018-04-17 00:00:00'
+          views: 30
+          cashback_period: 30
+          active_ref: 'https://aliexpress.com/?ref=sdfsdfsdfsd'
+          cashback: 0.05
+          oldCashback: 0.05
+          status: 'Новый'
+          category_id: 12
+          category_title: 'Обувь'  
+          country_title: 'Россия'
+          country_id: [12 , 13 , 14]
+          countries: 
+            - id: 2017370,
+              title: 'Россия'
+            - id: 2017310,
+              title: 'США'  
+          detail_text: 'Подробное описание партнеров'
+          description: 'Условия начисления кэшбэка, условия продаж'
+          conditions: 'Особые условия партнера'
+          currency: 'usd'
+          amount: '45'
+          phone_number: '+79865646565'
+          loc: 
+          - id: 122334
+            lat: 0.34554564
+            long: 0.345656
+            address: 'г.Москва, пер. Лесной, д.12'
+          - id: 122334
+            lat: 0.34554564
+            long: 0.345656
+            address: 'г.Москва, пер. Лесной, д.12'
+        - id: 5039
+          active: true
+          title: 'Ali express russia'
+          logo: '/url/docs/image.jpg'
+          is_online: true
+          is_offline: false
+          accept_switips_card: true
+          accept_qr_code: true
+          verified_switips: true
+          have_gold_actions: true
+          have_actions: true
+          is_top10: false
+          exclusive: true
+          created_at: '2018-04-17 00:00:00'
+          views: 30
+          cashback_period: 30
+          active_ref: 'https://aliexpress.com/?ref=sdfsdfsdfsd'
+          cashback: 0.05
+          oldCashback: 0.05
+          status: 'Новый'
+          category_id: 12
+          category_title: 'Обувь'  
+          country_title: 'Россия'
+          country_id: [12 , 13 , 14] 
+          countries: 
+            - id: 2017370,
+              title: 'Россия'
+            - id: 2017310,
+              title: 'США'
           detail_text: 'Подробное описание партнеров'
           description: 'Условия начисления кэшбэка, условия продаж'
           conditions: 'Особые условия партнера'
@@ -3724,7 +4408,9 @@ definitions:
         is_offline: false
         accept_switips_card: true
         accept_qr_code: true
+        verified_switips: true
         have_actions: true
+        have_gold_actions: true
         is_top10: false
         exclusive: true
         created_at: '2018-04-17 00:00:00'
@@ -3737,7 +4423,12 @@ definitions:
         category_id: 12
         category_title: 'Обувь'  
         country_title: 'Россия'
-        country_id: [12 , 13 , 14]                  
+        country_id: [12 , 13 , 14]  
+        countries: 
+          - id: 2017370,
+            title: 'Россия'
+          - id: 2017310,
+            title: 'США'
         detail_text: 'Подробное описание партнеров'
         description: 'Условия начисления кэшбэка, условия продаж'
         conditions: 'Особые условия партнера'
@@ -3781,19 +4472,23 @@ definitions:
         description: 'Доступность покупки в офлайн магазине'
         example: false
         type: boolean
-      accept_qr_code:
-        description: 'Надо дописать'
-        example: true
-        type: boolean
       accept_switips_card:
         description: 'Принимает ли партнёр карты ко-бренда свитипс'
         example: false
         type: boolean
+      accept_qr_code:
+        description: 'Принимает ли QR code'
+        example: false
+        type: boolean        
       verified_switips:
         description: 'Чеки проверены командой Switips, кэшбэк по ним приходит'
         example: false
         type: boolean
       have_actions:
+        description: 'Магазин имеет акции'
+        example: true
+        type: boolean
+      have_gold_actions:
         description: 'Магазин имеет акции'
         example: true
         type: boolean
@@ -3864,6 +4559,16 @@ definitions:
         description: 'ID страны. Используется если один магазин есть во многих странах'
         example: 'Россия'
         type: array        
+      countries:
+        description: 'Координаты местонахождения магазинов'
+        example:
+          - id: 2017370,
+            title: 'Россия'
+          - id: 2017310,
+            title: 'США'
+        type: array
+        items: 
+          $ref: '#/definitions/Countries'        
       detail_text:
           description: 'Подробное описание партнеров'
           example: 'adidas - это компания, которая каждый день меняет жизнь людей через спорт, создавая новое и стирая границы невозможного. Это компания, которая живет спортом, вдохновляет своим примером и помогает людям делать уверенные шаги навстречу ярким достижениям'
@@ -3918,12 +4623,14 @@ definitions:
     - is_offline
     - accept_switips_card
     - accept_qr_code
+    - verified_switips
     - status
     - category_title
     - cashback
     - amount
     - currency
-    - dynamics    
+    - dynamics
+    - have_gold_actions
   User:
     title: User
     example:
@@ -3996,7 +4703,22 @@ definitions:
       invite_login:
         description: 'login пригласившего пользователя'
         type: string
-        example: 'mario'  
+        example: 'mario' 
+      birthday:  
+        description: 'Дата рождения пользователя'
+        example: 'YYYY-MM-DD'
+        type: string
+      city:
+        $ref: '#/definitions/City'
+        description: 'Город в профиле'
+      counrty:
+        $ref: '#/definitions/Country' 
+        description: 'Странаа в профиле'
+      sex:
+        type: string
+        description: 'Страна в профиле'
+        example: 'Male'
+        enum: [Male, Female]
     required:
     - id
     - paypass
@@ -5035,6 +5757,40 @@ definitions:
           $ref: '#/definitions/Category'
     required:
     - categories
+  City:
+    title: City
+    type: object
+    properties:
+      id:
+        description: 'Идентификатор'
+        example: 233
+        type: integer
+      title:
+        description: 'Название города'
+        example: 'Новосибирск'
+        type: string
+  Cities:
+    title: Cities
+    example:
+      countries:
+      - id: 37967
+        title: 'Новокузнецк'
+      - id: 37967
+        title: 'Новосибирск'
+    type: object
+    properties:
+      cities:
+        description: 'Список стран'
+        example:
+        - id: 37967
+          title: 'Новосибирск'
+        - id: 37967
+          title: 'Иркутск'
+        type: array
+        items:
+          $ref: '#/definitions/City'
+    required:
+    - cities    
   Country:
     title: Country
     type: object
@@ -5047,36 +5803,30 @@ definitions:
         description: 'Название страны'
         example: 'Россия'
         type: string
-      code:
-        description: 'Код страны'
-        example: 'russia'
-        type: string
+    required:
+    - id        
   Countries:
     title: Countries
     example:
       countries:
       - id: 37967
         title: 'Россия'
-        code: 'russia'
       - id: 37967
         title: 'Россия'
-        code: 'russia'
-    type: array
+    type: object
     properties:
       countries:
         description: 'Список стран'
         example:
         - id: 37967
-          title: 'Россия'
-          code: 'russia'
+          title: 'Польша'
         - id: 37967
           title: 'Россия'
-          code: 'russia'
         type: array
         items:
           $ref: '#/definitions/Country'
     required:
-    - countries
+    - countries        
   Address:
     title: Address
     example:
