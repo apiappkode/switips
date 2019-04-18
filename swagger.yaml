@@ -4164,8 +4164,8 @@ paths:
     get:
       description: 'Запрос списка промокодов в профиле'
       tags:
-      - Promocod
-      operationId: listPromocods
+      - Promocode
+      operationId: listPromocodes
       produces:
       - application/json
       parameters:
@@ -4237,7 +4237,7 @@ paths:
     get:
       description: 'Получить промокод'
       tags:
-      - Promocod
+      - Promocode
       operationId: Promocodes
       produces:
       - application/json
