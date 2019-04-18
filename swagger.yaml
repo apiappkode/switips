@@ -4160,7 +4160,7 @@ paths:
           examples:
             application/json: []
       security: []         
-  /listPromocods:
+  /listPromocodes:
     get:
       description: 'Запрос списка промокодов в профиле'
       tags:
@@ -4210,14 +4210,9 @@ paths:
                 expiry_date: '2018-04-17 00:00:00'
                 detail_text: 'Подробные условия акции'
                 promocode: 02VV2
-                type_promocode: text
-                text_promocode: 02VV2
                 partner_id: 3442
                 partner_name: 'Aliexpress'
-                is_new: true
-                is_favourite: true
-                is_favourite_actions: true
-                country_title: 'Россия'
+                type_actions: 1
               - id: 5039
                 active: true
                 title: 'Ali express russia'
@@ -4236,8 +4231,9 @@ paths:
                 is_favourite: true
                 is_favourite_actions: true
                 country_title: 'Россия'
+                type_actions: 1
       security: []
-  /getPromocods:
+  /getPromocodes:
     get:
       description: 'Получить промокод'
       tags:
@@ -4251,8 +4247,13 @@ paths:
           type: string
           required: true
           description: 'Язык устройства'
-          x-example: 'RU'      
-
+          x-example: 'RU'  
+        - name: id
+          in: query
+          type: integer
+          required: true
+          description: 'id акции'
+          x-example: 'RU'          
       responses:
         200:
           description: 'Получение списка акций'
@@ -4262,7 +4263,7 @@ paths:
             application/json:
               promocode:
               - type_promocode: 'text'
-                text_promocode: 'AD235D' 
+              - promocode: 'AD235D' 
       security: []              
 definitions:
   Successfull:
@@ -5356,7 +5357,7 @@ definitions:
       partner_name: 'Aliexpress'
       is_new: true
       is_favourite: true
-      type_actions: promocode          
+      type_actions: 1
     type: object
     properties:
       id:
@@ -5408,6 +5409,11 @@ definitions:
         description: 'Промокод'
         example: '02VV2'
         type: string
+      type_actions:
+        description: 'Тип акции'
+        example: '02VV2'
+        type: string
+        enum: [1, 2, 3, 4]      
       partner_id: 
         description: 'Идентификатор магазина, которому принадлежит акция'
         example: 3442
@@ -5428,11 +5434,6 @@ definitions:
         description: 'Название страны'
         example: 'Россия'
         type: string
-      type_actions:
-        type: string
-        description: 'Тип промокода'
-        example: 'text'
-        enum: [text, image]      
     required:
     - id
     - active
@@ -5462,6 +5463,7 @@ definitions:
         partner_name: 'Aliexpress'
         is_new: true
         is_favourite: true
+        type_actions: 1
       - id: 5039
         active: true
         title: 'Ali express russia'
@@ -5478,6 +5480,7 @@ definitions:
         partner_name: 'Aliexpress'
         is_new: true
         is_favourite: true
+        type_actions: 1
     type: object
     properties:
       actions:
@@ -5499,6 +5502,7 @@ definitions:
           partner_name: 'Aliexpress'
           is_new: true
           is_favourite: true
+          type_actions: 1
         - id: 5039
           active: true
           title: 'Ali express russia'
@@ -5515,208 +5519,12 @@ definitions:
           partner_name: 'Aliexpress'
           is_new: true
           is_favourite: true
-          type_actions: promocode          
+          type_actions: 1
         type: array
         items:
           $ref: '#/definitions/Action'
     required:
     - actions
-  Action_promocode:
-    title: Action
-    example:
-      - id: 5039
-        active: true
-        title: 'Ali express russia'
-        logo: '/url/docs/image.jpg'
-        extra_benefits: 'Дополнительные преимущества'      
-        all_shop_actions_link: '/actionlist/ali_express/'
-        active_ref: 'https://aliexpress.com/?ref=sdfsdfsdfsd'
-        created_date: '2018-02-17 00:00:00'
-        updated_date: '2018-03-17 00:00:00'
-        expiry_date: '2018-04-17 00:00:00'
-        detail_text: 'Подробные условия акции'
-        promocode: 02VV2
-        type_promocode: text
-        text_promocode: 02VV2
-        partner_id: 3442
-        partner_name: 'Aliexpress'
-        is_new: true
-        is_favourite: true
-        is_favourite_actions: true
-        country_title: 'Россия'
-    type: object
-    properties:
-      id:
-        description: 'Идентификатор, назначается автоматически'
-        example: 5039
-        type: integer
-        format: int32
-      active:
-        description: 'Активность'
-        example: true
-        type: boolean
-      title:
-        description: 'Заголовок акции'
-        example: 'Али экспресс'
-        type: string
-      logo:
-        description: 'Изображение логотипа партнера (Логотип партнера)'
-        example: '/url/docs/image.jpg'
-        type: string
-      extra_benefits:
-        description: 'Дополнительные преимущества акции'
-        example: 'Обновите крупную бытовую технику с выгодой! Действует уникальная акция на холодильники, посудомоечные и стиральные машины, плиты, а также встраиваемую технику Bosch. '
-        type: string
-      all_shop_actions_link:
-        description: 'Ссылка на просмотр всех акций этого партнера'
-        example: '/actionlist/ali_express/'
-        type: string
-      active_ref:
-        description: 'Ссылка на магазин партнера с реферальными метками для возврата кэшбека (Кнопка перехода за покупками)'
-        example: 'https://aliexpress.com/?ref=dfdffdfd'
-        type: string
-      created_date:
-        description: 'Дата создания акции'
-        example: '2018-02-17 00:00:00'
-        type: string
-      updated_date:
-        description: 'Дата обновления акции'
-        example: '2018-03-17 00:00:00'
-        type: string
-      expiry_date:
-        description: 'Дата окончания акции'
-        example: '2018-04-17 00:00:00'
-        type: string
-      detail_text:
-        description: 'Подробные условия акции'
-        example: 'Подробные условия акции'
-        type: string
-      promocode:
-        description: 'Промокод'
-        example: '02VV2'
-        type: string
-      partner_id: 
-        description: 'Идентификатор магазина, которому принадлежит акция'
-        example: 3442
-        type: integer
-      partner_name: 
-        description: 'Название магазина, которому принадлежит акция'
-        example: 'Aliexpress'
-        type: string
-      is_new:
-        description: 'Признак новой акции'
-        example: true
-        type: boolean
-      is_favourite:
-        description: 'Пока не реализовано.Признак избранности акции'
-        example: true
-        type: boolean
-      country_title:
-        description: 'Название страны'
-        example: 'Россия'
-        type: string
-    required:
-    - id
-    - active
-    - title
-    - logo
-    - active_ref
-    - expiry_date 
-    - detail_text
-  Actions_promocode:
-    title: Actions
-    example:
-      actions:
-      - id: 5039
-        active: true
-        title: 'Ali express russia'
-        logo: '/url/docs/image.jpg'
-        extra_benefits: 'Дополнительные преимущества'      
-        all_shop_actions_link: '/actionlist/ali_express/'
-        active_ref: 'https://aliexpress.com/?ref=sdfsdfsdfsd'
-        created_date: '2018-02-17 00:00:00'
-        updated_date: '2018-03-17 00:00:00'
-        expiry_date: '2018-04-17 00:00:00'
-        detail_text: 'Подробные условия акции'
-        promocode: 02VV2
-        type_promocode: text
-        text_promocode: 02VV2
-        partner_id: 3442
-        partner_name: 'Aliexpress'
-        is_new: true
-        is_favourite: true
-        is_favourite_actions: true
-        country_title: 'Россия'
-      - id: 5039
-        active: true
-        title: 'Ali express russia'
-        logo: '/url/docs/image.jpg'
-        extra_benefits: 'Дополнительные преимущества'      
-        all_shop_actions_link: '/actionlist/ali_express/'
-        active_ref: 'https://aliexpress.com/?ref=sdfsdfsdfsd'
-        created_date: '2018-02-17 00:00:00'
-        updated_date: '2018-03-17 00:00:00'
-        expiry_date: '2018-04-17 00:00:00'
-        detail_text: 'Подробные условия акции'
-        promocode: 02VV2
-        type_promocode: text
-        text_promocode: 02VV2
-        partner_id: 3442
-        partner_name: 'Aliexpress'
-        is_new: true
-        is_favourite: true
-        is_favourite_actions: true
-        country_title: 'Россия'
-    type: object
-    properties:
-      actions:
-        description: 'Список акций'
-        example:
-        - id: 5039
-          active: true
-          title: 'Ali express russia'
-          logo: '/url/docs/image.jpg'
-          extra_benefits: 'Дополнительные преимущества'      
-          all_shop_actions_link: '/actionlist/ali_express/'
-          active_ref: 'https://aliexpress.com/?ref=sdfsdfsdfsd'
-          created_date: '2018-02-17 00:00:00'
-          updated_date: '2018-03-17 00:00:00'
-          expiry_date: '2018-04-17 00:00:00'
-          detail_text: 'Подробные условия акции'
-          promocode: 02VV2
-          type_promocode: text
-          text_promocode: 02VV2
-          partner_id: 3442
-          partner_name: 'Aliexpress'
-          is_new: true
-          is_favourite: true
-          is_favourite_actions: true
-          country_title: 'Россия'
-        - id: 5039
-          active: true
-          title: 'Ali express russia'
-          logo: '/url/docs/image.jpg'
-          extra_benefits: 'Дополнительные преимущества'      
-          all_shop_actions_link: '/actionlist/ali_express/'
-          active_ref: 'https://aliexpress.com/?ref=sdfsdfsdfsd'
-          created_date: '2018-02-17 00:00:00'
-          updated_date: '2018-03-17 00:00:00'
-          expiry_date: '2018-04-17 00:00:00'
-          detail_text: 'Подробные условия акции'
-          promocode: 02VV2
-          type_promocode: text
-          text_promocode: 02VV2
-          partner_id: 3442
-          partner_name: 'Aliexpress'
-          is_new: true
-          is_favourite: true
-          is_favourite_actions: true
-          country_title: 'Россия'
-        type: array
-        items:
-          $ref: '#/definitions/Action_promocode'
-    required:
-    - actions    
   Favourites:
     title: Favourites
     example:
@@ -5868,13 +5676,13 @@ definitions:
         description: 'Тип промокода'
         example: 'text'
         enum: [text, image]
-      text_promocode: 
+      promocode: 
         type: string
         description: 'Текст промокода'
         example: 'AD235D'    
     required:
     - type_promocode
-    - text_promocode
+    - promocode
   Category:
     title: Category
     example:
