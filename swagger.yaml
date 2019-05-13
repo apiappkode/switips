@@ -929,6 +929,12 @@ paths:
           format: double
           x-example: 0.345656
           description: 'Долгота. Определяется по местоположению'             
+        - name: filter_my_city
+          in: query
+          required: false
+          type: boolean
+          description: 'Фильтр в моём городе. При включенном отправляется true, иначе не отправляем ничего'
+          x-example: true
       responses:
         200:
           description: 'Получение списка магазинов'
@@ -1165,6 +1171,12 @@ paths:
           format: double
           x-example: 0.345656
           description: 'Долгота. Определяется по местоположению'  
+        - name: filter_my_city
+          in: query
+          required: false
+          type: boolean
+          description: 'Фильтр в моём городе. При включенном отправляется true, иначе не отправляем ничего'
+          x-example: true             
       responses:
         200:
           description: 'Количество магазинов получено'
@@ -4253,7 +4265,7 @@ paths:
           type: integer
           required: true
           description: 'id акции'
-          x-example: 'RU'          
+          x-example: '2'          
       responses:
         200:
           description: 'Получение списка акций'
@@ -4261,9 +4273,21 @@ paths:
             $ref: '#/definitions/Promocode'
           examples:
             application/json:
-              promocode:
-              - type_promocode: 'text'
-              - promocode: 'AD235D' 
+                type_promocode: 'text'
+                promocode: 'AD235D'
+                promocode_text: 'AD235D'
+                promocode_url: 'asdqq/asdd'
+        400:
+          description: 'Получение списка акций'
+          schema:
+            $ref: '#/definitions/Failure'
+          examples:
+            application/json:
+              key: getPromocodeError
+              msgTitle: 
+              msgUser: Неверно введен логин или пароль
+              msgDev: Неверно введен логин или пароль
+              domain: ''         
       security: []              
 definitions:
   Successfull:
@@ -5413,7 +5437,7 @@ definitions:
         description: 'Тип акции'
         example: '02VV2'
         type: string
-        enum: [1, 2, 3, 4]      
+        enum: [null, 1, 2, 3, 4]           
       partner_id: 
         description: 'Идентификатор магазина, которому принадлежит акция'
         example: 3442
@@ -5666,9 +5690,11 @@ definitions:
   Promocode:
     title: Favourites
     example:
-      promocods:
+      promocodes:
         type_promocode: 'text'
-        text_promocode: 'AD235D'      
+        promocode_text: 'AD235D'
+        promocode_url: 'AD235D'
+        promocode: 'AD235D'        
     type: object
     properties:
       type_promocode: 
@@ -5678,11 +5704,21 @@ definitions:
         enum: [text, image]
       promocode: 
         type: string
-        description: 'Текст промокода'
-        example: 'AD235D'    
+        description: 'Текст промокода(Для старых версий. Либо ссылка, либо текст промокода)'
+        example: 'AD235D'
+      promocode_text: 
+        type: string
+        description: 'Текст промокода либо номер для отображения в штрихкоде'
+        example: 'AD235D' 
+      promocode_url: 
+        type: string
+        description: 'Промокод в base64'
+        example: 'AD235D'         
     required:
     - type_promocode
     - promocode
+    - promocode_text
+    - promocode_url
   Category:
     title: Category
     example:
