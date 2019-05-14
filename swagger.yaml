@@ -4015,13 +4015,13 @@ paths:
         type: string
         description: 'Фильтр по названию города'        
       - name: latitude
-        in: query
+        in: header
         type: number
         format: double
         x-example: 0.345656
         description: 'Широта. Определяется по местоположению'
       - name: longitude
-        in: query
+        in: header
         type: number
         format: double
         x-example: 0.345656
