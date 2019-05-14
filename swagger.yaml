@@ -4014,9 +4014,21 @@ paths:
         required: false
         type: string
         description: 'Фильтр по названию города'        
+      - name: latitude
+        in: query
+        type: number
+        format: double
+        x-example: 0.345656
+        description: 'Широта. Определяется по местоположению'
+      - name: longitude
+        in: query
+        type: number
+        format: double
+        x-example: 0.345656
+        description: 'Долгота. Определяется по местоположению'         
       responses:
         200:
-          description: 'Получение списка стран'
+          description: 'Получение списка городов. Если определение идёт по геопозиции(отправляются координаты), первым в списке придёт город, который определяется по гео'
           schema:
             $ref: '#/definitions/Cities'
           examples:
@@ -4059,9 +4071,21 @@ paths:
         required: false
         type: string
         description: 'Фильтр по названию страны'        
+      - name: latitude
+        in: header
+        type: number
+        format: double
+        x-example: 0.345656
+        description: 'Широта. Определяется по местоположению'
+      - name: longitude
+        in: header
+        type: number
+        format: double
+        x-example: 0.345656
+        description: 'Долгота. Определяется по местоположению'                 
       responses:
         200:
-          description: 'Получение списка стран'
+          description: 'Получение списка стран. Если определение идёт по геопозиции(отправляются координаты), первым в списке придёт страна, которая определяется по гео'
           schema:
             $ref: '#/definitions/Countries'
           examples:
@@ -4139,39 +4163,6 @@ paths:
               msgDev: 'Пароль содержит неверные символы. Пароль может содержать только буквы латинского алфавита и цифры'
               domain: ''  
       security: []
-  /geoPosition:
-    get:
-      description: "Отправка координат для установки города в профиле"
-      tags:
-      - geoPosition
-      operationId: geoPosition
-      produces:
-      - application/json
-      parameters:
-        - name: Language
-          in: header
-          type: string
-          required: true
-          description: 'Язык устройства'
-          x-example: 'RU'      
-        - name: latitude
-          in: query
-          type: number
-          format: double
-          x-example: 0.345656
-          description: 'Широта. Определяется по местоположению'
-        - name: longitude
-          in: query
-          type: number
-          format: double
-          x-example: 0.345656
-          description: 'Долгота. Определяется по местоположению'             
-      responses:
-        200:
-          description: 'Изменения внесены'
-          examples:
-            application/json: []
-      security: []         
   /listPromocodes:
     get:
       description: 'Запрос списка промокодов в профиле'
