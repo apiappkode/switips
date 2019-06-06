@@ -2326,23 +2326,21 @@ paths:
               card_requests: 
                 - requestid: '12345678-1234-1234-1234-123456789abc'
                   cardid: 10020334
-                  card:
-                    bank_partnerid: 2
-                    pan: 12344
-                    date_expire: '2010-08-18 08:15:30'
-                    currency: 'RUB'
-                    card_status: 'NewNotPerson'
+                  bank_partnerid: 2
+                  pan: 12344
+                  date_expire: '2010-08-18 08:15:30'
+                  currency: 'RUB'
+                  card_status: 'NewNotPerson'
                   date_request_created: '2010-08-18 08:15:30'
                   request_status: 'Complete'
                   formUrl: 'https://app.apiary.io/'
                 - requestid: '12345678-1234-1234-1234-123456789abc'
                   cardid: 10020334
-                  card:
-                    bank_partnerid: 2
-                    pan: 12344
-                    date_expire: '2010-08-18 08:15:30'
-                    currency: 'RUB'
-                    card_status: 'NewNotPerson'
+                  bank_partnerid: 2
+                  pan: 12344
+                  date_expire: '2010-08-18 08:15:30'
+                  currency: 'RUB'
+                  card_status: 'NewNotPerson'
                   date_request_created: '2010-08-18 08:15:30'
                   request_status: 'Complete'
                   formUrl: 'https://app.apiary.io/'  
@@ -2739,7 +2737,8 @@ paths:
           name: t
           required: true
           type: string
-          description: 'Дата покупки'
+          description: 'YYYY-MM-DD HH:MM:SS +HHMM. Дата покупки. Дата_Время_Часовой пояс'
+          x-example: '2019-05-24 10:30:36 +0000'
         - in: formData
           name: s
           required: true
@@ -4746,6 +4745,10 @@ definitions:
         description: 'Ссылка на магазин партнера с реферальными метками для возврата кэшбека (Кнопка перехода за покупками). Значение доступно только для авторизованных пользователей.'
         example: 'https://aliexpress.com/?ref=dfdffdfd'
         type: string
+      website:
+        description: 'Сайт магазина'
+        example: 'https://www.nike.com/ru'
+        type: string
       cashback:
         description: 'Текущая ставка кэшбэка партнера'
         example: 0.2123
@@ -6273,12 +6276,11 @@ definitions:
       cardRequest: 
         requestid: '12345678-1234-1234-1234-123456789abc'
         cardid: 10020334
-        card:
-          bank_partnerid: 2
-          pan: 12344
-          date_expire: '2010-08-18 08:15:30'
-          currency: 'RUB'
-          card_status: 'NewNotPerson'
+        bank_partnerid: 2
+        pan: 12344
+        date_expire: '2010-08-18 08:15:30'
+        currency: 'RUB'
+        card_status: 'NewNotPerson'
         date_request_created: '2010-08-18 08:15:30'
         request_status: 'Complete'
         formUrl: 'https://app.apiary.io/'
@@ -6313,7 +6315,7 @@ definitions:
         type: string
         enum: [RUB, USD, EUR]  
       card_status:
-        description: 'Статус карты в учетных системах'
+        description: 'Статус карты в учетных системах. Если параметр не пришёл в ответе сервера, отображать статус "Неизвестный статус. Вам необходимо обратиться в поддержку'
         example: 'NewNotPerson'
         type: string
         enum: [NewNotPerson, Wait, NewAtPerson, Active, Annuled, Closed, null]  
@@ -6322,7 +6324,7 @@ definitions:
         example: '2010-08-18 08:15:30'
         type: string
       request_status:
-        description: 'Статус заявки клиента'
+        description: 'Статус заявки клиента. Если параметр не пришёл в ответе сервера, отображать статус "Неизвестный статус. Вам необходимо обратиться в поддержку"'
         example: 'Complete'
         type: string
         enum: [New, InProgress, Decline, Failed, Complete, null]
@@ -6330,34 +6332,27 @@ definitions:
         description: 'Ссылка для дозаполнения заявки'
         example: 'https://app.apiary.io'
         type: string 
-    required:
-    - requestid
-    - date_request_created
-    - request_status
-    - formUrl
   CardRequests:
     title: CardRequests
     example:
       card_requests:
       - requestid: '12345678-1234-1234-1234-123456789abc'
         cardid: 10020334
-        card:
-          bank_partnerid: 2
-          pan: 12344
-          date_expire: '2010-08'
-          currency: 'RUB'
-          card_status: 'NewNotPerson'
+        bank_partnerid: 2
+        pan: 12344
+        date_expire: '2010-08'
+        currency: 'RUB'
+        card_status: 'NewNotPerson'
         date_request_created: '2010-08-18 08:15:30'
         request_status: 'Complete'
         formUrl: 'https://app.apiary.io/'
       - requestid: '12345678-1234-1234-1234-123456789abc'
         cardid: 10020334
-        card:
-          bank_partnerid: 2
-          pan: 12344
-          date_expire: '2010-08'
-          currency: 'RUB'
-          card_status: 'NewNotPerson'
+        bank_partnerid: 2
+        pan: 12344
+        date_expire: '2010-08'
+        currency: 'RUB'
+        card_status: 'NewNotPerson'
         date_request_created: '2010-08-18 08:15:30'
         request_status: 'Complete'
         formUrl: 'https://app.apiary.io/'
@@ -6368,23 +6363,21 @@ definitions:
         example:
         - requestid: '12345678-1234-1234-1234-123456789abc'
           cardid: 10020334
-          card:
-            bank_partnerid: 2
-            pan: 12344
-            date_expire: '22018-04-17 00:00:00'
-            currency: 'RUB'
-            card_status: 'NewNotPerson'
+          bank_partnerid: 2
+          pan: 12344
+          date_expire: '22018-04-17 00:00:00'
+          currency: 'RUB'
+          card_status: 'NewNotPerson'
           date_request_created: '2010-08-18 08:15:30'
           request_status: 'Complete'
           formUrl: 'https://app.apiary.io/'
         - requestid: '12345678-1234-1234-1234-123456789abc'
           cardid: 10020334
-          card:
-            bank_partnerid: 2
-            pan: 12344
-            date_expire: '2018-04-17 00:00:00'
-            currency: 'RUB'
-            card_status: 'NewNotPerson'
+          bank_partnerid: 2
+          pan: 12344
+          date_expire: '2018-04-17 00:00:00'
+          currency: 'RUB'
+          card_status: 'NewNotPerson'
           date_request_created: '2010-08-18 08:15:30'
           request_status: 'Complete'
           formUrl: 'https://app.apiary.io/'
